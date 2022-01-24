@@ -1,3 +1,13 @@
-# 3XA3-L3-G10
+# Project Name
 
-Project for group 10 of lab section 3 for 3XA3
+Team Name: ?
+
+Team Members: ?, ?, ?
+
+
+This project is a reimplementation of ...
+
+The folders and files for this project are as follows:
+
+Doc - Documentation for the project
+Code - Implementation
