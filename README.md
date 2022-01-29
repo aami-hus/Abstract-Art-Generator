@@ -10,6 +10,9 @@ This project is a reimplementation of: https://github.com/Burakcoli/Abstract-Art
 The folders and files for this project are as follows:
 
 Doc - Documentation for the project
+
 ProjectSchedule - Schedules and notes for meetings
+
 Reference Material - Material useful as a reference for the project
+
 src - Implementation
