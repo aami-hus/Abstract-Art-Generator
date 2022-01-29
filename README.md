@@ -1,13 +1,15 @@
-# Project Name
+# Abstract Art Generator
 
-Team Name: ?
+Team Name: The Python Painters
 
-Team Members: ?, ?, ?
+Team Members: Aamina Hussain, Jessica Dawson, Fady Morcos
 
 
-This project is a reimplementation of ...
+This project is a reimplementation of: https://github.com/Burakcoli/Abstract-Art-Generator
 
 The folders and files for this project are as follows:
 
 Doc - Documentation for the project
-Code - Implementation
+ProjectSchedule - Schedules and notes for meetings
+Reference Material - Material useful as a reference for the project
+src - Implementation

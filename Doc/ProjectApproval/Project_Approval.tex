@@ -1,0 +1,58 @@
+\documentclass{article}
+
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    urlcolor=cyan
+    }
+\urlstyle{same}
+
+\title{SE 3XA3: Project Approval}
+\author{Group 10 \\ Lab: L03\\
+Team Name: The Python Painters \\
+Aamina Hussain, hussaa54 \\
+Jessica Dawson, dawsor1 \\
+Fady Morcos, morcof2}
+\date{}
+
+\begin{document}
+\maketitle
+
+\noindent \textbf{Original Project Name: Abstract Art Generator}
+
+\noindent URL: \url{https://github.com/Burakcoli/Abstract-Art-Generator}
+
+\noindent License: GNU General Public License v3.0 (allows redevelopment)
+
+\noindent Language: Python (is feasible for our team)
+
+\noindent Lines of code: 1400
+
+\noindent Can compile: Yes \newline
+
+    The project randomly generates abstract art. It does this by generating \emph{layers}, with each layer having a set of parameters that specify what shapes to draw on it, what size to draw them, how many to draw, and their distribution pattern. The layers can be placed on top of one another in an order requested by the user. The art can then be exported as a png file. The program currently has two layers that draw and layer themselves over each other. A color palette of four colors is used to color the art, with one color being randomly chosen as a background and the others being assigned at random to the layers’ shapes. Pygame is used to generate the art and a mix of pygame and tkinter is used for the GUI. Learning the project and necessary libraries should not be difficult.\newline
+
+Intended changes:
+\begin{itemize}
+    \item Modularize/Clean-up code (it is currently one singular file and can definitely be broken down into multiple)
+    \item Add additional layers (allow for more than two generated art layers)
+    \item Allow user to include text on top of the art
+    \item Allow user to choose the background color (instead of it being randomly chosen from the color palette)
+    \item Add new generators and algorithms:
+    \begin{itemize}
+        \item Layout shapes as a border
+        \item Change the transparency of the layers
+        \item Add new shape options (i.e. triangles, stars, spiky balls, jagged lines, etc.)
+        \item Add new shape layout options (i.e. zig-zag, aforementioned border, spiral, etc.)
+    \end{itemize}
+\end{itemize}
+
+Testing:
+\begin{itemize}
+    \item Pytest: We will run portions of the code with expected outputs and test whether the actual outputs match the outputs we expected. This will be done using the automated unit testing framework of Pytest. This can be done to test whether the color palette chosen by the user matches the color palette displayed, or whether the correct shape is used for the layer.
+    \item Manual Testing: We will test some of the visual components of this project manually by having a user actually using and interacting with the program and physically checking if those components are producing the required response.
+\end{itemize}
+
+\end{document}
