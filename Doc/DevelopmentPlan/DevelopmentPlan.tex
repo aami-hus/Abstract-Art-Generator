@@ -1,19 +1,30 @@
 \documentclass{article}
 
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{graphicx}
+\graphicspath{{./images/}}
+\hypersetup{
+    colorlinks=true,
+    urlcolor=cyan
+    }
 
-\title{SE 3XA3: Development Plan\\Title of Project}
+\title{SE 3XA3: Development Plan}
 
-\author{Team \#, Team Name
-		\\ Student 1 name and macid
-		\\ Student 2 name and macid
-		\\ Student 3 name and macid
+\author{Group \#10
+        \\Lab: L03
+		\\ Fady Morcos, morcof2
+		\\ Aamina Hussain, hussaa54
+		\\ Jessica Dawson, dawsor1
 }
 
 \date{}
 
-\input{../Comments}
+%\input{../Comments}
 
 \begin{document}
 
@@ -23,37 +34,106 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Date1 & Name(s) & Description of changes\\
-Date2 & Name(s) & Description of changes\\
-... & ... & ...\\
+Feb 4th & Jessica Dawson, Aamina Hussain, and Fady Morcos & First version\\
 \bottomrule
 \end{tabularx}
 \end{table}
 
 \newpage
 
+
 \maketitle
 
-Put your introductory blurb here.
+This document contains the development plan for recreating a random abstract art generator. This plan will ensure the developers communicate properly, are consistent, and follow the project schedule.
 
 \section{Team Meeting Plan}
 
+The team shall meet twice a week during labs:
+\begin{itemize}
+    \item Mondays, 9:30 am to 11:30 am
+    \item Wednesdays, 9:30 am to 11:30 am
+\end{itemize}
+The team shall also meet at least once a week outside of labs. The location, day, time, and duration of this meeting will be decided weekly based on convenience and necessity.
+
 \section{Team Communication Plan}
+
+The team will communicate using the Microsoft Teams chat. This chat will be used to schedule weekly meetings and any further discussions that were not finalized during the in-person labs.
 
 \section{Team Member Roles}
 
+The team member roles are:
+\begin{itemize}
+    \item Developer: Aamina Hussain, Fady Morcos, Jessica Dawson
+    \item Scribe (records/transcribes what occurs during meetings): Aamina Hussain
+    \item Communicator (asks the supervisors (the TAs) questions that the team has): Fady Morcos
+    \item Submitter (makes sure documents are finalized and submitted before the deadline): Jessica Dawson
+\end{itemize}
+
 \section{Git Workflow Plan}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{git-workflow.png}
+    \caption{git workflow}
+\end{figure}
+
+Git Branches:
+
+\begin{itemize}
+    \item master: for production ready releases, each release will be tagged with a version number
+    \item develop: main development branch, for unstable nightly commits
+    \item release: for cleanup before a release
+    \item hotfix: for fixing any bugs found in a production release
+    \item modularization branches: a set of feature branches for modularizing the code architecture, what these will look like will depend on a more indepth analysis of the code and what needs to be reworked
+    \item addition-layers: feature branch for adding extra drawing layers to the program
+    \item text-layer: feature branch for adding a layer that writes text on top of the art
+    \item select-background: feature branch for allowing the user to pick the background color
+    \item generator and shape branches: a set of feature branches each one adding a new generator or shape, what these will look like will depend on what new generators and shapes we decide to add
+\end{itemize}
+
+We will use a gitlab issue board to keep track of tasks with an open list for unassigned tasks, a board for each team member for their assigned tasks, and a closed board for finished tasks. Labels will be used to mark these tasks and associated merge requests.\newline
+
+Task Labels:
+
+\begin{itemize}
+    \item bug: for bugfixes
+    \item enhancement: for reworking code without adding features
+    \item feature: for adding a feature to the code
+    \item available: for an unassigned issue
+    \item todo: for an assigned issue that has yet to be started
+    \item in-progress: for an issue currently being worked on
+    \item merge-ready: for an issue ready to be merged
+    \item completed: for a fully merged and completed issue
+\end{itemize}
+
+Milestones will be used to track the completion of and group issues related to different section of our workflow plan:
+
+\begin{itemize}
+    \item modularization: for tracking the completion of the first set of tasks related to the modularization of the code
+    \item additional layers: for tracking the development of the additional layers features
+    \item text layer: for tracking the development of the text layer features
+    \item select background: for tracking the development of the select background color feature
+    \item generators and shapes: for tracking the development of new generators and shapes
+\end{itemize}
 
 \section{Proof of Concept Demonstration Plan}
 
+None of the required python library are difficult to install for this project. All of the modules can easily be installed from a command line using pip install quickly. However, this leads to portability being a bit concerning since the user will have to install these libraries in order to run the program. The proof of concept demonstration will consist of us running the Python program where we modularize the original code and add at least one new feature. This will create an interface where the user can choose different options for the abstract art they want generated. This demo will prove that we are capable of creating the core or bulk of the project.
+
 \section{Technology}
+
+The program will be written using the Python programming language. One of the main Python libraries we will be using is Pygame. The code will be written using an IDE called PyCharm. The team will use the testing framework Pytest to test our program. For document generation, the team will use Doxygen.
 
 \section{Coding Style}
 
+The Google python style guide will be used: \url{https://google.github.io/styleguide/pyguide.html}
+
 \section{Project Schedule}
 
-Provide a pointer to your Gantt Chart.
+Please refer to
+\href{https://gitlab.cas.mcmaster.ca/3xa3-l3-g10/3xa3-l3-g10/-/tree/main/ProjectSchedule}{this link}.
 
 \section{Project Review}
+To be completed at a later date.
 
 \end{document}
