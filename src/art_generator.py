@@ -10,6 +10,7 @@ import pygame_gui as pgui
 from tkinter import *
 from tkinter.filedialog import asksaveasfilename
 
+#-----------------Define UI-----------------
 pg.init()
 pg.freetype.init()
 
@@ -32,7 +33,7 @@ xxl_font = pg.freetype.Font("Basic-Regular.ttf", 40)
 
 fonts = [xs_font, small_font, medium_font, large_font, xl_font, xxl_font]
 font_sizes = [12, 14, 18, 24, 30, 40]
-
+#-------------------------------------------
 
 def text_to_screen(window, text, color, pos, font_size):
     font_used = fonts[font_sizes.index(font_size)]
@@ -105,6 +106,7 @@ class Canvas:
             name = filename[:]
             return name
 
+    #TODO: clean layer 3 as well
     def clean_all_layers(self):
         self.layer_one.fill((0, 0, 0, 0))
         self.layer_two.fill((0, 0, 0, 0))
@@ -895,6 +897,8 @@ class Canvas:
     def generate_layer_two(self, art_style, art_shape, color_palette, complexity, magnitude):
         self.generate_art(self.layer_two, art_style, art_shape, color_palette, complexity, magnitude)
 
+    #TODO: add third layer generator
+
     def generate_art(self, layer, art_style, art_shape, color_palette, complexity, magnitude):
         self.clean_layer(layer)
         layer.set_colorkey((0, 0, 0))
@@ -938,6 +942,7 @@ class Canvas:
 p1 = Palette()
 c1 = Canvas((3840, 2160), (int(SW//1.8), int(SH//1.8)))
 
+#TODO: add stuff for third layer
 current_color_palette = p1.get_random_palette()
 current_palette_name = p1.get_name_of_palette(current_color_palette)
 layer_one_style = "Striped Vertical"
@@ -956,6 +961,7 @@ help_opt = 0
 export_resolution = resolutions_list[0]
 
 
+#TODO: rework to to include third set of layer controls
 def draw_menu(window, color_palette, option_locks, help_opt):
     ui_h1_color = (250, 250, 250)
     ui_color = pg.Color("#DFD6FF")
@@ -1052,6 +1058,7 @@ def draw_menu(window, color_palette, option_locks, help_opt):
     window.blit(pg.transform.scale(overlays[5], (80, 45)), (SW-130, 360))
 
 
+#TODO: rework to include third layer buttons + include background color picker button
 def generate_ui():
     ui_manager.clear_and_reset()
     lm = 60     # Left margin
@@ -1242,6 +1249,7 @@ while run:
                     c1.generate_bg(bg_color)
                     cp.remove(bg_color)
 
+                    #TODO: add new layer generation
                     c1.generate_layer_one(art_style=layer_one_style, art_shape=layer_one_shape,
                                           color_palette=cp, complexity=layer_one_complexity,
                                           magnitude=layer_one_magnitude)
@@ -1274,11 +1282,13 @@ while run:
                     current_palette_name = p1.get_name_of_palette(current_color_palette)
                     generate_ui()
 
+                    #TODO: add choosing color pallette
                     cp = current_color_palette.copy()
                     bg_color = cp[randint(0, len(cp) - 1)]
                     c1.generate_bg(bg_color)
                     cp.remove(bg_color)
 
+                    #TODO: add new layer generation
                     c1.generate_layer_one(art_style=layer_one_style, art_shape=layer_one_shape,
                                           color_palette=cp, complexity=layer_one_complexity,
                                           magnitude=layer_one_magnitude)
@@ -1303,6 +1313,8 @@ while run:
                     else:
                         pass
                     
+
+                #TODO: add new events
                 if event.ui_object_id == "lock_button_one":
                     option_locks[0] = 1 if option_locks[0] == 0 else 0
                 if event.ui_object_id == "lock_button_two":
