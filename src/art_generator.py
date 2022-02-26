@@ -89,6 +89,7 @@ class Canvas:
         self.canvas.fill((255, 255, 255))
         self.display_canvas = pg.Surface(self.display_size)
 
+        #TODO: add new layer 3 surface (Aamina)
         self.bg_layer = pg.Surface((self.width, self.height))
         self.bg_layer.fill((255, 255, 255))
         self.layer_one = pg.Surface((self.width, self.height), pg.SRCALPHA)
@@ -106,7 +107,7 @@ class Canvas:
             name = filename[:]
             return name
 
-    #TODO: clean layer 3 as well
+    #TODO: clean layer 3 as well (Aamina)
     def clean_all_layers(self):
         self.layer_one.fill((0, 0, 0, 0))
         self.layer_two.fill((0, 0, 0, 0))
@@ -897,7 +898,7 @@ class Canvas:
     def generate_layer_two(self, art_style, art_shape, color_palette, complexity, magnitude):
         self.generate_art(self.layer_two, art_style, art_shape, color_palette, complexity, magnitude)
 
-    #TODO: add third layer generator
+    #TODO: add third layer generator (Aamina)
 
     def generate_art(self, layer, art_style, art_shape, color_palette, complexity, magnitude):
         self.clean_layer(layer)
@@ -927,6 +928,7 @@ class Canvas:
         if art_shapes_list[7] == art_shape:
             self.generate_circles(complexity, color_palette, art_style, layer, magnitude, 1)
 
+    #TODO: add layer three (Aamina)
     def blit_to_canvas(self):
         self.canvas.blit(self.bg_layer, (0, 0))
         self.canvas.blit(self.layer_one, (0, 0))
@@ -939,29 +941,8 @@ class Canvas:
         window.blit(self.display_canvas, self.dsPos)
 
 
-p1 = Palette()
-c1 = Canvas((3840, 2160), (int(SW//1.8), int(SH//1.8)))
 
-#TODO: add stuff for third layer
-current_color_palette = p1.get_random_palette()
-current_palette_name = p1.get_name_of_palette(current_color_palette)
-layer_one_style = "Striped Vertical"
-layer_one_shape = "Lines"
-layer_two_style = "Cornered"
-layer_two_shape = "Rings"
-layer_one_complexity = 15
-layer_two_complexity = 15
-layer_one_magnitude = [50, 400]
-layer_two_magnitude = [50, 400]
-
-option_locks = [0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-help_opt = 0
-
-export_resolution = resolutions_list[0]
-
-
-#TODO: rework to to include third set of layer controls
+#TODO: rework to to include third set of layer controls (Jessica)
 def draw_menu(window, color_palette, option_locks, help_opt):
     ui_h1_color = (250, 250, 250)
     ui_color = pg.Color("#DFD6FF")
@@ -1058,7 +1039,7 @@ def draw_menu(window, color_palette, option_locks, help_opt):
     window.blit(pg.transform.scale(overlays[5], (80, 45)), (SW-130, 360))
 
 
-#TODO: rework to include third layer buttons + include background color picker button
+#TODO: rework to include third layer buttons + include background color picker button (Jessica)
 def generate_ui():
     ui_manager.clear_and_reset()
     lm = 60     # Left margin
@@ -1216,6 +1197,33 @@ def draw_help():
     text_to_screen(window, "ENJOY!", c, p, s)
 
 
+p1 = Palette()
+c1 = Canvas((3840, 2160), (int(SW//1.8), int(SH//1.8)))
+
+#TODO: add stuff for third layer (Aamina)
+current_color_palette = p1.get_random_palette()
+current_palette_name = p1.get_name_of_palette(current_color_palette)
+layer_one_style = "Striped Vertical"
+layer_one_shape = "Lines"
+layer_two_style = "Cornered"
+layer_two_shape = "Rings"
+layer_one_complexity = 15
+layer_two_complexity = 15
+layer_one_magnitude = [50, 400]
+layer_two_magnitude = [50, 400]
+
+#TODO: add new locks (Aamina & Fady)
+# lock indexes to relevent function
+# 0: color palette
+# 1: background color
+# 2-5: layer one
+# 6-9: layer two
+# 10-13: layer three
+option_locks = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+help_opt = 0
+
+export_resolution = resolutions_list[0]
 
 generate_ui()
 
@@ -1244,12 +1252,13 @@ while run:
             if event.user_type == pgui.UI_BUTTON_PRESSED:
                 if event.ui_object_id == "generate_button":
 
+                    #TODO: add some number for picking bg_color (Fady)
                     cp = current_color_palette.copy()
                     bg_color = cp[randint(0, len(cp)-1)]
                     c1.generate_bg(bg_color)
                     cp.remove(bg_color)
 
-                    #TODO: add new layer generation
+                    #TODO: add new layer generation (Aamina)
                     c1.generate_layer_one(art_style=layer_one_style, art_shape=layer_one_shape,
                                           color_palette=cp, complexity=layer_one_complexity,
                                           magnitude=layer_one_magnitude)
@@ -1259,6 +1268,7 @@ while run:
 
                     c1.blit_to_canvas()
 
+                #TODO: add new locks (remember to shift down) (Aamina & Fady)
                 if event.ui_object_id == "random_generate_button":
                     if option_locks[0] == 0:
                         current_color_palette = p1.get_random_palette()
@@ -1282,13 +1292,13 @@ while run:
                     current_palette_name = p1.get_name_of_palette(current_color_palette)
                     generate_ui()
 
-                    #TODO: add choosing color pallette
+                    #TODO: add lock button for bg_color (Fady)
                     cp = current_color_palette.copy()
                     bg_color = cp[randint(0, len(cp) - 1)]
                     c1.generate_bg(bg_color)
                     cp.remove(bg_color)
 
-                    #TODO: add new layer generation
+                    #TODO: add new layer generation (Aamina)
                     c1.generate_layer_one(art_style=layer_one_style, art_shape=layer_one_shape,
                                           color_palette=cp, complexity=layer_one_complexity,
                                           magnitude=layer_one_magnitude)
@@ -1314,7 +1324,7 @@ while run:
                         pass
                     
 
-                #TODO: add new events
+                #TODO: add new lock events (Aamina)
                 if event.ui_object_id == "lock_button_one":
                     option_locks[0] = 1 if option_locks[0] == 0 else 0
                 if event.ui_object_id == "lock_button_two":
@@ -1333,6 +1343,8 @@ while run:
                     option_locks[7] = 1 if option_locks[7] == 0 else 0
                 if event.ui_object_id == "lock_button_nine":
                     option_locks[8] = 1 if option_locks[8] == 0 else 0
+
+                #TODO: add bg_color shifting events (bg_button_one through bg_button_four) (Fady)
 
                 if event.ui_object_id == "overlay1_button":
                     active_overlay = 1
@@ -1357,6 +1369,7 @@ while run:
                     c1.clean_layer(c1.fg_layer)
                     c1.blit_to_canvas()
 
+            #TODO: add layer three drop downs and sliders (Aamina)
             if event.user_type == pgui.UI_DROP_DOWN_MENU_CHANGED:
                 if event.ui_object_id == "resolution_dropdown":
                     export_resolution = event.text
