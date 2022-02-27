@@ -77,6 +77,7 @@ resolutions_list = [
     "HD: 1280x720"
 ]
 
+(3840, 2160), (int(SW//1.8), int(SH//1.8))
 
 class Canvas:
     def __init__(self, size, display_size):
@@ -84,7 +85,7 @@ class Canvas:
         self.height = size[1]
         self.display_size = display_size
         self.sPos = ((SW - self.width) // 2, (SH - self.height) // 2)
-        self.dsPos = ((SW - self.display_size[0])//2 + 10, (SH-self.display_size[1])//2)
+        self.dsPos = ((SW - self.display_size[0])//2, (SH-self.display_size[1])//2)
         self.canvas = pg.Surface((self.width, self.height))
         self.canvas.fill((255, 255, 255))
         self.display_canvas = pg.Surface(self.display_size)
@@ -940,9 +941,26 @@ class Canvas:
     def draw(self, window):
         window.blit(self.display_canvas, self.dsPos)
 
+#general menu locations
+ui_menus_left = 18
+ui_menus_right = SW-270
 
+#positions of dialogs
+palette_pos = (ui_menus_right, 60)
+layer_one_pos = (ui_menus_left, 60)
+layer_two_pos = (ui_menus_left, layer_one_pos[1]+200)
+layer_three_pos = (ui_menus_left, layer_two_pos[1]+200)
+overlay_pos = (0, palette_pos[1]+115)
+help_pos = (284, 60)
+help_left = 0
 
-#TODO: rework to to include third set of layer controls (Jessica)
+#margins for where to place text/interactables in the dialogs
+cpm = palette_pos[0] + 42
+l1m = layer_one_pos[0] + 42
+l2m = layer_two_pos[0] + 42
+l3m = layer_three_pos[0] + 42
+
+#draws the ui
 def draw_menu(window, color_palette, option_locks, help_opt):
     ui_h1_color = (250, 250, 250)
     ui_color = pg.Color("#DFD6FF")
@@ -950,198 +968,278 @@ def draw_menu(window, color_palette, option_locks, help_opt):
     lock_enabled = pg.transform.scale(pg.image.load("assets/lock_enabled.png"), (20, 20))
     lock_disabled = pg.transform.scale(pg.image.load("assets/lock_disabled.png"), (20, 20))
 
-    pg.draw.rect(window, pg.Color("#2B2834"), (18, 90, 252, 95))        # Color Palette BG
-    pg.draw.rect(window, pg.Color("#2B2834"), (18, 195, 252, 190))      # Layer One BG
-    pg.draw.rect(window, pg.Color("#2B2834"), (18, 395, 252, 190))      # Layer Two BG
+    pg.draw.rect(window, pg.Color("#2B2834"), (palette_pos[0], palette_pos[1], 252, 95))           # Color Palette BG
+    pg.draw.rect(window, pg.Color("#2B2834"), (layer_one_pos[0], layer_one_pos[1], 252, 190))      # Layer One BG
+    pg.draw.rect(window, pg.Color("#2B2834"), (layer_two_pos[0], layer_two_pos[1], 252, 190))      # Layer Two BG
+    pg.draw.rect(window, pg.Color("#2B2834"), (layer_three_pos[0], layer_three_pos[1], 252, 190))  # Layer Three BG
+    pg.draw.rect(window, pg.Color("#2B2834"), (SW-245, overlay_pos[1], 210, 350))                  # Overlay BG
 
-    lock_position = 35
+    cp_lock = palette_pos[0] + 17
+    l1_lock = layer_one_pos[0] + 17
+    l2_lock = layer_two_pos[0] + 17
+    l3_lock = layer_three_pos[0] + 17
 
     if option_locks[0] == 0:
-        window.blit(lock_disabled, (lock_position, 125))
+        window.blit(lock_disabled, (cp_lock, palette_pos[1]+35))
     else:
-        window.blit(lock_enabled, (lock_position, 125))
+        window.blit(lock_enabled, (cp_lock, palette_pos[1]+35))
 
     if option_locks[1] == 0:
-        window.blit(lock_disabled, (lock_position, 225))
+        window.blit(lock_disabled, (cp_lock, palette_pos[1]+68))
     else:
-        window.blit(lock_enabled, (lock_position, 225))
+        window.blit(lock_enabled, (cp_lock, palette_pos[1]+68))
 
     if option_locks[2] == 0:
-        window.blit(lock_disabled, (lock_position, 255))
+        window.blit(lock_disabled, (l1_lock, layer_one_pos[1]+30))
     else:
-        window.blit(lock_enabled, (lock_position, 255))
+        window.blit(lock_enabled, (l1_lock, layer_one_pos[1]+30))
 
     if option_locks[3] == 0:
-        window.blit(lock_disabled, (lock_position, 305))
+        window.blit(lock_disabled, (l1_lock, layer_one_pos[1]+60))
     else:
-        window.blit(lock_enabled, (lock_position, 305))
+        window.blit(lock_enabled, (l1_lock, layer_one_pos[1]+60))
 
     if option_locks[4] == 0:
-        window.blit(lock_disabled, (lock_position, 355))
+        window.blit(lock_disabled, (l1_lock, layer_one_pos[1]+110))
     else:
-        window.blit(lock_enabled, (lock_position, 355))
+        window.blit(lock_enabled, (l1_lock, layer_one_pos[1]+110))
 
     if option_locks[5] == 0:
-        window.blit(lock_disabled, (lock_position, 425))
+        window.blit(lock_disabled, (l1_lock, layer_one_pos[1]+160))
     else:
-        window.blit(lock_enabled, (lock_position, 425))
+        window.blit(lock_enabled, (l1_lock, layer_one_pos[1]+160))
 
     if option_locks[6] == 0:
-        window.blit(lock_disabled, (lock_position, 455))
+        window.blit(lock_disabled, (l2_lock, layer_two_pos[1]+30))
     else:
-        window.blit(lock_enabled, (lock_position, 455))
+        window.blit(lock_enabled, (l2_lock, layer_two_pos[1]+30))
 
     if option_locks[7] == 0:
-        window.blit(lock_disabled, (lock_position, 505))
+        window.blit(lock_disabled, (l2_lock, layer_two_pos[1]+60))
     else:
-        window.blit(lock_enabled, (lock_position, 505))
+        window.blit(lock_enabled, (l2_lock, layer_two_pos[1]+60))
 
     if option_locks[8] == 0:
-        window.blit(lock_disabled, (lock_position, 555))
+        window.blit(lock_disabled, (l2_lock, layer_two_pos[1]+110))
     else:
-        window.blit(lock_enabled, (lock_position, 555))
+        window.blit(lock_enabled, (l2_lock, layer_two_pos[1]+110))
 
-    text_to_screen(window=window, text="ABSTRACT ART GENERATOR", color=ui_h1_color, pos=(430, 35), font_size=40)
-    text_to_screen(window=window, text="OPTIONS", color=ui_h1_color, pos=(60, 65), font_size=24)
-    text_to_screen(window=window, text="COLOR PALETTE", color=ui_h1_color, pos=(60, 105), font_size=18)
-    for i, color in enumerate(color_palette):
-        pg.draw.rect(window, (0, 0, 0), (60+(i*50), 155, 26, 26))
-        pg.draw.rect(window, pg.Color(color), (63+(i*50), 158, 20, 20))
-    text_to_screen(window=window, text="LAYER ONE STYLE", color=ui_h1_color, pos=(60, 205), font_size=18)
-    text_to_screen(window=window, text="LAYER ONE COMPLEXITY", color=ui_color, pos=(60, 290), font_size=14)
-    text_to_screen(window=window, text="LAYER ONE SHAPE SIZE", color=ui_color, pos=(60, 340), font_size=14)
-    text_to_screen(window=window, text="LAYER TWO STYLE", color=ui_h1_color, pos=(60, 405), font_size=18)
-    text_to_screen(window=window, text="LAYER TWO COMPLEXITY", color=ui_color, pos=(60, 490), font_size=14)
-    text_to_screen(window=window, text="LAYER TWO SHAPE SIZE", color=ui_color, pos=(60, 540), font_size=14)
+    if option_locks[9] == 0:
+        window.blit(lock_disabled, (l2_lock, layer_two_pos[1]+160))
+    else:
+        window.blit(lock_enabled, (l2_lock, layer_two_pos[1]+160))
 
-    text_to_screen(window=window, text="OVERLAY", color=ui_h1_color, pos=(SW-190, 160), font_size=24)
+    if option_locks[10] == 0:
+        window.blit(lock_disabled, (l3_lock, layer_three_pos[1]+30))
+    else:
+        window.blit(lock_enabled, (l3_lock, layer_three_pos[1]+30))
 
-    text_to_screen(window=window, text="RESOLUTION", color=ui_color, pos=(SW-240, 560), font_size=14)
+    if option_locks[11] == 0:
+        window.blit(lock_disabled, (l3_lock, layer_three_pos[1]+60))
+    else:
+        window.blit(lock_enabled, (l3_lock, layer_three_pos[1]+60))
 
-    pg.draw.rect(window, pg.Color("#2B2834"), (SW-245, 190, 210, 320))
+    if option_locks[12] == 0:
+        window.blit(lock_disabled, (l3_lock, layer_three_pos[1]+110))
+    else:
+        window.blit(lock_enabled, (l3_lock, layer_three_pos[1]+110))
+
+    if option_locks[13] == 0:
+        window.blit(lock_disabled, (l3_lock, layer_three_pos[1]+160))
+    else:
+        window.blit(lock_enabled, (l3_lock, layer_three_pos[1]+160))
 
     active_color = (90, 90, 90)
     inactive_color = (20, 20, 20)
 
-    pg.draw.rect(window, active_color if active_overlay == 1 else inactive_color, (SW-232, 198, 84, 49), 1)
-    pg.draw.rect(window, active_color if active_overlay == 2 else inactive_color, (SW-132, 198, 84, 49), 1)
-    pg.draw.rect(window, active_color if active_overlay == 3 else inactive_color, (SW-232, 278, 84, 49), 1)
-    pg.draw.rect(window, active_color if active_overlay == 4 else inactive_color, (SW-132, 278, 84, 49), 1)
-    pg.draw.rect(window, active_color if active_overlay == 5 else inactive_color, (SW-232, 358, 84, 49), 1)
-    pg.draw.rect(window, active_color if active_overlay == 6 else inactive_color, (SW-132, 358, 84, 49), 1)
-    pg.draw.rect(window, active_color if active_overlay == 0 else inactive_color, (SW-182, 438, 84, 49), 1)
+    text_to_screen(window=window, text="ABSTRACT ART GENERATOR", color=ui_h1_color, pos=(430, 35), font_size=40)
+    text_to_screen(window=window, text="LAYERS", color=ui_h1_color, pos=(l1m, layer_one_pos[1]-25), font_size=24)
+    text_to_screen(window=window, text="COLOR PALETTE", color=ui_h1_color, pos=(cpm, palette_pos[1]+15), font_size=18)
+    for i, color in enumerate(color_palette):
+        pg.draw.rect(window, active_color if bg_color_index == i else inactive_color, (cpm+(i*50), palette_pos[1]+65, 26, 26))
+        pg.draw.rect(window, pg.Color(color), (cpm+3+(i*50), palette_pos[1]+68, 20, 20))
+    text_to_screen(window=window, text="LAYER ONE STYLE", color=ui_h1_color, pos=(l1m, layer_one_pos[1]+10), font_size=18)
+    text_to_screen(window=window, text="LAYER ONE COMPLEXITY", color=ui_color, pos=(l1m, layer_one_pos[1]+95), font_size=14)
+    text_to_screen(window=window, text="LAYER ONE SHAPE SIZE", color=ui_color, pos=(l1m, layer_one_pos[1]+145), font_size=14)
+    text_to_screen(window=window, text="LAYER TWO STYLE", color=ui_h1_color, pos=(l2m, layer_two_pos[1]+10), font_size=18)
+    text_to_screen(window=window, text="LAYER TWO COMPLEXITY", color=ui_color, pos=(l2m, layer_two_pos[1]+95), font_size=14)
+    text_to_screen(window=window, text="LAYER TWO SHAPE SIZE", color=ui_color, pos=(l2m, layer_two_pos[1]+145), font_size=14)
+    text_to_screen(window=window, text="LAYER THREE STYLE", color=ui_h1_color, pos=(l3m, layer_three_pos[1]+10), font_size=18)
+    text_to_screen(window=window, text="LAYER THREE COMPLEXITY", color=ui_color, pos=(l3m, layer_three_pos[1]+95), font_size=14)
+    text_to_screen(window=window, text="LAYER THREE SHAPE SIZE", color=ui_color, pos=(l3m, layer_three_pos[1]+145), font_size=14)
 
-    window.blit(pg.transform.scale(overlays[0], (80, 45)), (SW-230, 200))
-    window.blit(pg.transform.scale(overlays[1], (80, 45)), (SW-130, 200))
-    window.blit(pg.transform.scale(overlays[2], (80, 45)), (SW-230, 280))
-    window.blit(pg.transform.scale(overlays[3], (80, 45)), (SW-130, 280))
-    window.blit(pg.transform.scale(overlays[4], (80, 45)), (SW-230, 360))
-    window.blit(pg.transform.scale(overlays[5], (80, 45)), (SW-130, 360))
+    text_to_screen(window=window, text="OVERLAY", color=ui_h1_color, pos=(SW-174, overlay_pos[1]+12), font_size=18)
+
+    text_to_screen(window=window, text="RESOLUTION", color=ui_color, pos=(SW-240, 560), font_size=14)
+
+    pg.draw.rect(window, active_color if active_overlay == 1 else inactive_color, (SW-232, overlay_pos[1]+38, 84, 49), 1)
+    pg.draw.rect(window, active_color if active_overlay == 2 else inactive_color, (SW-132, overlay_pos[1]+38, 84, 49), 1)
+    pg.draw.rect(window, active_color if active_overlay == 3 else inactive_color, (SW-232, overlay_pos[1]+118, 84, 49), 1)
+    pg.draw.rect(window, active_color if active_overlay == 4 else inactive_color, (SW-132, overlay_pos[1]+118, 84, 49), 1)
+    pg.draw.rect(window, active_color if active_overlay == 5 else inactive_color, (SW-232, overlay_pos[1]+198, 84, 49), 1)
+    pg.draw.rect(window, active_color if active_overlay == 6 else inactive_color, (SW-132, overlay_pos[1]+198, 84, 49), 1)
+    pg.draw.rect(window, active_color if active_overlay == 0 else inactive_color, (SW-182, overlay_pos[1]+278, 84, 49), 1)
+
+    window.blit(pg.transform.scale(overlays[0], (80, 45)), (SW-230, overlay_pos[1]+40))
+    window.blit(pg.transform.scale(overlays[1], (80, 45)), (SW-130, overlay_pos[1]+40))
+    window.blit(pg.transform.scale(overlays[2], (80, 45)), (SW-230, overlay_pos[1]+120))
+    window.blit(pg.transform.scale(overlays[3], (80, 45)), (SW-130, overlay_pos[1]+120))
+    window.blit(pg.transform.scale(overlays[4], (80, 45)), (SW-230, overlay_pos[1]+200))
+    window.blit(pg.transform.scale(overlays[5], (80, 45)), (SW-130, overlay_pos[1]+200))
 
 
-#TODO: rework to include third layer buttons + include background color picker button (Jessica)
+#generates the ui interactables
 def generate_ui():
     ui_manager.clear_and_reset()
-    lm = 60     # Left margin
+
+    #locations for lock buttons
+    cp_lock = palette_pos[0] + 6
+    l1_lock = layer_one_pos[0] + 6
+    l2_lock = layer_two_pos[0] + 6
+    l3_lock = layer_three_pos[0] + 6
 
     current_palette_dropdown = pgui.elements.UIDropDownMenu(options_list=p1.get_all_names(),
                                                             starting_option=current_palette_name,
-                                                            relative_rect=pg.Rect(lm, 125, 200, 22), manager=ui_manager,
+                                                            relative_rect=pg.Rect(cpm, palette_pos[1]+35, 200, 22), manager=ui_manager,
                                                             object_id="current_palette_dropdown")
 
     layer_one_style_dropdown = pgui.elements.UIDropDownMenu(options_list=art_styles_list,
                                                             starting_option=layer_one_style,
-                                                            relative_rect=pg.Rect(lm, 225, 200, 22), manager=ui_manager,
+                                                            relative_rect=pg.Rect(l1m, layer_one_pos[1]+30, 200, 22), manager=ui_manager,
                                                             object_id="layer_one_style_dropdown")
 
     layer_one_shape_dropdown = pgui.elements.UIDropDownMenu(options_list=art_shapes_list,
                                                             starting_option=layer_one_shape,
-                                                            relative_rect=pg.Rect(lm, 255, 200, 22), manager=ui_manager,
+                                                            relative_rect=pg.Rect(l1m, layer_one_pos[1]+60, 200, 22), manager=ui_manager,
                                                             object_id="layer_one_shape_dropdown")
 
-    layer_one_complexity_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(lm, 305, 200, 22),
+    layer_one_complexity_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(l1m, layer_one_pos[1]+110, 200, 22),
                                                                    start_value=layer_one_complexity,
                                                                    value_range=(10, 30), manager=ui_manager,
                                                                    object_id="layer_one_complexity_slider")
 
-    layer_one_size_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(lm, 355, 200, 22),
+    layer_one_size_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(l1m, layer_one_pos[1]+160, 200, 22),
                                                              start_value=layer_one_magnitude[1], value_range=(50, 400),
                                                              manager=ui_manager, object_id="layer_one_size_slider")
 
     layer_two_style_dropdown = pgui.elements.UIDropDownMenu(options_list=art_styles_list,
                                                             starting_option=layer_two_style,
-                                                            relative_rect=pg.Rect(lm, 425, 200, 22), manager=ui_manager,
+                                                            relative_rect=pg.Rect(l2m, layer_two_pos[1]+30, 200, 22), manager=ui_manager,
                                                             object_id="layer_two_style_dropdown")
 
     layer_two_shape_dropdown = pgui.elements.UIDropDownMenu(options_list=art_shapes_list,
                                                             starting_option=layer_two_shape,
-                                                            relative_rect=pg.Rect(lm, 455, 200, 22), manager=ui_manager,
+                                                            relative_rect=pg.Rect(l2m, layer_two_pos[1]+60, 200, 22), manager=ui_manager,
                                                             object_id="layer_two_shape_dropdown")
+
+    layer_two_complexity_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(l2m, layer_two_pos[1]+110, 200, 22),
+                                                                   start_value=layer_two_complexity,
+                                                                   value_range=(10, 30), manager=ui_manager,
+                                                                   object_id="layer_two_complexity_slider")
+
+    layer_two_size_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(l2m, layer_two_pos[1]+160, 200, 22),
+                                                             start_value=layer_two_magnitude[1], value_range=(50, 400),
+                                                             manager=ui_manager, object_id="layer_two_size_slider")
+
+    layer_three_style_dropdown = pgui.elements.UIDropDownMenu(options_list=art_styles_list,
+                                                            starting_option=layer_three_style,
+                                                            relative_rect=pg.Rect(l3m, layer_three_pos[1]+30, 200, 22), manager=ui_manager,
+                                                            object_id="layer_three_style_dropdown")
+
+    layer_three_shape_dropdown = pgui.elements.UIDropDownMenu(options_list=art_shapes_list,
+                                                            starting_option=layer_three_shape,
+                                                            relative_rect=pg.Rect(l3m, layer_three_pos[1]+60, 200, 22), manager=ui_manager,
+                                                            object_id="layer_three_shape_dropdown")
+
+    layer_three_complexity_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(l3m, layer_three_pos[1]+110, 200, 22),
+                                                                   start_value=layer_three_complexity,
+                                                                   value_range=(10, 30), manager=ui_manager,
+                                                                   object_id="layer_three_complexity_slider")
+
+    layer_three_size_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(l3m, layer_three_pos[1]+160, 200, 22),
+                                                             start_value=layer_three_magnitude[1], value_range=(50, 400),
+                                                             manager=ui_manager, object_id="layer_three_size_slider")
 
     resolution_dropdown = pgui.elements.UIDropDownMenu(options_list=resolutions_list,
                                                        starting_option=export_resolution,
                                                        relative_rect=pg.Rect(SW-240, 575, 200, 22), manager=ui_manager,
                                                        object_id = "resolution_dropdown")
 
-    layer_two_complexity_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(lm, 505, 200, 22),
-                                                                   start_value=layer_two_complexity,
-                                                                   value_range=(10, 30), manager=ui_manager,
-                                                                   object_id="layer_two_complexity_slider")
-
-    layer_two_size_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(lm, 555, 200, 22),
-                                                             start_value=layer_two_magnitude[1], value_range=(50, 400),
-                                                             manager=ui_manager, object_id="layer_two_size_slider")
-
     export_art_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW - 240, SH - 100, 200, 50),
                                                text="Export", manager=ui_manager, object_id="export_art_button")
 
-    generate_button = pgui.elements.UIButton(relative_rect=pg.Rect(lm, SH - 100, 200, 50),
+    generate_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW // 2 - 200, SH - 100, 200, 50),
                                              text="Generate", manager=ui_manager, object_id="generate_button")
 
-    random_generate_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW // 2 - 100, SH - 100, 200, 50),
+    random_generate_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW // 2, SH - 100, 200, 50),
                                                     text="Generate Randomly", manager=ui_manager,
                                                     object_id="random_generate_button")
 
-    lock_button_one = pgui.elements.UIButton(relative_rect=pg.Rect(24, 132, 12, 12), text="", manager=ui_manager,
+    lock_button_one = pgui.elements.UIButton(relative_rect=pg.Rect(cp_lock, palette_pos[1]+42, 12, 12), text="", manager=ui_manager,
                                              object_id="lock_button_one")
-    lock_button_two = pgui.elements.UIButton(relative_rect=pg.Rect(24, 232, 12, 12), text="", manager=ui_manager,
+    lock_button_two = pgui.elements.UIButton(relative_rect=pg.Rect(cp_lock, palette_pos[1]+72, 12, 12), text="", manager=ui_manager,
                                              object_id="lock_button_two")
-    lock_button_three = pgui.elements.UIButton(relative_rect=pg.Rect(24, 262, 12, 12), text="", manager=ui_manager,
-                                               object_id="lock_button_three")
-    lock_button_four = pgui.elements.UIButton(relative_rect=pg.Rect(24, 312, 12, 12), text="", manager=ui_manager,
-                                              object_id="lock_button_four")
-    lock_button_five = pgui.elements.UIButton(relative_rect=pg.Rect(24, 362, 12, 12), text="", manager=ui_manager,
+    lock_button_three = pgui.elements.UIButton(relative_rect=pg.Rect(l1_lock, layer_one_pos[1]+37, 12, 12), text="", manager=ui_manager,
+                                             object_id="lock_button_three")
+    lock_button_four = pgui.elements.UIButton(relative_rect=pg.Rect(l1_lock, layer_one_pos[1]+67, 12, 12), text="", manager=ui_manager,
+                                               object_id="lock_button_four")
+    lock_button_five = pgui.elements.UIButton(relative_rect=pg.Rect(l1_lock, layer_one_pos[1]+117, 12, 12), text="", manager=ui_manager,
                                               object_id="lock_button_five")
-    lock_button_six = pgui.elements.UIButton(relative_rect=pg.Rect(24, 432, 12, 12), text="", manager=ui_manager,
-                                             object_id="lock_button_six")
-    lock_button_seven = pgui.elements.UIButton(relative_rect=pg.Rect(24, 462, 12, 12), text="", manager=ui_manager,
-                                               object_id="lock_button_seven")
-    lock_button_eight = pgui.elements.UIButton(relative_rect=pg.Rect(24, 512, 12, 12), text="", manager=ui_manager,
+    lock_button_six = pgui.elements.UIButton(relative_rect=pg.Rect(l1_lock, layer_one_pos[1]+167, 12, 12), text="", manager=ui_manager,
+                                              object_id="lock_button_six")
+    lock_button_seven = pgui.elements.UIButton(relative_rect=pg.Rect(l2_lock, layer_two_pos[1]+37, 12, 12), text="", manager=ui_manager,
+                                             object_id="lock_button_seven")
+    lock_button_eight = pgui.elements.UIButton(relative_rect=pg.Rect(l2_lock, layer_two_pos[1]+67, 12, 12), text="", manager=ui_manager,
                                                object_id="lock_button_eight")
-    lock_button_nine = pgui.elements.UIButton(relative_rect=pg.Rect(24, 562, 12, 12), text="", manager=ui_manager,
-                                              object_id="lock_button_nine")
+    lock_button_nine = pgui.elements.UIButton(relative_rect=pg.Rect(l2_lock, layer_two_pos[1]+117, 12, 12), text="", manager=ui_manager,
+                                               object_id="lock_button_nine")
+    lock_button_ten = pgui.elements.UIButton(relative_rect=pg.Rect(l2_lock, layer_two_pos[1]+167, 12, 12), text="", manager=ui_manager,
+                                              object_id="lock_button_ten")
+    lock_button_eleven = pgui.elements.UIButton(relative_rect=pg.Rect(l3_lock, layer_three_pos[1]+37, 12, 12), text="", manager=ui_manager,
+                                             object_id="lock_button_eleven")
+    lock_button_twelve = pgui.elements.UIButton(relative_rect=pg.Rect(l3_lock, layer_three_pos[1]+67, 12, 12), text="", manager=ui_manager,
+                                               object_id="lock_button_twelve")
+    lock_button_thirteen = pgui.elements.UIButton(relative_rect=pg.Rect(l3_lock, layer_three_pos[1]+117, 12, 12), text="", manager=ui_manager,
+                                               object_id="lock_button_thirteen")
+    lock_button_fourteen = pgui.elements.UIButton(relative_rect=pg.Rect(l3_lock, layer_three_pos[1]+167, 12, 12), text="", manager=ui_manager,
+                                              object_id="lock_button_fourteen")
 
-    overlay1_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-197, 250, 14, 14), text="", manager=ui_manager,
+    overlay1_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-197, overlay_pos[1]+90, 14, 14), text="", manager=ui_manager,
                                              object_id="overlay1_button")
-    overlay2_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-97, 250, 14, 14), text="", manager=ui_manager,
+    overlay2_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-97, overlay_pos[1]+90, 14, 14), text="", manager=ui_manager,
                                              object_id="overlay2_button")
-    overlay3_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-197, 330, 14, 14), text="", manager=ui_manager,
+    overlay3_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-197, overlay_pos[1]+170, 14, 14), text="", manager=ui_manager,
                                              object_id="overlay3_button")
-    overlay4_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-97, 330, 14, 14), text="", manager=ui_manager,
+    overlay4_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-97, overlay_pos[1]+170, 14, 14), text="", manager=ui_manager,
                                              object_id="overlay4_button")
-    overlay5_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-197, 410, 14, 14), text="", manager=ui_manager,
+    overlay5_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-197, overlay_pos[1]+250, 14, 14), text="", manager=ui_manager,
                                              object_id="overlay5_button")
-    overlay6_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-97, 410, 14, 14), text="", manager=ui_manager,
+    overlay6_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-97, overlay_pos[1]+250, 14, 14), text="", manager=ui_manager,
                                              object_id="overlay6_button")
-    overlay7_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-147, 490, 14, 14), text="", manager=ui_manager,
+    overlay7_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-147, overlay_pos[1]+330, 14, 14), text="", manager=ui_manager,
                                              object_id="overlay7_button")
-    help_opt_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-100, 60, 100, 30), text="HELP", manager=ui_manager,
+
+    bg_button_one = pgui.elements.UIButton(relative_rect=pg.Rect(cpm, palette_pos[1]+65, 26, 26), text="", manager=ui_manager,
+                                             object_id="bg_button_one", visible=False)
+    bg_button_two = pgui.elements.UIButton(relative_rect=pg.Rect(cpm+50, palette_pos[1]+65, 26, 26), text="", manager=ui_manager,
+                                             object_id="bg_button_two", visible=False)
+    bg_button_three = pgui.elements.UIButton(relative_rect=pg.Rect(cpm+100, palette_pos[1]+65, 26, 26), text="", manager=ui_manager,
+                                             object_id="bg_button_three", visible=False)
+    bg_button_four = pgui.elements.UIButton(relative_rect=pg.Rect(cpm+150, palette_pos[1]+65, 26, 26), text="", manager=ui_manager,
+                                             object_id="bg_button_four", visible=False)
+
+    help_opt_button = pgui.elements.UIButton(relative_rect=pg.Rect(help_pos[0], help_pos[1], 100, 30), text="HELP", manager=ui_manager,
                                              object_id="help_opt_button")
 
 
 def draw_help():
-    pg.draw.rect(window, pg.Color("#2B2834"), (SW - 610, 90, 510, 380))
-    c, p, s = [255, 255, 255], [SW-600, 100], 12     # Color, Position, Font-size
+    if help_left:
+        pg.draw.rect(window, pg.Color("#2B2834"), (help_pos[0] - 510, help_pos[1], 510, 380))
+        p = [help_pos[0] - 500, help_pos[1]+10]
+    else:
+        pg.draw.rect(window, pg.Color("#2B2834"), (help_pos[0]+100, 90, 510, 380))
+        p = [help_pos[0] + 110, help_pos[1]+10]
+    c, s = [255, 255, 255], 12     # Color, Position, Font-size
     ri = 12     # Row interval
     text_to_screen(window, "Thanks for trying out my program! Let me help you with how the program works.", c, p, s)
     p = [p[0], p[1]+ri+10]
@@ -1207,10 +1305,14 @@ layer_one_style = "Striped Vertical"
 layer_one_shape = "Lines"
 layer_two_style = "Cornered"
 layer_two_shape = "Rings"
+layer_three_style = "Cornered"
+layer_three_shape = "Rings"
 layer_one_complexity = 15
 layer_two_complexity = 15
+layer_three_complexity = 15
 layer_one_magnitude = [50, 400]
 layer_two_magnitude = [50, 400]
+layer_three_magnitude = [50, 400]
 
 #TODO: add new locks (Aamina & Fady)
 # lock indexes to relevent function
@@ -1219,7 +1321,9 @@ layer_two_magnitude = [50, 400]
 # 2-5: layer one
 # 6-9: layer two
 # 10-13: layer three
-option_locks = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+option_locks = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+bg_color_index = 0
 
 help_opt = 0
 
