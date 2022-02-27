@@ -77,8 +77,6 @@ resolutions_list = [
     "HD: 1280x720"
 ]
 
-(3840, 2160), (int(SW//1.8), int(SH//1.8))
-
 class Canvas:
     def __init__(self, size, display_size):
         self.width = size[0]
