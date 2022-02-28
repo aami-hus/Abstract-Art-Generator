@@ -88,11 +88,11 @@ class Canvas:
         self.canvas.fill((255, 255, 255))
         self.display_canvas = pg.Surface(self.display_size)
 
-        #TODO: add new layer 3 surface (Aamina)
         self.bg_layer = pg.Surface((self.width, self.height))
         self.bg_layer.fill((255, 255, 255))
         self.layer_one = pg.Surface((self.width, self.height), pg.SRCALPHA)
         self.layer_two = pg.Surface((self.width, self.height), pg.SRCALPHA)
+        self.layer_three = pg.Surface((self.width, self.height), pg.SRCALPHA) #AH
         self.fg_layer = pg.Surface((self.width, self.height), pg.SRCALPHA)
 
     def export_art(self):
@@ -106,10 +106,10 @@ class Canvas:
             name = filename[:]
             return name
 
-    #TODO: clean layer 3 as well (Aamina)
     def clean_all_layers(self):
         self.layer_one.fill((0, 0, 0, 0))
         self.layer_two.fill((0, 0, 0, 0))
+        self.layer_three.fill((0, 0, 0, 0)) #AH
 
     def clean_layer(self, layer):
         layer.fill((0, 0, 0, 0))
@@ -897,7 +897,9 @@ class Canvas:
     def generate_layer_two(self, art_style, art_shape, color_palette, complexity, magnitude):
         self.generate_art(self.layer_two, art_style, art_shape, color_palette, complexity, magnitude)
 
-    #TODO: add third layer generator (Aamina)
+    def generate_layer_three(self, art_style, art_shape, color_palette, complexity, magnitude):
+        self.generate_art(self.layer_three, art_style, art_shape, color_palette, complexity, magnitude) #AH
+
 
     def generate_art(self, layer, art_style, art_shape, color_palette, complexity, magnitude):
         self.clean_layer(layer)
@@ -927,11 +929,11 @@ class Canvas:
         if art_shapes_list[7] == art_shape:
             self.generate_circles(complexity, color_palette, art_style, layer, magnitude, 1)
 
-    #TODO: add layer three (Aamina)
     def blit_to_canvas(self):
         self.canvas.blit(self.bg_layer, (0, 0))
         self.canvas.blit(self.layer_one, (0, 0))
         self.canvas.blit(self.layer_two, (0, 0))
+        self.canvas.blit(self.layer_three, (0, 0)) #AH
         self.canvas.blit(self.fg_layer, (0, 0))
         self.canvas.convert()
         self.display_canvas = pg.transform.smoothscale(self.canvas, self.display_size)
@@ -1296,7 +1298,6 @@ def draw_help():
 p1 = Palette()
 c1 = Canvas((3840, 2160), (int(SW//1.8), int(SH//1.8)))
 
-#TODO: add stuff for third layer (Aamina)
 current_color_palette = p1.get_random_palette()
 current_palette_name = p1.get_name_of_palette(current_color_palette)
 layer_one_style = "Striped Vertical"
@@ -1312,13 +1313,13 @@ layer_one_magnitude = [50, 400]
 layer_two_magnitude = [50, 400]
 layer_three_magnitude = [50, 400]
 
-#TODO: add new locks (Aamina & Fady)
 # lock indexes to relevent function
 # 0: color palette
 # 1: background color
 # 2-5: layer one
 # 6-9: layer two
 # 10-13: layer three
+#              [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13]
 option_locks = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 bg_color_index = 0
@@ -1346,6 +1347,13 @@ while run:
                 c1.generate_fg(overlays[2])
             if event.key == pg.K_4:
                 c1.generate_fg(overlays[3])
+            if event.key == pg.K_5:
+                c1.generate_fg(overlays[4])
+            if event.key == pg.K_6:
+                c1.generate_fg(overlays[5])
+            if event.key == pg.K_7:
+                c1.clean_layer(c1.fg_layer)
+                c1.blit_to_canvas()
             if event.key == pg.K_ESCAPE:
                 run = False
                 break
@@ -1360,36 +1368,49 @@ while run:
                     c1.generate_bg(bg_color)
                     cp.remove(bg_color)
 
-                    #TODO: add new layer generation (Aamina)
                     c1.generate_layer_one(art_style=layer_one_style, art_shape=layer_one_shape,
                                           color_palette=cp, complexity=layer_one_complexity,
                                           magnitude=layer_one_magnitude)
                     c1.generate_layer_two(art_style=layer_two_style, art_shape=layer_two_shape,
                                           color_palette=cp, complexity=layer_two_complexity,
                                           magnitude=layer_two_magnitude)
+                    c1.generate_layer_three(art_style=layer_three_style, art_shape=layer_three_shape,
+                                          color_palette=cp, complexity=layer_three_complexity,
+                                          magnitude=layer_three_magnitude) #AH
 
                     c1.blit_to_canvas()
 
-                #TODO: add new locks (remember to shift down) (Aamina & Fady)
+                #TODO: add lock for background color (below)
                 if event.ui_object_id == "random_generate_button":
                     if option_locks[0] == 0:
                         current_color_palette = p1.get_random_palette()
-                    if option_locks[1] == 0:
-                        layer_one_style = art_styles_list[randint(0, len(art_styles_list)-1)]
+                    #TODO: option lock for choosing background color (Fady)
+                    # if option_locks[1] == 0:
+                    # then background color = randint between 0 and 3
                     if option_locks[2] == 0:
-                        layer_one_shape = art_shapes_list[randint(0, len(art_shapes_list)-1)]
+                        layer_one_style = art_styles_list[randint(0, len(art_styles_list)-1)]
                     if option_locks[3] == 0:
-                        layer_one_complexity = randint(10, 30)
+                        layer_one_shape = art_shapes_list[randint(0, len(art_shapes_list)-1)]
                     if option_locks[4] == 0:
-                        layer_one_magnitude[1] = randint(51, 400)
+                        layer_one_complexity = randint(10, 30)
                     if option_locks[5] == 0:
-                        layer_two_style = art_styles_list[randint(0, len(art_styles_list)-1)]
+                        layer_one_magnitude[1] = randint(51, 400)
                     if option_locks[6] == 0:
-                        layer_two_shape = art_shapes_list[randint(0, len(art_shapes_list)-1)]
+                        layer_two_style = art_styles_list[randint(0, len(art_styles_list)-1)]
                     if option_locks[7] == 0:
-                        layer_two_complexity = randint(10, 30)
+                        layer_two_shape = art_shapes_list[randint(0, len(art_shapes_list)-1)]
                     if option_locks[8] == 0:
+                        layer_two_complexity = randint(10, 30)
+                    if option_locks[9] == 0:
                         layer_two_magnitude[1] = randint(51, 400)
+                    if option_locks[10] == 0:
+                        layer_three_style = art_styles_list[randint(0, len(art_styles_list)-1)] #AH
+                    if option_locks[11] == 0:
+                        layer_three_shape = art_shapes_list[randint(0, len(art_shapes_list)-1)] #AH
+                    if option_locks[12] == 0:
+                        layer_three_complexity = randint(10, 30) #AH
+                    if option_locks[13] == 0:
+                        layer_three_magnitude[1] = randint(51, 400) #AH
 
                     current_palette_name = p1.get_name_of_palette(current_color_palette)
                     generate_ui()
@@ -1400,13 +1421,15 @@ while run:
                     c1.generate_bg(bg_color)
                     cp.remove(bg_color)
 
-                    #TODO: add new layer generation (Aamina)
                     c1.generate_layer_one(art_style=layer_one_style, art_shape=layer_one_shape,
                                           color_palette=cp, complexity=layer_one_complexity,
                                           magnitude=layer_one_magnitude)
                     c1.generate_layer_two(art_style=layer_two_style, art_shape=layer_two_shape,
                                           color_palette=cp, complexity=layer_two_complexity,
                                           magnitude=layer_two_magnitude)
+                    c1.generate_layer_three(art_style=layer_three_style, art_shape=layer_three_shape,
+                                          color_palette=cp, complexity=layer_three_complexity,
+                                          magnitude=layer_three_magnitude) #AH
 
                     c1.blit_to_canvas()
 
@@ -1426,7 +1449,6 @@ while run:
                         pass
                     
 
-                #TODO: add new lock events (Aamina)
                 if event.ui_object_id == "lock_button_one":
                     option_locks[0] = 1 if option_locks[0] == 0 else 0
                 if event.ui_object_id == "lock_button_two":
@@ -1445,6 +1467,16 @@ while run:
                     option_locks[7] = 1 if option_locks[7] == 0 else 0
                 if event.ui_object_id == "lock_button_nine":
                     option_locks[8] = 1 if option_locks[8] == 0 else 0
+                if event.ui_object_id == "lock_button_ten":
+                    option_locks[9] = 1 if option_locks[9] == 0 else 0 #AH
+                if event.ui_object_id == "lock_button_eleven":
+                    option_locks[10] = 1 if option_locks[10] == 0 else 0 #AH
+                if event.ui_object_id == "lock_button_twelve":
+                    option_locks[11] = 1 if option_locks[11] == 0 else 0 #AH
+                if event.ui_object_id == "lock_button_thirteen":
+                    option_locks[12] = 1 if option_locks[12] == 0 else 0 #AH
+                if event.ui_object_id == "lock_button_fourteen":
+                    option_locks[13] = 1 if option_locks[13] == 0 else 0 #AH
 
                 #TODO: add bg_color shifting events (bg_button_one through bg_button_four) (Fady)
 
@@ -1471,7 +1503,6 @@ while run:
                     c1.clean_layer(c1.fg_layer)
                     c1.blit_to_canvas()
 
-            #TODO: add layer three drop downs and sliders (Aamina)
             if event.user_type == pgui.UI_DROP_DOWN_MENU_CHANGED:
                 if event.ui_object_id == "resolution_dropdown":
                     export_resolution = event.text
@@ -1485,6 +1516,10 @@ while run:
                     layer_two_style = event.text
                 if event.ui_object_id == "layer_two_shape_dropdown":
                     layer_two_shape = event.text
+                if event.ui_object_id == "layer_three_style_dropdown":
+                    layer_three_style = event.text #AH
+                if event.ui_object_id == "layer_three_shape_dropdown":
+                    layer_three_shape = event.text #AH
 
             if event.user_type == pgui.UI_HORIZONTAL_SLIDER_MOVED:
                 if event.ui_object_id == "layer_one_complexity_slider":
@@ -1495,6 +1530,10 @@ while run:
                     layer_two_complexity = event.value
                 if event.ui_object_id == "layer_two_size_slider":
                     layer_two_magnitude[1] = event.value
+                if event.ui_object_id == "layer_three_complexity_slider":
+                    layer_three_complexity = event.value #AH
+                if event.ui_object_id == "layer_three_size_slider":
+                    layer_three_magnitude[1] = event.value #AH
 
         ui_manager.process_events(event)
 
