@@ -1,6 +1,7 @@
 # ABSTRACT ART GENERATOR
 # By Burak U. - github.com/Burakcoli
 
+from turtle import color
 from color_palettes import Palette
 from random import randint
 import pygame as pg
@@ -950,7 +951,7 @@ palette_pos = (ui_menus_right, 60)
 layer_one_pos = (ui_menus_left, 60)
 layer_two_pos = (ui_menus_left, layer_one_pos[1]+200)
 layer_three_pos = (ui_menus_left, layer_two_pos[1]+200)
-overlay_pos = (0, palette_pos[1]+115)
+overlay_pos = (0, palette_pos[1]+155)
 help_pos = (284, 60)
 help_left = 0
 
@@ -968,7 +969,7 @@ def draw_menu(window, color_palette, option_locks, help_opt):
     lock_enabled = pg.transform.scale(pg.image.load("assets/lock_enabled.png"), (20, 20))
     lock_disabled = pg.transform.scale(pg.image.load("assets/lock_disabled.png"), (20, 20))
 
-    pg.draw.rect(window, pg.Color("#2B2834"), (palette_pos[0], palette_pos[1], 252, 95))           # Color Palette BG
+    pg.draw.rect(window, pg.Color("#2B2834"), (palette_pos[0], palette_pos[1], 252, 135))           # Color Palette BG
     pg.draw.rect(window, pg.Color("#2B2834"), (layer_one_pos[0], layer_one_pos[1], 252, 190))      # Layer One BG
     pg.draw.rect(window, pg.Color("#2B2834"), (layer_two_pos[0], layer_two_pos[1], 252, 190))      # Layer Two BG
     pg.draw.rect(window, pg.Color("#2B2834"), (layer_three_pos[0], layer_three_pos[1], 252, 190))  # Layer Three BG
@@ -1056,8 +1057,8 @@ def draw_menu(window, color_palette, option_locks, help_opt):
     text_to_screen(window=window, text="LAYERS", color=ui_h1_color, pos=(l1m, layer_one_pos[1]-25), font_size=24)
     text_to_screen(window=window, text="COLOR PALETTE", color=ui_h1_color, pos=(cpm, palette_pos[1]+15), font_size=18)
     for i, color in enumerate(color_palette):
-        pg.draw.rect(window, active_color if bg_color_index == i else inactive_color, (cpm+(i*50), palette_pos[1]+65, 26, 26))
-        pg.draw.rect(window, pg.Color(color), (cpm+3+(i*50), palette_pos[1]+68, 20, 20))
+        pg.draw.rect(window, active_color if bg_color_index == i else inactive_color, (cpm+((i%4)*50), palette_pos[1]+65+(36*(i//4)), 26, 26))
+        pg.draw.rect(window, pg.Color(color), (cpm+3+((i%4)*50), palette_pos[1]+68+(36*(i//4)), 20, 20))
     text_to_screen(window=window, text="LAYER ONE STYLE", color=ui_h1_color, pos=(l1m, layer_one_pos[1]+10), font_size=18)
     text_to_screen(window=window, text="LAYER ONE COMPLEXITY", color=ui_color, pos=(l1m, layer_one_pos[1]+95), font_size=14)
     text_to_screen(window=window, text="LAYER ONE SHAPE SIZE", color=ui_color, pos=(l1m, layer_one_pos[1]+145), font_size=14)
@@ -1070,7 +1071,7 @@ def draw_menu(window, color_palette, option_locks, help_opt):
 
     text_to_screen(window=window, text="OVERLAY", color=ui_h1_color, pos=(SW-174, overlay_pos[1]+12), font_size=18)
 
-    text_to_screen(window=window, text="RESOLUTION", color=ui_color, pos=(SW-240, 560), font_size=14)
+    text_to_screen(window=window, text="RESOLUTION", color=ui_color, pos=(SW-240, 560+20), font_size=14)
 
     pg.draw.rect(window, active_color if active_overlay == 1 else inactive_color, (SW-232, overlay_pos[1]+38, 84, 49), 1)
     pg.draw.rect(window, active_color if active_overlay == 2 else inactive_color, (SW-132, overlay_pos[1]+38, 84, 49), 1)
@@ -1089,7 +1090,7 @@ def draw_menu(window, color_palette, option_locks, help_opt):
 
 
 #generates the ui interactables
-def generate_ui():
+def generate_ui(cp_len):
     ui_manager.clear_and_reset()
 
     #locations for lock buttons
@@ -1162,7 +1163,7 @@ def generate_ui():
 
     resolution_dropdown = pgui.elements.UIDropDownMenu(options_list=resolutions_list,
                                                        starting_option=export_resolution,
-                                                       relative_rect=pg.Rect(SW-240, 575, 200, 22), manager=ui_manager,
+                                                       relative_rect=pg.Rect(SW-240, 575+20, 200, 22), manager=ui_manager,
                                                        object_id = "resolution_dropdown")
 
     export_art_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW - 240, SH - 100, 200, 50),
@@ -1219,17 +1220,30 @@ def generate_ui():
     overlay7_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-147, overlay_pos[1]+330, 14, 14), text="", manager=ui_manager,
                                              object_id="overlay7_button")
 
-    bg_button_one = pgui.elements.UIButton(relative_rect=pg.Rect(cpm, palette_pos[1]+65, 26, 26), text="", manager=ui_manager,
-                                             object_id="bg_button_one", visible=False)
-    bg_button_two = pgui.elements.UIButton(relative_rect=pg.Rect(cpm+50, palette_pos[1]+65, 26, 26), text="", manager=ui_manager,
-                                             object_id="bg_button_two", visible=False)
-    bg_button_three = pgui.elements.UIButton(relative_rect=pg.Rect(cpm+100, palette_pos[1]+65, 26, 26), text="", manager=ui_manager,
-                                             object_id="bg_button_three", visible=False)
-    bg_button_four = pgui.elements.UIButton(relative_rect=pg.Rect(cpm+150, palette_pos[1]+65, 26, 26), text="", manager=ui_manager,
-                                             object_id="bg_button_four", visible=False)
+    bg_color_button_one = pgui.elements.UIButton(relative_rect=pg.Rect(cpm+12, palette_pos[1]+65+12, 14, 14), text="", manager=ui_manager,
+                                             object_id="bg_color_button_one", visible=cp_len>0)
+    bg_color_button_two = pgui.elements.UIButton(relative_rect=pg.Rect(cpm+50+12, palette_pos[1]+65+12, 14, 14), text="", manager=ui_manager,
+                                             object_id="bg_color_button_two", visible=cp_len>1)
+    bg_color_button_three = pgui.elements.UIButton(relative_rect=pg.Rect(cpm+100+12, palette_pos[1]+65+12, 14, 14), text="", manager=ui_manager,
+                                             object_id="bg_color_button_three", visible=cp_len>2)
+    bg_color_button_four = pgui.elements.UIButton(relative_rect=pg.Rect(cpm+150+12, palette_pos[1]+65+12, 14, 14), text="", manager=ui_manager,
+                                             object_id="bg_color_button_four", visible=cp_len>3)
+    bg_color_button_five = pgui.elements.UIButton(relative_rect=pg.Rect(cpm+12, palette_pos[1]+65+12+36, 14, 14), text="", manager=ui_manager,
+                                             object_id="bg_color_button_five", visible=cp_len>4)
+    bg_color_button_six = pgui.elements.UIButton(relative_rect=pg.Rect(cpm+50+12, palette_pos[1]+65+12+36, 14, 14), text="", manager=ui_manager,
+                                             object_id="bg_color_button_six", visible=cp_len>5)
+    bg_color_button_seven = pgui.elements.UIButton(relative_rect=pg.Rect(cpm+100+12, palette_pos[1]+65+12+36, 14, 14), text="", manager=ui_manager,
+                                             object_id="bg_color_button_seven", visible=cp_len>6)
+    bg_color_button_eight = pgui.elements.UIButton(relative_rect=pg.Rect(cpm+150+12, palette_pos[1]+65+12+36, 14, 14), text="", manager=ui_manager,
+                                             object_id="bg_color_button_eight", visible=cp_len>7)
+
+    bg_color_buttons = [bg_color_button_one, bg_color_button_two, bg_color_button_three, bg_color_button_four, bg_color_button_five,
+                        bg_color_button_six, bg_color_button_seven, bg_color_button_eight]
 
     help_opt_button = pgui.elements.UIButton(relative_rect=pg.Rect(help_pos[0], help_pos[1], 100, 30), text="HELP", manager=ui_manager,
                                              object_id="help_opt_button")
+
+    return bg_color_buttons
 
 
 def draw_help():
@@ -1322,13 +1336,15 @@ layer_three_magnitude = [50, 400]
 #              [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13]
 option_locks = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
+
+
 bg_color_index = 0
 
 help_opt = 0
 
 export_resolution = resolutions_list[0]
 
-generate_ui()
+bg_color_buttons = generate_ui(len(current_color_palette))
 
 run = True
 while run:
@@ -1362,9 +1378,8 @@ while run:
             if event.user_type == pgui.UI_BUTTON_PRESSED:
                 if event.ui_object_id == "generate_button":
 
-                    #TODO: add some number for picking bg_color (Fady)
                     cp = current_color_palette.copy()
-                    bg_color = cp[randint(0, len(cp)-1)]
+                    bg_color = cp[bg_color_index]
                     c1.generate_bg(bg_color)
                     cp.remove(bg_color)
 
@@ -1380,13 +1395,14 @@ while run:
 
                     c1.blit_to_canvas()
 
-                #TODO: add lock for background color (below)
                 if event.ui_object_id == "random_generate_button":
                     if option_locks[0] == 0:
                         current_color_palette = p1.get_random_palette()
-                    #TODO: option lock for choosing background color (Fady)
-                    # if option_locks[1] == 0:
-                    # then background color = randint between 0 and 3
+                        current_palette_name = p1.get_name_of_palette(current_color_palette)
+                        if bg_color_index >= len(current_color_palette):
+                            bg_color_index = randint(0, len(current_color_palette)-1)
+                    if option_locks[1] == 0:
+                        bg_color_index = randint(0, len(current_color_palette) - 1)
                     if option_locks[2] == 0:
                         layer_one_style = art_styles_list[randint(0, len(art_styles_list)-1)]
                     if option_locks[3] == 0:
@@ -1412,12 +1428,10 @@ while run:
                     if option_locks[13] == 0:
                         layer_three_magnitude[1] = randint(51, 400) #AH
 
-                    current_palette_name = p1.get_name_of_palette(current_color_palette)
-                    generate_ui()
-
-                    #TODO: add lock button for bg_color (Fady)
+                    generate_ui(len(current_color_palette))
+                    
                     cp = current_color_palette.copy()
-                    bg_color = cp[randint(0, len(cp) - 1)]
+                    bg_color = cp[bg_color_index]
                     c1.generate_bg(bg_color)
                     cp.remove(bg_color)
 
@@ -1478,7 +1492,22 @@ while run:
                 if event.ui_object_id == "lock_button_fourteen":
                     option_locks[13] = 1 if option_locks[13] == 0 else 0 #AH
 
-                #TODO: add bg_color shifting events (bg_button_one through bg_button_four) (Fady)
+                if event.ui_object_id == "bg_color_button_one":
+                    bg_color_index = 0
+                if event.ui_object_id == "bg_color_button_two":
+                    bg_color_index = 1
+                if event.ui_object_id == "bg_color_button_three":
+                    bg_color_index = 2
+                if event.ui_object_id == "bg_color_button_four":
+                    bg_color_index = 3
+                if event.ui_object_id == "bg_color_button_five":
+                    bg_color_index = 4
+                if event.ui_object_id == "bg_color_button_six":
+                    bg_color_index = 5
+                if event.ui_object_id == "bg_color_button_seven":
+                    bg_color_index = 6
+                if event.ui_object_id == "bg_color_button_eight":
+                    bg_color_index = 7
 
                 if event.ui_object_id == "overlay1_button":
                     active_overlay = 1
@@ -1508,6 +1537,10 @@ while run:
                     export_resolution = event.text
                 if event.ui_object_id == "current_palette_dropdown":
                     current_color_palette = p1.get_colors_from_palette(event.text)
+                    current_palette_name = p1.get_name_of_palette(current_color_palette)
+                    generate_ui(len(current_color_palette))
+                    if bg_color_index >= len(current_color_palette):
+                        bg_color_index = randint(0, len(current_color_palette)-1)
                 if event.ui_object_id == "layer_one_style_dropdown":
                     layer_one_style = event.text
                 if event.ui_object_id == "layer_one_shape_dropdown":
