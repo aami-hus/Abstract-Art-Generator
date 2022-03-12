@@ -20,7 +20,12 @@ color_palettes = [
     ["#6f4a8e", "#221f3b", "#050505", "#ebebeb"],
     ["#1fab89", "#62d2a2", "#9df3c4", "#d7fbe8"],
     ["#73f7dd", "#2cc4cb", "#1972a4", "#2e3a87"],
-    ["#fcf0c8", "#f7d098", "#911f27", "#630a10"]
+    ["#fcf0c8", "#f7d098", "#911f27", "#630a10"],
+    ["#5BCEFA", "#F5A9B8", "#FFFFFF"],
+    ["#d52d00", "#ef7627", "#ff9a56", "#ffffff",
+    "#D162A4", "#B55690", "#A30262"],
+    ["#73f7dd", "#2cc4cb", "#1972a4", "#2e3a87",
+    "#fcf0c8", "#f7d098", "#911f27", "#630a10"],
 ]
 
 color_palette_names = [
@@ -43,7 +48,10 @@ color_palette_names = [
     "Corruption",
     "Ivy",
     "Ocean",
-    "Royalty"
+    "Royalty",
+    "Transit",
+    "Girls",
+    "Test",
 ]
 
 
