@@ -2,6 +2,7 @@
 
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{float}
 \usepackage{hyperref}
 \hypersetup{
     colorlinks,
@@ -12,17 +13,18 @@
 }
 \usepackage[round]{natbib}
 
-\title{SE 3XA3: Test Plan\\Title of Project}
+\title{SE 3XA3: Abstract Art Generator Test Plan}
 
-\author{Team \#, Team Name
-		\\ Student 1 name and macid
-		\\ Student 2 name and macid
-		\\ Student 3 name and macid
+\author{Group \#10
+        \\Lab: L03
+		\\ Aamina Hussain, hussaa54
+		\\ Jessica Dawson, dawsor1
+		\\ Fady Morcos, morcof2
 }
 
-\date{\today}
+\date{}
 
-\input{../Comments}
+%\input{../Comments}
 
 \begin{document}
 
@@ -38,8 +40,9 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+March 7, 2022 & 0.0 & Initial Document\\
+March 9, 2022 & 0.1 & Added Sections 2, 4\\
+March 11, 2022 & 0.2 & Added Sections 1, 3, 5, 6, 7\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -48,186 +51,585 @@ Date 2 & 1.1 & Notes\\
 
 \pagenumbering{arabic}
 
-This document ...
-
 \section{General Information}
 
 \subsection{Purpose}
 
+The purpose of this document is to describe the testing, verification and validation procedures that will be used to confirm the correctness of Group 10's \emph{Abstract Art Generator} project. Since the project deals with a graphical user interface, most of the testing involved will be composed of manual tests. The rest of the tests will mainly involve white box testing techniques such as unit testing. Regarding V\&V, the product will be considered verified if it functions smoothly and passes all tests, and it will be considered valid if it satisfies all group members.
+
 \subsection{Scope}
 
-\subsection{Acronyms, Abbreviations, and Symbols}
-	
-\begin{table}[hbp]
-\caption{\textbf{Table of Abbreviations}} \label{Table}
+The \emph{Abstract Art Generator} project is a Python program which uses Pygame and Pygame\_GUI to display a graphical user interface that allows interaction with the user. It generates random abstract art images that may be exported as PNG files. The scope of testing will cover the various settings of layer generation such as different shapes, styles, sizes, and complexities of each layer. It will also cover the randomization of layer and color palette settings.
 
+\subsection{Acronyms, Abbreviations, and Symbols}
+\begin{table}[H]
+\caption{\textbf{Table of Abbreviations and Definitions}} \label{Table}
 \begin{tabularx}{\textwidth}{p{3cm}X}
 \toprule
-\textbf{Abbreviation} & \textbf{Definition} \\
+\textbf{Term} & \textbf{Definition} \\
 \midrule
-Abbreviation1 & Definition1\\
-Abbreviation2 & Definition2\\
+V\&V & Verification and Validation\\
+Manual Test & Tests which are hand written and involve checking if UI performs how it is supposed to\\
+Automated Test & Tests that run automatically (may involve using a framework such as PyTest)\\
+Unit Test & A set of test designed for methods and functions\\
+Structural Test & Tests based on the internal structure of program\\
+Functional Test & Tests based on a function provided by the program\\
+Nonfunctional Test & Tests based on the qualities of the program\\
+Static Test & Tests where the code is inspected and not executed\\
+Dynamic Test & Tests where the code is executed\\
 \bottomrule
 \end{tabularx}
-
 \end{table}
 
-\begin{table}[!htbp]
-\caption{\textbf{Table of Definitions}} \label{Table}
 
-\begin{tabularx}{\textwidth}{p{3cm}X}
-\toprule
-\textbf{Term} & \textbf{Definition}\\
-\midrule
-Term1 & Definition1\\
-Term2 & Definition2\\
-\bottomrule
-\end{tabularx}
-
-\end{table}	
 
 \subsection{Overview of Document}
+
+This document describes the testing methods that will be used to test the first version of this project.
 
 \section{Plan}
 	
 \subsection{Software Description}
-
+This software will allow users to generate abstract art, which can then be exported by the user as a PNG file. This art can be randomly generated, or can be generated based on the user's choices. The software receives these choices using user input, including both keyboard input and mouse input.
 \subsection{Test Team}
-
-\subsection{Automated Testing Approach}
-
+The test team consists of Aamina Hussain, Jessica Dawson, and Fady Morcos. They are all equally responsible for testing the software.
+%\subsection{Automated Testing Approach}
 \subsection{Testing Tools}
-
+The tool we will be using to test the software is PyTest. This tool will allow us to automate the unit testing.
 \subsection{Testing Schedule}
-		
-See Gantt Chart at the following url ...
+Please refer to the Gantt Chart at
+\href{https://gitlab.cas.mcmaster.ca/3xa3-l3-g10/3xa3-l3-g10/-/tree/main/ProjectSchedule}{this link}.
 
 \section{System Test Description}
 	
-\subsection{Tests for Functional Requirements}
+\subsection{Functional Tests}
 
-\subsubsection{Area of Testing1}
-		
-\paragraph{Title for Test}
-
+\subsubsection{User Input: Generate Art}
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{FT-GA-1\\}
+Type: Functional, Dynamic, Manual
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+Initial State: No art generation options are locked and main program window waiting for input. %information from mouse.
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
+Input: User clicks on \texttt{Generate Randomly} button.
+
+Output: Program generates abstract art piece based on random specification for all options.
+
+How test will be performed: The program will run and a tester will check the generated art piece. This will be performed a few more times to check that the parameters of the generated art are randomized.
+
+\item{FT-GA-2\\}
+Type: Functional, Dynamic, Manual
+
+Initial State: Some art generation options are locked and main program window waiting for input. %information from mouse.
+
+Input: User clicks on \texttt{Generate Randomly} button.
+
+Output: Program generates abstract art piece based on the specification indicated by the locked options and random specification for the rest of the options that are not locked.
+
+How test will be performed: The program will run and a tester will check the generated art piece.
+
+\item{FT-GA-3\\}
+Type: Functional, Dynamic, Manual
+
+Initial State: Main program window waiting for input. %information from mouse.
+
+Input: User clicks on \texttt{Generate} button.
+
+Output: Program generates abstract art piece based on whatever the current options are.
+
+How test will be performed: The program will run and a tester will check the generated art piece.
 
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
-
-...
-
-\subsection{Tests for Nonfunctional Requirements}
-
-\subsubsection{Area of Testing1}
-		
-\paragraph{Title for Test}
-
+\subsubsection{User Input: Use Option Locks}
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{FT-OL-1\\}
+Type: Functional, Dynamic, Manual
 
-Type: 
-					
-Initial State: 
-					
-Input/Condition: 
-					
-Output/Result: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+Initial State: Main program window waiting for input. %information from mouse.
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
+Input: User clicks on color palette lock and then clicks on the \texttt{Generate Randomly} button.
+
+Output: Program displays lock icon next to color palette and generates an art piece using the color palette chosen by the user.
+
+How test will be performed: The program will run and a tester will check the program window to see if there is a lock icon next to the color palette. The tester will then check if the generated art uses the chosen color palette.
+
+\item{FT-OL-2\\}
+Type: Functional, Dynamic, Manual
+
+Initial State: Main program window waiting for input. %information from mouse.
+
+Input: User clicks on the background color lock and then clicks on the \texttt{Generate Randomly} button.
+
+Output: Program displays lock icon next to the background color and generates an art piece that has the same background color as the one chosen by the user.
+
+How test will be performed: The program will run and a tester will check the program window to see if there is a lock icon next to the background color. The tester will then check if the background color for the generated art matches the chosen color.
+
+\item{FT-OL-3\\}
+Type: Functional, Dynamic, Manual
+
+Initial State: Main program window waiting for input. %information from mouse.
+
+Input: User clicks on the shape lock for layer one and then clicks on the \texttt{Generate Randomly} button.
+
+Output: Program displays lock icon next to the layer one shape options and generates an art piece that has a layer with the same shape as the one chosen by the user.
+
+How test will be performed: The program will run and a tester will check the program window to see if there is a lock icon next to the layer one shape options. the tester will then check if the layer one shape in the generated art matches the chosen shape. This will be repeated for layers two and three.
+
+\item{FT-OL-4\\}
+Type: Functional, Dynamic, Manual
+
+Initial State: Main program window waiting for input. %information from mouse.
+
+Input: User clicks on the style lock for layer one and then clicks on the \texttt{Generate Randomly} button.
+
+Output: Program displays lock icon next to the layer one style options and generates an art piece that has a layer with the same style as the one chosen by the user.
+
+How test will be performed: The program will run and a tester will check the program window to see if there is a lock icon next to the layer one style options. The tester will then check if the layer one style in the generated art matches the chosen style. This will be repeated for layers two and three.
+
+\item{FT-OL-5\\}
+Type: Functional, Dynamic, Manual
+
+Initial State: Main program window waiting for input. %information from mouse.
+
+Input: User clicks on the complexity lock for layer one and then clicks on the \texttt{Generate Randomly} button.
+
+Output: Program displays lock icon next to the layer one complexity and generates an art piece that has a layer with the same complexity as the one chosen by the user.
+
+How test will be performed: The program will run and a tester will check the program window to see if there is a lock icon next to the layer one complexity. The tester will then check if the layer one complexity in the generated art matches the chosen complexity. This will be repeated for layers two and three.
+
+\item{FT-OL-6\\}
+Type: Functional, Dynamic, Manual
+
+Initial State: Main program window has a previous art piece with a low layer one complexity and is waiting for input. %information from mouse.
+
+Input: User clicks on layer one complexity slider to increase complexity and then clicks on the \texttt{Generate} button.
+
+Output: Program generates an art piece that has a layer with a higher complexity than the previous art piece.
+
+How test will be performed: The program will run and a tester will check if the layer one complexity in the generated art is greater than the layer one complexity of the previously generated art. This will be repeated for layers two and three.
+
+\item{FT-OL-7\\}
+Type: Functional, Dynamic, Manual
+
+Initial State: Main program window waiting for input. %information from mouse.
+
+Input: User clicks on the size lock for layer one and then clicks on the \texttt{Generate Randomly} button.
+
+Output: Program displays lock icon next to the layer one shape size and generates an art piece that has a layer with the same shape size as the one chosen by the user.
+
+How test will be performed: The program will run and a tester will check the program window to see if there is a lock icon next to the layer one shape size. The tester will then check if the layer one shape size in the generated art matches the chosen shape size. This will be repeated for layers two and three.
+
+\item{FT-OL-8\\}
+Type: Functional, Dynamic, Manual
+
+Initial State: Main program window has a previous art piece with a smaller layer one shape size and is waiting for input. %information from mouse.
+
+Input: User clicks on layer one shape size slider to increase the shape size and then clicks on the \texttt{Generate} button.
+
+Output: Program generates an art piece that has a layer with a larger shape size than the previous art piece.
+
+How test will be performed: The program will run and a tester will check if the layer one shape size in the generated art is larger than the layer one shape size of the previously generated art. This will be repeated for layers two and three.
+
+\item{FT-OL-9\\}
+Type: Functional, Dynamic, Manual
+
+Initial State: Main program window waiting for input. %information from mouse.
+
+Input: User clicks on the transparency lock for layer one and then clicks on the \texttt{Generate Randomly} button.
+
+Output: Program displays lock icon next to the layer one transparency and generates an art piece that has a layer with the same transparency as the one chosen by the user.
+
+How test will be performed: The program will run and a tester will check the program window to see if there is a lock icon next to the layer one transparency. The tester will then check if the layer one transparency in the generated art matches the chosen transparency. This will be repeated for layers two and three.
+
+\item{FT-OL-10\\}
+Type: Functional, Dynamic, Manual
+
+Initial State: Main program window has a previous art piece with a low layer one transparency and is waiting for input. %information from mouse.
+
+Input: User clicks on layer one transparency slider to increase transparency and then clicks on the \texttt{Generate} button.
+
+Output: Program generates an art piece that has a layer with a higher transparency than the previous art piece.
+
+How test will be performed: The program will run and a tester will check if the layer one transparency in the generated art is greater than the layer one transparency of the previously generated art. This will be repeated for layers two and three.
+
+\item{FT-OL-11\\}
+Type: Functional, Dynamic, Manual
+
+Initial State: Main program window waiting for input. %information from mouse.
+
+Input: User clicks on the overlay/border lock and then clicks on the \texttt{Generate Randomly} button.
+
+Output: Program displays lock icon next to the overlay/border and generates an art piece that has the same overlay/border as the one chosen by the user.
+
+How test will be performed: The program will run and a tester will check the program window to see if there is a lock icon next to the overlay/border. The tester will then check if the overlay/border for the generated art matches the chosen overlay/border.
+\end{enumerate}
+
+\subsubsection{User Input: Add Text}
+\begin{enumerate}
+
+\item{FT-AT-1}\\
+Type: Functional, Dynamic, Manual
+
+Initial State: Main program window has a generated art piece and is waiting for input. %information from mouse.
+
+Input: User clicks on \texttt{Add Text} button and types desired text.
+
+Output: Program displays the text the user types on top of the previously generated art using the default text size and text font.
+
+How test will be performed: A tester will type a message in the text box. The the program will run and a tester will check the program window to see if the message typed is displayed on top of the generated art.
+
+\item{FT-AT-2}\\
+Type: Functional, Dynamic, Manual
+
+Initial State: Main program window has a generated art piece with text and is waiting for input. %information from mouse.
+
+Input: User clicks on a text color option.
+
+Output: Program changes the text color to the color chosen by the user.
+
+How test will be performed: The program will run and a tester will check the program window to see if the text color matches the color chosen.
+
+\item{FT-AT-3}\\
+Type: Functional, Dynamic, Manual
+
+Initial State: Main program window has a generated art piece with text and is waiting for input. %information from mouse.
+
+Input: User clicks on a text size option.
+
+Output: Program changes the text size to the size chosen by the user.
+
+How test will be performed: The program will run and a tester will check the program window to see if the text size matches the size chosen.
+
+\item{FT-AT-4}\\
+Type: Functional, Dynamic, Manual
+
+Initial State: Main program window has a generated art piece with text and is waiting for input. %information from mouse.
+
+Input: User clicks on a text font option.
+
+Output: Program changes the text font to the font chosen by the user.
+
+How test will be performed: The program will run and a tester will check the program window to see if the text font matches the font chosen.
 
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
+\subsubsection{User Input: Export Art}
+\begin{enumerate}
 
-...
+\item{FT-EA-1}\\
+Type: Functional, Dynamic, Manual
 
-\subsection{Traceability Between Test Cases and Requirements}
+Initial State: Main program window has a generated art piece and is waiting for input. %information from mouse.
+
+Input: User clicks on \texttt{Export} button.
+
+Output: Program opens file explorer window.
+
+How test will be performed: The program will run and a tester will check to see if the file explorer window opens.
+
+\item{FT-EA-2}\\
+Type: Functional, Dynamic, Manual
+
+Initial State: Main program has the file explorer window open and is waiting for input. %information from mouse and keyboard.
+
+Input: User clicks on directory they want to save the art and names the file.
+
+Output: Program names the file and saves it in the chosen directory.
+
+How test will be performed: The program will run and a tester will open the file explorer to check if the file is saved in the correct directory and that the file is named correctly.
+
+\end{enumerate}
+
+\subsubsection{User Input: Change Display Settings}
+
+\begin{enumerate}
+
+\item{FT-DS-1}\\
+Type: Functional, Dynamic, Manual
+
+Initial State: Main program window is currently in dark mode and is waiting for input. %information from mouse.
+
+Input: User clicks on \texttt{Light Mode} button.
+
+Output: Program switches to light mode.
+
+How test will be performed: The program will run and a tester will check to see if the program window switches to light mode. The tester will check if the background color of the main program window is white and the UI text is black.
+
+\item{FT-DS-2}\\
+Type: Functional, Dynamic, Manual
+
+Initial State: Main program window is currently in light mode and is waiting for input. %information from mouse.
+
+Input: User clicks on \texttt{Dark Mode} button.
+
+Output: Program switches to dark mode.
+
+How test will be performed: The program will run and a tester will check to see if the program window switches to dark mode. The tester will check if the background color of the main program window is black and the UI text is white.
+
+\item{FT-DS-3}\\
+Type: Functional, Dynamic, Manual
+
+Initial State: Main program window is currently in dark mode and is waiting for input. %information from mouse.
+
+Input: User clicks on \texttt{Dark Mode} button.
+
+Output: Program stays in dark mode.
+
+How test will be performed: The program will run and a tester will check to see if the program window remains in dark mode. The tester will check if the background color of the main program window is black and the UI text is white.
+
+\item{FT-DS-4}\\
+Type: Functional, Dynamic, Manual
+
+Initial State: Main program window is currently in light mode and is waiting for input. %information from mouse.
+
+Input: User clicks on \texttt{Light Mode} button.
+
+Output: Program stays in light mode.
+
+How test will be performed: The program will run and a tester will check to see if the program window remains in light mode. The tester will check if the background color of the main program window is white and the UI text is black.
+
+\item{FT-DS-5}\\
+Type: Functional, Dynamic, Manual
+
+Initial State: Main program window text size is currently normal and the program is waiting for input. %information from mouse.
+
+Input: User clicks on \texttt{Large Text} button.
+
+Output: Program text size becomes large.
+
+How test will be performed: The program will run and a tester will check to see if the program text size changes to large text.
+
+\item{FT-DS-6}\\
+Type: Functional, Dynamic, Manual
+
+Initial State: Main program window text size is currently large and the program is waiting for input. %information from mouse.
+
+Input: User clicks on \texttt{Normal Text} button.
+
+Output: Program text size becomes normal.
+
+How test will be performed: The program will run and a tester will check to see if the program text size changes to normal text.
+
+\item{FT-DS-7}\\
+Type: Functional, Dynamic, Manual
+
+Initial State: Main program window text size is currently normal and the program is waiting for input. %information from mouse.
+
+Input: User clicks on \texttt{Normal Text} button.
+
+Output: Program text size stays normal.
+
+How test will be performed: The program will run and a tester will check to see if the program text size is still normal text.
+
+\item{FT-DS-8}\\
+Type: Functional, Dynamic, Manual
+
+Initial State: Main program window text size is currently large and the program is waiting for input. %information from mouse.
+
+Input: User clicks on \texttt{Large Text} button.
+
+Output: Program text size stays large.
+
+How test will be performed: The program will run and a tester will check to see if the program text size is still large text.
+
+\item{FT-DS-9}\\
+Type: Functional, Dynamic, Manual
+
+Initial State: Main program window is waiting for input. %information from mouse.
+
+Input: User clicks on \texttt{Help} button.
+
+Output: Program displays the instructions.
+
+How test will be performed: The program will run and a tester will check to see if the program displays the instructions.
+\end{enumerate}
+
+\subsection{Nonfunctional Tests}
+
+\subsubsection{Performance Requirements}
+
+\begin{enumerate}
+
+\item{NFT-PR-1}\\
+Type: Non-Functional, Dynamic, Manual
+
+Initial State: Program is idling waiting for input.
+
+Input: The user changes a setting.
+
+Output: The time it takes for the program to return to idling. Should be less than MAX\_PARAM\_TIME.
+
+How test will be performed: A tester will change a setting and time how long it takes before the program accepts input again. This will be repeated ten times and an average will be taken and compared to MAX\_PARAM\_TIME.
+
+\item{NFT-PR-2}\\
+Type: Non-Functional, Dynamic, Manual
+
+Initial State: Program is idling waiting for input.
+
+Input: The user presses the \texttt{Generate} button.
+
+Output: The time it takes for the program to display an image. Should be less than MAX\_GENERATION\_TIME.
+
+How test will be performed: A tester will press the generate button and time how long it takes before the program to display an image. This will be repeated ten times and an average will be taken and compared to MAX\_GENERATION\_TIME.
+
+\end{enumerate}
+
+\subsubsection{Operational and Environmental Requirements}
+
+\begin{enumerate}
+
+\item{NFT-OE-1}\\
+Type: Non-Functional, Dynamic, Manual
+
+Initial State: Two laptops, one running Windows 10, the other Ubuntu 20.04.
+
+Input: The user attempts to run the program.
+
+Output: The program runs.
+
+How test will be performed: A tester will install the program on each of the laptops and try running it on each. The program should run in both environments.
+
+\end{enumerate}
+
+\subsubsection{Usability and Humanity Requirements}
+
+\begin{enumerate}
+
+\item{NFT-UH-1}\\
+Type: Non-Functional, Dynamic, Manual
+
+Initial State: 10 third party users who have no experience with the program.
+
+Input: Each user will attempt to operate the program.
+
+Output: The opinions of the users on how easy the program is to learn and operate.
+
+How test will be performed: A tester will ask each of the 10 users to create certain art pieces, and manipulate certain settings. The tester will then record the users' opinions on how easy these tasks were to accomplish. The opinions will be recorded as a rating of 1 to 5, 1 being not satisfied, and 5 being fully satisfied. An average of these ratings will be taken and the test will pass if the average is greater than 3.5.
+
+\end{enumerate}
 
 \section{Tests for Proof of Concept}
 
-\subsection{Area of Testing1}
-		
-\paragraph{Title for Test}
+This section contains tests we ran to confirm our program was functional for the Proof of Concept Demonstration.
+
+\subsection{Third Layer Tests}
+
+\subsubsection{Third Layer Existence}
 
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{POC-3L-1}\\
+Type: Functional, Dynamic, Manual
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+Initial State: Each layer has unique settings that can be visually distinguished from each other and the program is idling waiting for input.
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
+Input: The user presses the \texttt{Generate} button.
 
+Output: An art piece will be displayed with three layers, each with their selected settings.
+
+How test will be performed: A tester will manually create the initial state, where settings being visually distinct is based on their own discretion, and press the \texttt{Generate} button. They will then check that three layers are generated in the image.
+
+\newcounter{enumTemp}
+\setcounter{enumTemp}{\theenumi}
 \end{enumerate}
 
-\subsection{Area of Testing2}
+\subsubsection{Third Layer Settings}
 
-...
+\begin{enumerate}
+\setcounter{enumi}{\theenumTemp}
 
+\item{POC-3L-2}\\
+Type: Functional, Dynamic, Manual
+
+Initial State: The program has a previous art piece displayed and is idling waiting for input.
+
+Input: The user changes the layer three pattern drop down and presses the \texttt{Generate} button.
+
+Output: A new art piece will be displayed with the new pattern option for the third layer.
+
+How test will be performed: A tester will manually create the initial state, change the pattern setting, and press the \texttt{Generate} button. They will then check that the new pattern appears in the third layer.
+
+\item{POC-3L-3}\\
+Type: Functional, Dynamic, Manual
+
+Initial State: The program has a previous art piece displayed and is idling waiting for input.
+
+Input: The user changes the layer three shape drop down and presses the \texttt{Generate} button.
+
+Output: A new art piece will be displayed with the new shape option for the third layer.
+
+How test will be performed: A tester will manually create the initial state, change the shape setting, and press the \texttt{Generate} button. They will then check that the new shape appears in the third layer.
+
+\item{POC-3L-4}\\
+Type: Functional, Dynamic, Manual
+
+Initial State: The program has a previous art piece displayed and is idling waiting for input.
+
+Input: The user changes the layer three complexity slider and presses the \texttt{Generate} button.
+
+Output: A new art piece will be displayed with the new complexity option for the third layer.
+
+How test will be performed: A tester will manually create the initial state, change the complexity slider, and press the \texttt{Generate} button. They will then check that the new third layer displays the increased complexity.
+
+\item{POC-3L-5}\\
+Type: Functional, Dynamic, Manual
+
+Initial State: The program has a previous art piece displayed and is idling waiting for input.
+
+Input: The user changes the layer three size slider and presses the \texttt{Generate} button.
+
+Output: A new art piece will be displayed with the new size option for the third layer.
+
+How test will be performed: A tester will manually create the initial state, change the size slider, and press the \texttt{Generate} button. They will then check that the new third layer displays the increased sized of shaped.
+
+\setcounter{enumTemp}{\theenumi}
+\end{enumerate}
+
+\subsubsection{Third Layer Randomization}
+
+\begin{enumerate}
+\setcounter{enumi}{\theenumTemp}
+
+\item{POC-3L-6}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: No art generation option are locked and the program is idling waiting for input.
+
+Input: The user presses the \texttt{Generate Randomly} button.
+
+Output: All options, including the layer three options, will be randomized and an art piece will be generated with the resulting settings.
+
+How test will be performed: A tester will manually create the initial state and press the \texttt{Generate Randomly} button. They will then check whether the layer three options have been randomized and that this is reflected in the art.
+
+\item{POC-3L-7}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: All third layer options are locked and the program is idling waiting for input.
+
+Input: The user presses the \texttt{Generate Randomly} button.
+
+Output: The third layer settings will stay the same and an art piece will be generated with these settings.
+
+How test will be performed: A tester will manually create the initial state and press the \texttt{Generate Randomly} button. They will then check whether the layer three options have been randomized and that this is reflected in the art.
+
+\end{enumerate}
 	
 \section{Comparison to Existing Implementation}	
-				
+N/A
+
 \section{Unit Testing Plan}
-		
+
 \subsection{Unit testing of internal functions}
-		
-\subsection{Unit testing of output files}		
+
+We will be conducting unit tests on certain internal functions that have return values. We will give the program methods different inputs, and test whether the actual output is equal to the expected output using PyTest.
+
+\subsection{Unit testing of output files}
+N/A
 
 \bibliographystyle{plainnat}
 
@@ -237,15 +639,14 @@ How test will be performed:
 
 \section{Appendix}
 
-This is where you can place additional information.
-
 \subsection{Symbolic Parameters}
 
-The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
-Their values are defined in this section for easy maintenance.
+MAX\_PARAM\_TIME: 1 sec
 
-\subsection{Usability Survey Questions?}
+\noindent MAX\_GENERATION\_TIME: 10 sec
 
-This is a section that would be appropriate for some teams.
+\subsection{Usability Survey Questions}
+
+N/A
 
 \end{document}
