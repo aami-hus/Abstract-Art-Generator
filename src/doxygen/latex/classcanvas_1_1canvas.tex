@@ -1,0 +1,102 @@
+\hypertarget{classcanvas_1_1canvas}{}\doxysection{canvas.\+canvas Class Reference}
+\label{classcanvas_1_1canvas}\index{canvas.canvas@{canvas.canvas}}
+
+
+The canvas class.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classcanvas_1_1canvas_ad630ee0851b68dcaa4996a6c23e98bac}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, x, y, width, height, display\+\_\+width, display\+\_\+height, window)
+\begin{DoxyCompactList}\small\item\em Initializes the canvas. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcanvas_1_1canvas_ad0ee674896ac7cdd6bae1b9360df7050}\label{classcanvas_1_1canvas_ad0ee674896ac7cdd6bae1b9360df7050}} 
+def \mbox{\hyperlink{classcanvas_1_1canvas_ad0ee674896ac7cdd6bae1b9360df7050}{draw}} (self)
+\begin{DoxyCompactList}\small\item\em Draws the canvas to the ui. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classcanvas_1_1canvas_af5bcff10511eaf43b400022bbf5f571b}{draw\+\_\+to\+\_\+canvas}} (self)
+\begin{DoxyCompactList}\small\item\em Draws layers to the canvas. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classcanvas_1_1canvas_aa332e2f49b9e0aef3e34e5c08a54fbd6}{generate\+\_\+bg}} (self, color)
+\begin{DoxyCompactList}\small\item\em Fill the canvas background with a color. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classcanvas_1_1canvas_a524127b70d3b4562902db98e3584707e}{get\+\_\+canvas}} (self)
+\begin{DoxyCompactList}\small\item\em Gets the pygame surface the canvas draws on. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The canvas class. 
+
+Provides the canvas the program draws on along with functions for drawing layers to the canvas and drawing the canvas to the ui. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classcanvas_1_1canvas_ad630ee0851b68dcaa4996a6c23e98bac}\label{classcanvas_1_1canvas_ad630ee0851b68dcaa4996a6c23e98bac}} 
+\index{canvas.canvas@{canvas.canvas}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!canvas.canvas@{canvas.canvas}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def canvas.\+canvas.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{}]{y,  }\item[{}]{width,  }\item[{}]{height,  }\item[{}]{display\+\_\+width,  }\item[{}]{display\+\_\+height,  }\item[{}]{window }\end{DoxyParamCaption})}
+
+
+
+Initializes the canvas. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Horizontal position to draw the canvas at on the ui. \\
+\hline
+{\em y} & Vertical position to draw the canvas at on the ui. \\
+\hline
+{\em width} & Width of the canvas surface. \\
+\hline
+{\em height} & Height of the canvas surface. \\
+\hline
+{\em display\+\_\+width} & Width of the ui\textquotesingle{}s canvas display port. \\
+\hline
+{\em display\+\_\+height} & Height of the ui\textquotesingle{}s canvas display port. \\
+\hline
+{\em window} & Ui window to draw the canvas to. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcanvas_1_1canvas_af5bcff10511eaf43b400022bbf5f571b}\label{classcanvas_1_1canvas_af5bcff10511eaf43b400022bbf5f571b}} 
+\index{canvas.canvas@{canvas.canvas}!draw\_to\_canvas@{draw\_to\_canvas}}
+\index{draw\_to\_canvas@{draw\_to\_canvas}!canvas.canvas@{canvas.canvas}}
+\doxysubsubsection{\texorpdfstring{draw\_to\_canvas()}{draw\_to\_canvas()}}
+{\footnotesize\ttfamily def canvas.\+canvas.\+draw\+\_\+to\+\_\+canvas (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Draws layers to the canvas. 
+
+Calls any drawing widgets to draw to the canvas. \mbox{\Hypertarget{classcanvas_1_1canvas_aa332e2f49b9e0aef3e34e5c08a54fbd6}\label{classcanvas_1_1canvas_aa332e2f49b9e0aef3e34e5c08a54fbd6}} 
+\index{canvas.canvas@{canvas.canvas}!generate\_bg@{generate\_bg}}
+\index{generate\_bg@{generate\_bg}!canvas.canvas@{canvas.canvas}}
+\doxysubsubsection{\texorpdfstring{generate\_bg()}{generate\_bg()}}
+{\footnotesize\ttfamily def canvas.\+canvas.\+generate\+\_\+bg (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{color }\end{DoxyParamCaption})}
+
+
+
+Fill the canvas background with a color. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em color} & Color to fill the background with. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classcanvas_1_1canvas_a524127b70d3b4562902db98e3584707e}\label{classcanvas_1_1canvas_a524127b70d3b4562902db98e3584707e}} 
+\index{canvas.canvas@{canvas.canvas}!get\_canvas@{get\_canvas}}
+\index{get\_canvas@{get\_canvas}!canvas.canvas@{canvas.canvas}}
+\doxysubsubsection{\texorpdfstring{get\_canvas()}{get\_canvas()}}
+{\footnotesize\ttfamily def canvas.\+canvas.\+get\+\_\+canvas (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Gets the pygame surface the canvas draws on. 
+
+\begin{DoxyReturn}{Returns}
+The pygame surface the canvas draws on. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{canvas_8py}{canvas.\+py}}\end{DoxyCompactItemize}
