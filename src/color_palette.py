@@ -1,0 +1,175 @@
+from random import randint, choice
+
+import pygame_gui as pgui
+import pygame as pg
+
+from widget import widget
+import assets
+
+color_palettes = {
+    "Forest" : ["#323232", "#295f4e", "#6db193", "#f4e5c2"],
+    "Futuristic" : ["#222831", "#393e46", "#00adb5", "#eeeeee"],
+    "Sunset" : ["#f9ed69", "#f08a5d", "#b83b5e", "#6a2c70"],
+    "Vintage" : ["#f85f73", "#fbe8d3", "#928a97", "#283c63"],
+    "Crimson" : ["#0f1021", "#d01257", "#fb90b7", "#ffcee4"],
+    "Vampire" : ["#34374c", "#2c2e3e", "#ee2b47", "#f6f6f6"],
+    "Lightning" : ["#f3f3f3", "#ffdd67", "#ffcd38", "#4a4a4a"],
+    "Pastel" : ["#8fcfd1", "#df5e88", "#f6ab6c", "#f6efa6"],
+    "Lava" : ["#2f2519", "#4a3f35", "#fa7d09", "#ff4301"],
+    "Neon" : ["#0c093c", "#df42d1", "#eea5f6", "#fad6d6"],
+    "Lilac" : ["#f0e3ff", "#d89cf6", "#916dd5", "#3e206d"],
+    "Soft Gray" : ["#3c4245", "#5f6769", "#719192", "#dfcdc3"],
+    "Low Saturation" : ["#333644", "#84577c", "#c65f63", "#f6e1b8"],
+    "Poison" : ["#151716", "#3e432e", "#616f39", "#a7d129"],
+    "Spring" : ["#f9f9f9", "#ffe0ac", "#ffacb7", "#6886c5"],
+    "Black & White" : ["#262626", "#595959", "#b0b0b0", "#e3e3e3"],
+    "Corruption" : ["#6f4a8e", "#221f3b", "#050505", "#ebebeb"],
+    "Ivy" : ["#1fab89", "#62d2a2", "#9df3c4", "#d7fbe8"],
+    "Ocean" : ["#73f7dd", "#2cc4cb", "#1972a4", "#2e3a87"],
+    "Royalty" : ["#fcf0c8", "#f7d098", "#911f27", "#630a10"],
+    "Transit" : ["#5BCEFA", "#F5A9B8", "#FFFFFF"],
+    "Girls" : ["#d52d00", "#ef7627", "#ff9a56", "#ffffff",
+    "#D162A4", "#B55690", "#A30262"],
+    "Test" : ["#73f7dd", "#2cc4cb", "#1972a4", "#2e3a87",
+    "#fcf0c8", "#f7d098", "#911f27", "#630a10"],
+}
+
+#margins for where to place text/interactables in the dialogs
+#cpm = palette_pos[0] + 42
+#dynamic:
+#cp_lock = palette_pos[0] + 17
+#static:
+#cp_lock = palette_pos[0] + 6
+
+class color_palette(widget):
+
+    def __init__(self):
+        self.__palette_name = choice(color_palettes.keys)
+        self.__palette_colors = color_palettes[self.__palette_name]
+        self.__background_index = 0
+
+        self.__palette_lock = 0
+        self.__background_lock = 0
+
+
+    def draw_ui_dynamic(self, window, x, y):
+        interactables_margin = x + 42
+        lock_margin = x + 17
+
+        pg.draw.rect(window, pg.Color("#2B2834"), (x, y, 252, 135))
+
+        if self.__palette_lock == 0:
+            window.blit(assets.lock_disabled, (lock_margin, y+35))
+        else:
+            window.blit(assets.lock_enabled, (lock_margin, y+35))
+
+        if self.__background_lock == 0:
+            window.blit(assets.lock_disabled, (lock_margin, y+68))
+        else:
+            window.blit(assets.lock_enabled, (lock_margin, y+68))
+
+        assets.text_to_screen(window=window, text="COLOR PALETTE", color=assets.ui_h1_color, pos=(interactables_margin, y+15), font_size=18)
+        for i, color in enumerate(color_palette):
+            pg.draw.rect(window, assets.active_color if self.__background_index == i else assets.inactive_color, (interactables_margin+((i%4)*50), y+65+(36*(i//4)), 26, 26))
+            pg.draw.rect(window, pg.Color(color), (interactables_margin+3+((i%4)*50), y+68+(36*(i//4)), 20, 20))
+
+
+    def draw_ui_static(self, ui_manager, x, y):
+        interactables_margin = x + 42
+        lock_margin = x + 6
+
+        cp_len = len(self.palettes[self.palette])
+
+        current_palette_dropdown = pgui.elements.UIDropDownMenu(options_list=color_palettes.keys,
+                                                            starting_option=self.get_name_of_palette(),
+                                                            relative_rect=pg.Rect(interactables_margin, y+35, 200, 22), manager=ui_manager,
+                                                            object_id="current_palette_dropdown")
+
+        _button_one = pgui.elements.UIButton(relative_rect=pg.Rect(lock_margin, y+42, 12, 12), text="", manager=ui_manager,
+                                                object_id="lock_button_one")
+        lock_button_two = pgui.elements.UIButton(relative_rect=pg.Rect(lock_margin, y+72, 12, 12), text="", manager=ui_manager,
+                                                object_id="lock_button_two")
+        
+        bg_color_button_one = pgui.elements.UIButton(relative_rect=pg.Rect(interactables_margin+12, y+65+12, 14, 14), text="", manager=ui_manager,
+                                                object_id="bg_color_button_one", visible=cp_len>0)
+        bg_color_button_two = pgui.elements.UIButton(relative_rect=pg.Rect(interactables_margin+50+12, y+65+12, 14, 14), text="", manager=ui_manager,
+                                                object_id="bg_color_button_two", visible=cp_len>1)
+        bg_color_button_three = pgui.elements.UIButton(relative_rect=pg.Rect(interactables_margin+100+12, y+65+12, 14, 14), text="", manager=ui_manager,
+                                                object_id="bg_color_button_three", visible=cp_len>2)
+        bg_color_button_four = pgui.elements.UIButton(relative_rect=pg.Rect(interactables_margin+150+12, y+65+12, 14, 14), text="", manager=ui_manager,
+                                                object_id="bg_color_button_four", visible=cp_len>3)
+        bg_color_button_five = pgui.elements.UIButton(relative_rect=pg.Rect(interactables_margin+12, y+65+12+36, 14, 14), text="", manager=ui_manager,
+                                                object_id="bg_color_button_five", visible=cp_len>4)
+        bg_color_button_six = pgui.elements.UIButton(relative_rect=pg.Rect(interactables_margin+50+12, y+65+12+36, 14, 14), text="", manager=ui_manager,
+                                                object_id="bg_color_button_six", visible=cp_len>5)
+        bg_color_button_seven = pgui.elements.UIButton(relative_rect=pg.Rect(interactables_margin+100+12, y+65+12+36, 14, 14), text="", manager=ui_manager,
+                                                object_id="bg_color_button_seven", visible=cp_len>6)
+        bg_color_button_eight = pgui.elements.UIButton(relative_rect=pg.Rect(interactables_margin+150+12, y+65+12+36, 14, 14), text="", manager=ui_manager,
+                                                object_id="bg_color_button_eight", visible=cp_len>7)
+
+        self.bg_color_buttons = [bg_color_button_one, bg_color_button_two, bg_color_button_three, bg_color_button_four, bg_color_button_five,
+                        bg_color_button_six, bg_color_button_seven, bg_color_button_eight]
+
+
+    def refresh_ui_static(self):
+        cp_len = len(self.__palette_colors)
+
+        for i in range(8):
+            if i < cp_len:
+                self.bg_color_buttons[i].show()
+            else:
+                self.bg_color_buttons[i].hide()
+
+
+    def randomize(self):
+        if self.__palette_lock == 0:
+            self.__palette_name = choice(color_palettes.keys)
+            self.__palette_colors = color_palettes[self.__palette_name]
+            if self.__background_index >= len(self.__palette_colors):
+                    self.__background_index = randint(0, len(self.__palette_colors)-1)
+            self.refresh_ui_static()
+        
+        if self.__background_lock == 0:
+            self.__background_index = randint(0, len(self.__palette_colors)-1)
+
+
+    def events(self, event):
+        if event.ui_object_id == "bg_color_button_one":
+            bg_color_index = 0
+        if event.ui_object_id == "bg_color_button_two":
+            bg_color_index = 1
+        if event.ui_object_id == "bg_color_button_three":
+            bg_color_index = 2
+        if event.ui_object_id == "bg_color_button_four":
+            bg_color_index = 3
+        if event.ui_object_id == "bg_color_button_five":
+            bg_color_index = 4
+        if event.ui_object_id == "bg_color_button_six":
+            bg_color_index = 5
+        if event.ui_object_id == "bg_color_button_seven":
+            bg_color_index = 6
+        if event.ui_object_id == "bg_color_button_eight":
+            bg_color_index = 7
+
+        if event.ui_object_id == "current_palette_dropdown":
+            self.__palette_name = event.text
+            self.__palette_colors = color_palettes[self.__palette_name]
+            if bg_color_index >= len(self.__palette_colors):
+                bg_color_index = randint(0, len(self.__palette_colors)-1)
+            self.refresh_ui_static()
+
+
+    def get_name_of_palette(self):
+        return self.__palette_name
+
+
+    def get_colors_from_palette(self):
+        return self.__palette_colors
+
+
+    def get_background_color(self):
+        return self.__palette_colors[self.__background_index]
+
+
+    def get_foreground_colors(self):
+        return [c for c in self.__palette_colors if c != self.__palette_colors[self.__background_index]]
