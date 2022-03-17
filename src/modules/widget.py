@@ -4,12 +4,12 @@ class widget(ABC):
     
     # draw dynamic ui elements (basically anything that isn't a pgui widget) (OVERRIDE)
     @abstractmethod
-    def draw_ui_dynamic(self, window, x, y):
+    def draw_ui_dynamic(self):
         pass
 
     # draw static ui elements (basically the pgui widgets) (OVERRIDE)
     @abstractmethod
-    def draw_ui_static(self, ui_manager, x, y):
+    def draw_ui_static(self):
         pass
 
     # randomize settings (OVERRIDE)
@@ -23,7 +23,7 @@ class widget(ABC):
         pass
 
     # draw to canvas (MAYBE OVERRIDE)
-    def draw_canvas(self, window, x, y):
+    def draw_canvas(self, color_palette):
         pass
 
     # refresh the static ui elements, useful when you need to change the widgets pgui widgets (MAYBE OVERRIDE)

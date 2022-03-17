@@ -8,7 +8,7 @@ logo = pg.image.load("assets/logo.png")
 background_color = pg.Color("#322f3d")
 
 ui_h1_color = (250, 250, 250)
-hi_color = pg.Color("#DFD6FF")
+ui_color = pg.Color("#DFD6FF")
 
 active_color = (90, 90, 90)
 inactive_color = (20, 20, 20)

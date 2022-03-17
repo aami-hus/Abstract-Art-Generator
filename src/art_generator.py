@@ -1,16 +1,18 @@
 # ABSTRACT ART GENERATOR
 # By Burak U. - github.com/Burakcoli
 
-from turtle import color
-from color_palettes import Palette
-from color_palette import color_palette
 from random import randint
+
+from turtle import color
 import pygame as pg
 import pygame.gfxdraw
 import pygame.freetype
 import pygame_gui as pgui
 from tkinter import *
 from tkinter.filedialog import asksaveasfilename
+
+from modules.color_palette import color_palette
+from modules.help import help
 
 #-----------------Define UI-----------------
 pg.init()
@@ -953,7 +955,7 @@ layer_two_pos = (ui_menus_left, layer_one_pos[1]+200)
 layer_three_pos = (ui_menus_left, layer_two_pos[1]+200)
 overlay_pos = (0, palette_pos[1]+155)
 help_pos = (284, 60)
-help_left = 0
+# help_left = 0
 
 #margins for where to place text/interactables in the dialogs
 cpm = palette_pos[0] + 42
@@ -962,7 +964,7 @@ l2m = layer_two_pos[0] + 42
 l3m = layer_three_pos[0] + 42
 
 #draws the ui
-def draw_menu(window, color_palette, option_locks, help_opt):
+def draw_menu(window, option_locks):
     ui_h1_color = (250, 250, 250)
     ui_color = pg.Color("#DFD6FF")
 
@@ -975,7 +977,7 @@ def draw_menu(window, color_palette, option_locks, help_opt):
     pg.draw.rect(window, pg.Color("#2B2834"), (layer_three_pos[0], layer_three_pos[1], 252, 190))  # Layer Three BG
     pg.draw.rect(window, pg.Color("#2B2834"), (SW-245, overlay_pos[1], 210, 350))                  # Overlay BG
 
-    p1.draw_ui_dynamic(window, palette_pos[0], palette_pos[1])
+    p1.draw_ui_dynamic()
 
     cp_lock = palette_pos[0] + 17
     l1_lock = layer_one_pos[0] + 17
@@ -1090,12 +1092,15 @@ def draw_menu(window, color_palette, option_locks, help_opt):
     window.blit(pg.transform.scale(overlays[4], (80, 45)), (SW-230, overlay_pos[1]+200))
     window.blit(pg.transform.scale(overlays[5], (80, 45)), (SW-130, overlay_pos[1]+200))
 
+    help_module.draw_ui_dynamic()
+
 
 #generates the ui interactables
 def generate_ui():
     ui_manager.clear_and_reset()
 
-    p1.draw_ui_static(ui_manager, palette_pos[0], palette_pos[1])
+    p1.draw_ui_static()
+    help_module.draw_ui_static()
 
     #locations for lock buttons
     cp_lock = palette_pos[0] + 6
@@ -1244,78 +1249,79 @@ def generate_ui():
     # bg_color_buttons = [bg_color_button_one, bg_color_button_two, bg_color_button_three, bg_color_button_four, bg_color_button_five,
     #                     bg_color_button_six, bg_color_button_seven, bg_color_button_eight]
 
-    help_opt_button = pgui.elements.UIButton(relative_rect=pg.Rect(help_pos[0], help_pos[1], 100, 30), text="HELP", manager=ui_manager,
-                                             object_id="help_opt_button")
+    # help_opt_button = pgui.elements.UIButton(relative_rect=pg.Rect(help_pos[0], help_pos[1], 100, 30), text="HELP", manager=ui_manager,
+    #                                          object_id="help_opt_button")
 
     # return bg_color_buttons
 
 
-def draw_help():
-    if help_left:
-        pg.draw.rect(window, pg.Color("#2B2834"), (help_pos[0] - 510, help_pos[1], 510, 380))
-        p = [help_pos[0] - 500, help_pos[1]+10]
-    else:
-        pg.draw.rect(window, pg.Color("#2B2834"), (help_pos[0]+100, 90, 510, 380))
-        p = [help_pos[0] + 110, help_pos[1]+10]
-    c, s = [255, 255, 255], 12     # Color, Position, Font-size
-    ri = 12     # Row interval
-    text_to_screen(window, "Thanks for trying out my program! Let me help you with how the program works.", c, p, s)
-    p = [p[0], p[1]+ri+10]
-    text_to_screen(window, "Left side contains the art generation options, we have two layers that can be in different", c, p, s)
-    p = [p[0], p[1]+ri]
-    text_to_screen(window, "styles, different shapes, different complexities and different sizes. For example a layer", c, p, s)
-    p = [p[0], p[1]+ri]
-    text_to_screen(window, "with 'Cornered' 'Circles' options, will generate circles that are roughly cornered.", c, p, s)
-    p = [p[0], p[1]+ri+10]
-    text_to_screen(window, "Random values have a big part in my program to make the possibilities endless", c, p, s)
-    p = [p[0], p[1]+ri]
-    text_to_screen(window, "If you like a setting and want to keep it but randomize other settings, you can just click", c, p, s)
-    p = [p[0], p[1] + ri]
-    text_to_screen(window, "on the small buttons right next to the options to 'Lock' them for generating randomly.", c, p, s)
-    p = [p[0], p[1] + ri+10]
-    c = pg.Color("#DFD6FF")
-    text_to_screen(window, "Generate Button: Generates art with the options specified in the options panel.", c, p, s)
-    p = [p[0], p[1] + ri]
-    text_to_screen(window, "Generate Randomly Button: Generates art by randomizing the options on the left.", c, p, s)
-    p = [p[0], p[1] + ri]
-    text_to_screen(window, "Export Button: Opens a file dialog and let's you export a png of your art in 4k quality.", c, p, s)
-    p = [p[0], p[1] + ri+10]
-    c = [255, 255, 255]
-    text_to_screen(window, "Overlay options don't change by randomizing or generating new art with adjusting the options.", c, p, s)
-    p = [p[0], p[1] + ri]
-    text_to_screen(window, "And you can try new overlays with existing art. ", c, p, s)
-    p = [p[0], p[1] + ri+10]
-    text_to_screen(window, "There are 20 unique color palettes, and there are seven style options with eight shape options.", c, p, s)
-    p = [p[0], p[1] + ri]
-    text_to_screen(window, "Shapes are self explanatory but let's take a look at the styles:", c, p, s)
-    p = [p[0], p[1] + ri+5]
-    c = pg.Color("#DFD6FF")
-    text_to_screen(window, "Chaotic - The most randomized option.", c, p, s)
-    p = [p[0], p[1] + ri]
-    text_to_screen(window, "Striped Horizontal - Whatever the shape is, the shapes roughly line up in horizontal lines", c, p, s)
-    p = [p[0], p[1] + ri]
-    text_to_screen(window, "Striped Vertical - Same with striped horizontal but it's vertical.", c, p, s)
-    p = [p[0], p[1] + ri]
-    text_to_screen(window, "Mosaic - The selected shape will cover the canvas with equal amount of spacing between them.", c, p, s)
-    p = [p[0], p[1] + ri]
-    text_to_screen(window, "Cornered - Forces the randomizer to make the shapes appear roughly on the corners.", c, p, s)
-    p = [p[0], p[1] + ri]
-    text_to_screen(window, "Centered - Forces the randomizer to make the shapes appear roughlt on the center.", c, p, s)
-    p = [p[0], p[1] + ri]
-    text_to_screen(window, "Empty - Doesn't draw any shapes to the layer. Sometimes one shape is enough for the art.", c, p, s)
-    p = [p[0], p[1] + ri+10]
-    c = [255, 255, 255]
-    text_to_screen(window, "Complexity adjusts how many shapes will be drawn, it's more absolute than the size option.", c, p, s)
-    p = [p[0], p[1] + ri]
-    text_to_screen(window, "Size option adjusts how large the shapes 'can' be. Size is still more randomized for variety.", c, p, s)
-    p = [p[0], p[1] + ri+10]
-    c = pg.Color("#DFD6FF")
-    text_to_screen(window, "ENJOY!", c, p, s)
+# def draw_help():
+#     if help_left:
+#         pg.draw.rect(window, pg.Color("#2B2834"), (help_pos[0] - 510, help_pos[1], 510, 380))
+#         p = [help_pos[0] - 500, help_pos[1]+10]
+#     else:
+#         pg.draw.rect(window, pg.Color("#2B2834"), (help_pos[0]+100, 90, 510, 380))
+#         p = [help_pos[0] + 110, help_pos[1]+10]
+#     c, s = [255, 255, 255], 12     # Color, Position, Font-size
+#     ri = 12     # Row interval
+#     text_to_screen(window, "Thanks for trying out my program! Let me help you with how the program works.", c, p, s)
+#     p = [p[0], p[1]+ri+10]
+#     text_to_screen(window, "Left side contains the art generation options, we have two layers that can be in different", c, p, s)
+#     p = [p[0], p[1]+ri]
+#     text_to_screen(window, "styles, different shapes, different complexities and different sizes. For example a layer", c, p, s)
+#     p = [p[0], p[1]+ri]
+#     text_to_screen(window, "with 'Cornered' 'Circles' options, will generate circles that are roughly cornered.", c, p, s)
+#     p = [p[0], p[1]+ri+10]
+#     text_to_screen(window, "Random values have a big part in my program to make the possibilities endless", c, p, s)
+#     p = [p[0], p[1]+ri]
+#     text_to_screen(window, "If you like a setting and want to keep it but randomize other settings, you can just click", c, p, s)
+#     p = [p[0], p[1] + ri]
+#     text_to_screen(window, "on the small buttons right next to the options to 'Lock' them for generating randomly.", c, p, s)
+#     p = [p[0], p[1] + ri+10]
+#     c = pg.Color("#DFD6FF")
+#     text_to_screen(window, "Generate Button: Generates art with the options specified in the options panel.", c, p, s)
+#     p = [p[0], p[1] + ri]
+#     text_to_screen(window, "Generate Randomly Button: Generates art by randomizing the options on the left.", c, p, s)
+#     p = [p[0], p[1] + ri]
+#     text_to_screen(window, "Export Button: Opens a file dialog and let's you export a png of your art in 4k quality.", c, p, s)
+#     p = [p[0], p[1] + ri+10]
+#     c = [255, 255, 255]
+#     text_to_screen(window, "Overlay options don't change by randomizing or generating new art with adjusting the options.", c, p, s)
+#     p = [p[0], p[1] + ri]
+#     text_to_screen(window, "And you can try new overlays with existing art. ", c, p, s)
+#     p = [p[0], p[1] + ri+10]
+#     text_to_screen(window, "There are 20 unique color palettes, and there are seven style options with eight shape options.", c, p, s)
+#     p = [p[0], p[1] + ri]
+#     text_to_screen(window, "Shapes are self explanatory but let's take a look at the styles:", c, p, s)
+#     p = [p[0], p[1] + ri+5]
+#     c = pg.Color("#DFD6FF")
+#     text_to_screen(window, "Chaotic - The most randomized option.", c, p, s)
+#     p = [p[0], p[1] + ri]
+#     text_to_screen(window, "Striped Horizontal - Whatever the shape is, the shapes roughly line up in horizontal lines", c, p, s)
+#     p = [p[0], p[1] + ri]
+#     text_to_screen(window, "Striped Vertical - Same with striped horizontal but it's vertical.", c, p, s)
+#     p = [p[0], p[1] + ri]
+#     text_to_screen(window, "Mosaic - The selected shape will cover the canvas with equal amount of spacing between them.", c, p, s)
+#     p = [p[0], p[1] + ri]
+#     text_to_screen(window, "Cornered - Forces the randomizer to make the shapes appear roughly on the corners.", c, p, s)
+#     p = [p[0], p[1] + ri]
+#     text_to_screen(window, "Centered - Forces the randomizer to make the shapes appear roughlt on the center.", c, p, s)
+#     p = [p[0], p[1] + ri]
+#     text_to_screen(window, "Empty - Doesn't draw any shapes to the layer. Sometimes one shape is enough for the art.", c, p, s)
+#     p = [p[0], p[1] + ri+10]
+#     c = [255, 255, 255]
+#     text_to_screen(window, "Complexity adjusts how many shapes will be drawn, it's more absolute than the size option.", c, p, s)
+#     p = [p[0], p[1] + ri]
+#     text_to_screen(window, "Size option adjusts how large the shapes 'can' be. Size is still more randomized for variety.", c, p, s)
+#     p = [p[0], p[1] + ri+10]
+#     c = pg.Color("#DFD6FF")
+#     text_to_screen(window, "ENJOY!", c, p, s)
 
 
 c1 = Canvas((3840, 2160), (int(SW//1.8), int(SH//1.8)))
 
-p1 = color_palette()
+p1 = color_palette(palette_pos[0], palette_pos[1], window, ui_manager)
+help_module = help(help_pos[0], help_pos[1], window, ui_manager)
 layer_one_style = "Striped Vertical"
 layer_one_shape = "Lines"
 layer_two_style = "Cornered"
@@ -1337,8 +1343,6 @@ layer_three_magnitude = [50, 400]
 # 10-13: layer three
 #              [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13]
 option_locks = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-help_opt = 0
 
 export_resolution = resolutions_list[0]
 
@@ -1375,6 +1379,7 @@ while run:
         if event.type == pg.USEREVENT:
 
             p1.events(event)
+            help_module.events(event)
 
             if event.user_type == pgui.UI_BUTTON_PRESSED:
                 if event.ui_object_id == "generate_button":
@@ -1448,8 +1453,8 @@ while run:
 
                     c1.blit_to_canvas()
 
-                if event.ui_object_id == "help_opt_button":
-                    help_opt = 1 if help_opt == 0 else 0
+                # if event.ui_object_id == "help_opt_button":
+                #     help_opt = 1 if help_opt == 0 else 0
 
                 if event.ui_object_id == "export_art_button":
                     path = c1.export_art()
@@ -1574,10 +1579,8 @@ while run:
     ui_manager.update(delta_time)
     window.fill(background_color)
     c1.draw(window)
-    draw_menu(window, p1.get_colors_from_palette(), option_locks, help_opt)
+    draw_menu(window, option_locks)
     ui_manager.draw_ui(window)
-    if help_opt == 1:
-        draw_help()
     pg.display.update()
 
 pg.quit()
