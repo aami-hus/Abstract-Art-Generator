@@ -13,6 +13,7 @@ from tkinter.filedialog import asksaveasfilename
 
 from modules.color_palette import color_palette
 from modules.help import help
+from modules.layer import layer
 
 #-----------------Define UI-----------------
 pg.init()
@@ -93,9 +94,9 @@ class Canvas:
 
         self.bg_layer = pg.Surface((self.width, self.height))
         self.bg_layer.fill((255, 255, 255))
-        self.layer_one = pg.Surface((self.width, self.height), pg.SRCALPHA)
-        self.layer_two = pg.Surface((self.width, self.height), pg.SRCALPHA)
-        self.layer_three = pg.Surface((self.width, self.height), pg.SRCALPHA) #AH
+        # self.layer_one = pg.Surface((self.width, self.height), pg.SRCALPHA)
+        # self.layer_two = pg.Surface((self.width, self.height), pg.SRCALPHA)
+        # self.layer_three = pg.Surface((self.width, self.height), pg.SRCALPHA) #AH
         self.fg_layer = pg.Surface((self.width, self.height), pg.SRCALPHA)
 
     def export_art(self):
@@ -894,49 +895,53 @@ class Canvas:
         self.fg_layer.blit(overlay, (0, 0))
         self.blit_to_canvas()
 
-    def generate_layer_one(self, art_style, art_shape, color_palette, complexity, magnitude):
-        self.generate_art(self.layer_one, art_style, art_shape, color_palette, complexity, magnitude)
+    # def generate_layer_one(self, art_style, art_shape, color_palette, complexity, magnitude):
+    #     self.generate_art(self.layer_one, art_style, art_shape, color_palette, complexity, magnitude)
 
-    def generate_layer_two(self, art_style, art_shape, color_palette, complexity, magnitude):
-        self.generate_art(self.layer_two, art_style, art_shape, color_palette, complexity, magnitude)
+    # def generate_layer_two(self, art_style, art_shape, color_palette, complexity, magnitude):
+    #     self.generate_art(self.layer_two, art_style, art_shape, color_palette, complexity, magnitude)
 
-    def generate_layer_three(self, art_style, art_shape, color_palette, complexity, magnitude):
-        self.generate_art(self.layer_three, art_style, art_shape, color_palette, complexity, magnitude) #AH
+    # def generate_layer_three(self, art_style, art_shape, color_palette, complexity, magnitude):
+    #     self.generate_art(self.layer_three, art_style, art_shape, color_palette, complexity, magnitude) #AH
 
+    def generate_layer(self, layer, color_palette):
+        self.generate_art(layer, color_palette)
 
-    def generate_art(self, layer, art_style, art_shape, color_palette, complexity, magnitude):
-        self.clean_layer(layer)
-        layer.set_colorkey((0, 0, 0))
+    def generate_art(self, layer, color_palette):
+        layer.clean_layer()
+        layer.layer.set_colorkey((0, 0, 0))
 
-        if art_shapes_list[0] == art_shape:
-            self.generate_lines(complexity, color_palette, art_style, layer, magnitude)
+        if art_shapes_list[0] == layer.get_layer_shape():
+            self.generate_lines(layer.get_layer_complexity(), color_palette, layer.get_layer_style(), layer.layer, [50, 400])
 
-        if art_shapes_list[1] == art_shape:
-            self.generate_circles(complexity, color_palette, art_style, layer, magnitude, 0)
+        if art_shapes_list[1] == layer.get_layer_shape():
+            self.generate_circles(layer.get_layer_complexity(), color_palette, layer.get_layer_style(), layer.layer, [50, 400], 0)
 
-        if art_shapes_list[2] == art_shape:
-            self.generate_squares(complexity, color_palette, art_style, layer, magnitude)
+        if art_shapes_list[2] == layer.get_layer_shape():
+            self.generate_squares(layer.get_layer_complexity(), color_palette, layer.get_layer_style(), layer.layer, [50, 400])
 
-        if art_shapes_list[3] == art_shape:
-            self.generate_polygons(complexity, color_palette, art_style, layer, magnitude, 1)
+        if art_shapes_list[3] == layer.get_layer_shape():
+            self.generate_polygons(layer.get_layer_complexity(), color_palette, layer.get_layer_style(), layer.layer, [50, 400], 1)
 
-        if art_shapes_list[4] == art_shape:
-            self.generate_polygons(complexity, color_palette, art_style, layer, magnitude, 0)
+        if art_shapes_list[4] == layer.get_layer_shape():
+            self.generate_polygons(layer.get_layer_complexity(), color_palette, layer.get_layer_style(), layer.layer, [50, 400], 0)
 
-        if art_shapes_list[5] == art_shape:
-            self.generate_dots(complexity, color_palette, art_style, layer, magnitude)
+        if art_shapes_list[5] == layer.get_layer_shape():
+            self.generate_dots(layer.get_layer_complexity(), color_palette, layer.get_layer_style(), layer.layer, [50, 400])
 
-        if art_shapes_list[6] == art_shape:
-            self.generate_curves(complexity, color_palette, art_style, layer, magnitude[1])
+        if art_shapes_list[6] == layer.get_layer_shape():
+            self.generate_curves(layer.get_layer_complexity(), color_palette, layer.get_layer_style(), layer.layer, 400) #400 from [50, 400]
 
-        if art_shapes_list[7] == art_shape:
-            self.generate_circles(complexity, color_palette, art_style, layer, magnitude, 1)
+        if art_shapes_list[7] == layer.get_layer_shape():
+            self.generate_circles(layer.get_layer_complexity(), color_palette, layer.get_layer_style(), layer.layer, [50, 400], 1)
 
-    def blit_to_canvas(self):
+    def blit_to_canvas(self, layers):
         self.canvas.blit(self.bg_layer, (0, 0))
-        self.canvas.blit(self.layer_one, (0, 0))
-        self.canvas.blit(self.layer_two, (0, 0))
-        self.canvas.blit(self.layer_three, (0, 0)) #AH
+        # self.canvas.blit(self.layer_one, (0, 0))
+        # self.canvas.blit(self.layer_two, (0, 0))
+        # self.canvas.blit(self.layer_three, (0, 0)) #AH
+        for i in layers:
+            self.canvas.blit(i.layer, (0, 0)) #AH2
         self.canvas.blit(self.fg_layer, (0, 0))
         self.canvas.convert()
         self.display_canvas = pg.transform.smoothscale(self.canvas, self.display_size)
@@ -972,12 +977,15 @@ def draw_menu(window, option_locks):
     lock_disabled = pg.transform.scale(pg.image.load("assets/lock_disabled.png"), (20, 20))
 
     # pg.draw.rect(window, pg.Color("#2B2834"), (palette_pos[0], palette_pos[1], 252, 135))           # Color Palette BG
-    pg.draw.rect(window, pg.Color("#2B2834"), (layer_one_pos[0], layer_one_pos[1], 252, 190))      # Layer One BG
-    pg.draw.rect(window, pg.Color("#2B2834"), (layer_two_pos[0], layer_two_pos[1], 252, 190))      # Layer Two BG
-    pg.draw.rect(window, pg.Color("#2B2834"), (layer_three_pos[0], layer_three_pos[1], 252, 190))  # Layer Three BG
+    # pg.draw.rect(window, pg.Color("#2B2834"), (layer_one_pos[0], layer_one_pos[1], 252, 190))      # Layer One BG
+    # pg.draw.rect(window, pg.Color("#2B2834"), (layer_two_pos[0], layer_two_pos[1], 252, 190))      # Layer Two BG
+    # pg.draw.rect(window, pg.Color("#2B2834"), (layer_three_pos[0], layer_three_pos[1], 252, 190))  # Layer Three BG
     pg.draw.rect(window, pg.Color("#2B2834"), (SW-245, overlay_pos[1], 210, 350))                  # Overlay BG
 
     p1.draw_ui_dynamic()
+    l1.draw_ui_dynamic()
+    l2.draw_ui_dynamic()
+    l3.draw_ui_dynamic()
 
     cp_lock = palette_pos[0] + 17
     l1_lock = layer_one_pos[0] + 17
@@ -994,65 +1002,65 @@ def draw_menu(window, option_locks):
     # else:
     #     window.blit(lock_enabled, (cp_lock, palette_pos[1]+68))
 
-    if option_locks[2] == 0:
-        window.blit(lock_disabled, (l1_lock, layer_one_pos[1]+30))
-    else:
-        window.blit(lock_enabled, (l1_lock, layer_one_pos[1]+30))
+    # if option_locks[2] == 0:
+    #     window.blit(lock_disabled, (l1_lock, layer_one_pos[1]+30))
+    # else:
+    #     window.blit(lock_enabled, (l1_lock, layer_one_pos[1]+30))
 
-    if option_locks[3] == 0:
-        window.blit(lock_disabled, (l1_lock, layer_one_pos[1]+60))
-    else:
-        window.blit(lock_enabled, (l1_lock, layer_one_pos[1]+60))
+    # if option_locks[3] == 0:
+    #     window.blit(lock_disabled, (l1_lock, layer_one_pos[1]+60))
+    # else:
+    #     window.blit(lock_enabled, (l1_lock, layer_one_pos[1]+60))
 
-    if option_locks[4] == 0:
-        window.blit(lock_disabled, (l1_lock, layer_one_pos[1]+110))
-    else:
-        window.blit(lock_enabled, (l1_lock, layer_one_pos[1]+110))
+    # if option_locks[4] == 0:
+    #     window.blit(lock_disabled, (l1_lock, layer_one_pos[1]+110))
+    # else:
+    #     window.blit(lock_enabled, (l1_lock, layer_one_pos[1]+110))
 
-    if option_locks[5] == 0:
-        window.blit(lock_disabled, (l1_lock, layer_one_pos[1]+160))
-    else:
-        window.blit(lock_enabled, (l1_lock, layer_one_pos[1]+160))
+    # if option_locks[5] == 0:
+    #     window.blit(lock_disabled, (l1_lock, layer_one_pos[1]+160))
+    # else:
+    #     window.blit(lock_enabled, (l1_lock, layer_one_pos[1]+160))
 
-    if option_locks[6] == 0:
-        window.blit(lock_disabled, (l2_lock, layer_two_pos[1]+30))
-    else:
-        window.blit(lock_enabled, (l2_lock, layer_two_pos[1]+30))
+    # if option_locks[6] == 0:
+    #     window.blit(lock_disabled, (l2_lock, layer_two_pos[1]+30))
+    # else:
+    #     window.blit(lock_enabled, (l2_lock, layer_two_pos[1]+30))
 
-    if option_locks[7] == 0:
-        window.blit(lock_disabled, (l2_lock, layer_two_pos[1]+60))
-    else:
-        window.blit(lock_enabled, (l2_lock, layer_two_pos[1]+60))
+    # if option_locks[7] == 0:
+    #     window.blit(lock_disabled, (l2_lock, layer_two_pos[1]+60))
+    # else:
+    #     window.blit(lock_enabled, (l2_lock, layer_two_pos[1]+60))
 
-    if option_locks[8] == 0:
-        window.blit(lock_disabled, (l2_lock, layer_two_pos[1]+110))
-    else:
-        window.blit(lock_enabled, (l2_lock, layer_two_pos[1]+110))
+    # if option_locks[8] == 0:
+    #     window.blit(lock_disabled, (l2_lock, layer_two_pos[1]+110))
+    # else:
+    #     window.blit(lock_enabled, (l2_lock, layer_two_pos[1]+110))
 
-    if option_locks[9] == 0:
-        window.blit(lock_disabled, (l2_lock, layer_two_pos[1]+160))
-    else:
-        window.blit(lock_enabled, (l2_lock, layer_two_pos[1]+160))
+    # if option_locks[9] == 0:
+    #     window.blit(lock_disabled, (l2_lock, layer_two_pos[1]+160))
+    # else:
+    #     window.blit(lock_enabled, (l2_lock, layer_two_pos[1]+160))
 
-    if option_locks[10] == 0:
-        window.blit(lock_disabled, (l3_lock, layer_three_pos[1]+30))
-    else:
-        window.blit(lock_enabled, (l3_lock, layer_three_pos[1]+30))
+    # if option_locks[10] == 0:
+    #     window.blit(lock_disabled, (l3_lock, layer_three_pos[1]+30))
+    # else:
+    #     window.blit(lock_enabled, (l3_lock, layer_three_pos[1]+30))
 
-    if option_locks[11] == 0:
-        window.blit(lock_disabled, (l3_lock, layer_three_pos[1]+60))
-    else:
-        window.blit(lock_enabled, (l3_lock, layer_three_pos[1]+60))
+    # if option_locks[11] == 0:
+    #     window.blit(lock_disabled, (l3_lock, layer_three_pos[1]+60))
+    # else:
+    #     window.blit(lock_enabled, (l3_lock, layer_three_pos[1]+60))
 
-    if option_locks[12] == 0:
-        window.blit(lock_disabled, (l3_lock, layer_three_pos[1]+110))
-    else:
-        window.blit(lock_enabled, (l3_lock, layer_three_pos[1]+110))
+    # if option_locks[12] == 0:
+    #     window.blit(lock_disabled, (l3_lock, layer_three_pos[1]+110))
+    # else:
+    #     window.blit(lock_enabled, (l3_lock, layer_three_pos[1]+110))
 
-    if option_locks[13] == 0:
-        window.blit(lock_disabled, (l3_lock, layer_three_pos[1]+160))
-    else:
-        window.blit(lock_enabled, (l3_lock, layer_three_pos[1]+160))
+    # if option_locks[13] == 0:
+    #     window.blit(lock_disabled, (l3_lock, layer_three_pos[1]+160))
+    # else:
+    #     window.blit(lock_enabled, (l3_lock, layer_three_pos[1]+160))
 
     active_color = (90, 90, 90)
     inactive_color = (20, 20, 20)
@@ -1063,15 +1071,15 @@ def draw_menu(window, option_locks):
     # for i, color in enumerate(color_palette):
     #     pg.draw.rect(window, active_color if bg_color_index == i else inactive_color, (cpm+((i%4)*50), palette_pos[1]+65+(36*(i//4)), 26, 26))
     #     pg.draw.rect(window, pg.Color(color), (cpm+3+((i%4)*50), palette_pos[1]+68+(36*(i//4)), 20, 20))
-    text_to_screen(window=window, text="LAYER ONE STYLE", color=ui_h1_color, pos=(l1m, layer_one_pos[1]+10), font_size=18)
-    text_to_screen(window=window, text="LAYER ONE COMPLEXITY", color=ui_color, pos=(l1m, layer_one_pos[1]+95), font_size=14)
-    text_to_screen(window=window, text="LAYER ONE SHAPE SIZE", color=ui_color, pos=(l1m, layer_one_pos[1]+145), font_size=14)
-    text_to_screen(window=window, text="LAYER TWO STYLE", color=ui_h1_color, pos=(l2m, layer_two_pos[1]+10), font_size=18)
-    text_to_screen(window=window, text="LAYER TWO COMPLEXITY", color=ui_color, pos=(l2m, layer_two_pos[1]+95), font_size=14)
-    text_to_screen(window=window, text="LAYER TWO SHAPE SIZE", color=ui_color, pos=(l2m, layer_two_pos[1]+145), font_size=14)
-    text_to_screen(window=window, text="LAYER THREE STYLE", color=ui_h1_color, pos=(l3m, layer_three_pos[1]+10), font_size=18)
-    text_to_screen(window=window, text="LAYER THREE COMPLEXITY", color=ui_color, pos=(l3m, layer_three_pos[1]+95), font_size=14)
-    text_to_screen(window=window, text="LAYER THREE SHAPE SIZE", color=ui_color, pos=(l3m, layer_three_pos[1]+145), font_size=14)
+    # text_to_screen(window=window, text="LAYER ONE STYLE", color=ui_h1_color, pos=(l1m, layer_one_pos[1]+10), font_size=18)
+    # text_to_screen(window=window, text="LAYER ONE COMPLEXITY", color=ui_color, pos=(l1m, layer_one_pos[1]+95), font_size=14)
+    # text_to_screen(window=window, text="LAYER ONE SHAPE SIZE", color=ui_color, pos=(l1m, layer_one_pos[1]+145), font_size=14)
+    # text_to_screen(window=window, text="LAYER TWO STYLE", color=ui_h1_color, pos=(l2m, layer_two_pos[1]+10), font_size=18)
+    # text_to_screen(window=window, text="LAYER TWO COMPLEXITY", color=ui_color, pos=(l2m, layer_two_pos[1]+95), font_size=14)
+    # text_to_screen(window=window, text="LAYER TWO SHAPE SIZE", color=ui_color, pos=(l2m, layer_two_pos[1]+145), font_size=14)
+    # text_to_screen(window=window, text="LAYER THREE STYLE", color=ui_h1_color, pos=(l3m, layer_three_pos[1]+10), font_size=18)
+    # text_to_screen(window=window, text="LAYER THREE COMPLEXITY", color=ui_color, pos=(l3m, layer_three_pos[1]+95), font_size=14)
+    # text_to_screen(window=window, text="LAYER THREE SHAPE SIZE", color=ui_color, pos=(l3m, layer_three_pos[1]+145), font_size=14)
 
     text_to_screen(window=window, text="OVERLAY", color=ui_h1_color, pos=(SW-174, overlay_pos[1]+12), font_size=18)
 
@@ -1101,6 +1109,9 @@ def generate_ui():
 
     p1.draw_ui_static()
     help_module.draw_ui_static()
+    l1.draw_ui_static()
+    l2.draw_ui_static()
+    l3.draw_ui_static()
 
     #locations for lock buttons
     cp_lock = palette_pos[0] + 6
@@ -1113,62 +1124,62 @@ def generate_ui():
     #                                                         relative_rect=pg.Rect(cpm, palette_pos[1]+35, 200, 22), manager=ui_manager,
     #                                                         object_id="current_palette_dropdown")
 
-    layer_one_style_dropdown = pgui.elements.UIDropDownMenu(options_list=art_styles_list,
-                                                            starting_option=layer_one_style,
-                                                            relative_rect=pg.Rect(l1m, layer_one_pos[1]+30, 200, 22), manager=ui_manager,
-                                                            object_id="layer_one_style_dropdown")
+    # layer_one_style_dropdown = pgui.elements.UIDropDownMenu(options_list=art_styles_list,
+    #                                                         starting_option=layer_one_style,
+    #                                                         relative_rect=pg.Rect(l1m, layer_one_pos[1]+30, 200, 22), manager=ui_manager,
+    #                                                         object_id="layer_one_style_dropdown")
 
-    layer_one_shape_dropdown = pgui.elements.UIDropDownMenu(options_list=art_shapes_list,
-                                                            starting_option=layer_one_shape,
-                                                            relative_rect=pg.Rect(l1m, layer_one_pos[1]+60, 200, 22), manager=ui_manager,
-                                                            object_id="layer_one_shape_dropdown")
+    # layer_one_shape_dropdown = pgui.elements.UIDropDownMenu(options_list=art_shapes_list,
+    #                                                         starting_option=layer_one_shape,
+    #                                                         relative_rect=pg.Rect(l1m, layer_one_pos[1]+60, 200, 22), manager=ui_manager,
+    #                                                         object_id="layer_one_shape_dropdown")
 
-    layer_one_complexity_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(l1m, layer_one_pos[1]+110, 200, 22),
-                                                                   start_value=layer_one_complexity,
-                                                                   value_range=(10, 30), manager=ui_manager,
-                                                                   object_id="layer_one_complexity_slider")
+    # layer_one_complexity_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(l1m, layer_one_pos[1]+110, 200, 22),
+    #                                                                start_value=layer_one_complexity,
+    #                                                                value_range=(10, 30), manager=ui_manager,
+    #                                                                object_id="layer_one_complexity_slider")
 
-    layer_one_size_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(l1m, layer_one_pos[1]+160, 200, 22),
-                                                             start_value=layer_one_magnitude[1], value_range=(50, 400),
-                                                             manager=ui_manager, object_id="layer_one_size_slider")
+    # layer_one_size_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(l1m, layer_one_pos[1]+160, 200, 22),
+    #                                                          start_value=layer_one_magnitude[1], value_range=(50, 400),
+    #                                                          manager=ui_manager, object_id="layer_one_size_slider")
 
-    layer_two_style_dropdown = pgui.elements.UIDropDownMenu(options_list=art_styles_list,
-                                                            starting_option=layer_two_style,
-                                                            relative_rect=pg.Rect(l2m, layer_two_pos[1]+30, 200, 22), manager=ui_manager,
-                                                            object_id="layer_two_style_dropdown")
+    # layer_two_style_dropdown = pgui.elements.UIDropDownMenu(options_list=art_styles_list,
+    #                                                         starting_option=layer_two_style,
+    #                                                         relative_rect=pg.Rect(l2m, layer_two_pos[1]+30, 200, 22), manager=ui_manager,
+    #                                                         object_id="layer_two_style_dropdown")
 
-    layer_two_shape_dropdown = pgui.elements.UIDropDownMenu(options_list=art_shapes_list,
-                                                            starting_option=layer_two_shape,
-                                                            relative_rect=pg.Rect(l2m, layer_two_pos[1]+60, 200, 22), manager=ui_manager,
-                                                            object_id="layer_two_shape_dropdown")
+    # layer_two_shape_dropdown = pgui.elements.UIDropDownMenu(options_list=art_shapes_list,
+    #                                                         starting_option=layer_two_shape,
+    #                                                         relative_rect=pg.Rect(l2m, layer_two_pos[1]+60, 200, 22), manager=ui_manager,
+    #                                                         object_id="layer_two_shape_dropdown")
 
-    layer_two_complexity_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(l2m, layer_two_pos[1]+110, 200, 22),
-                                                                   start_value=layer_two_complexity,
-                                                                   value_range=(10, 30), manager=ui_manager,
-                                                                   object_id="layer_two_complexity_slider")
+    # layer_two_complexity_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(l2m, layer_two_pos[1]+110, 200, 22),
+    #                                                                start_value=layer_two_complexity,
+    #                                                                value_range=(10, 30), manager=ui_manager,
+    #                                                                object_id="layer_two_complexity_slider")
 
-    layer_two_size_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(l2m, layer_two_pos[1]+160, 200, 22),
-                                                             start_value=layer_two_magnitude[1], value_range=(50, 400),
-                                                             manager=ui_manager, object_id="layer_two_size_slider")
+    # layer_two_size_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(l2m, layer_two_pos[1]+160, 200, 22),
+    #                                                          start_value=layer_two_magnitude[1], value_range=(50, 400),
+    #                                                          manager=ui_manager, object_id="layer_two_size_slider")
 
-    layer_three_style_dropdown = pgui.elements.UIDropDownMenu(options_list=art_styles_list,
-                                                            starting_option=layer_three_style,
-                                                            relative_rect=pg.Rect(l3m, layer_three_pos[1]+30, 200, 22), manager=ui_manager,
-                                                            object_id="layer_three_style_dropdown")
+    # layer_three_style_dropdown = pgui.elements.UIDropDownMenu(options_list=art_styles_list,
+    #                                                         starting_option=layer_three_style,
+    #                                                         relative_rect=pg.Rect(l3m, layer_three_pos[1]+30, 200, 22), manager=ui_manager,
+    #                                                         object_id="layer_three_style_dropdown")
 
-    layer_three_shape_dropdown = pgui.elements.UIDropDownMenu(options_list=art_shapes_list,
-                                                            starting_option=layer_three_shape,
-                                                            relative_rect=pg.Rect(l3m, layer_three_pos[1]+60, 200, 22), manager=ui_manager,
-                                                            object_id="layer_three_shape_dropdown")
+    # layer_three_shape_dropdown = pgui.elements.UIDropDownMenu(options_list=art_shapes_list,
+    #                                                         starting_option=layer_three_shape,
+    #                                                         relative_rect=pg.Rect(l3m, layer_three_pos[1]+60, 200, 22), manager=ui_manager,
+    #                                                         object_id="layer_three_shape_dropdown")
 
-    layer_three_complexity_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(l3m, layer_three_pos[1]+110, 200, 22),
-                                                                   start_value=layer_three_complexity,
-                                                                   value_range=(10, 30), manager=ui_manager,
-                                                                   object_id="layer_three_complexity_slider")
+    # layer_three_complexity_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(l3m, layer_three_pos[1]+110, 200, 22),
+    #                                                                start_value=layer_three_complexity,
+    #                                                                value_range=(10, 30), manager=ui_manager,
+    #                                                                object_id="layer_three_complexity_slider")
 
-    layer_three_size_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(l3m, layer_three_pos[1]+160, 200, 22),
-                                                             start_value=layer_three_magnitude[1], value_range=(50, 400),
-                                                             manager=ui_manager, object_id="layer_three_size_slider")
+    # layer_three_size_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(l3m, layer_three_pos[1]+160, 200, 22),
+    #                                                          start_value=layer_three_magnitude[1], value_range=(50, 400),
+    #                                                          manager=ui_manager, object_id="layer_three_size_slider")
 
     resolution_dropdown = pgui.elements.UIDropDownMenu(options_list=resolutions_list,
                                                        starting_option=export_resolution,
@@ -1189,30 +1200,30 @@ def generate_ui():
     #                                          object_id="lock_button_one")
     # lock_button_two = pgui.elements.UIButton(relative_rect=pg.Rect(cp_lock, palette_pos[1]+72, 12, 12), text="", manager=ui_manager,
     #                                          object_id="lock_button_two")
-    lock_button_three = pgui.elements.UIButton(relative_rect=pg.Rect(l1_lock, layer_one_pos[1]+37, 12, 12), text="", manager=ui_manager,
-                                             object_id="lock_button_three")
-    lock_button_four = pgui.elements.UIButton(relative_rect=pg.Rect(l1_lock, layer_one_pos[1]+67, 12, 12), text="", manager=ui_manager,
-                                               object_id="lock_button_four")
-    lock_button_five = pgui.elements.UIButton(relative_rect=pg.Rect(l1_lock, layer_one_pos[1]+117, 12, 12), text="", manager=ui_manager,
-                                              object_id="lock_button_five")
-    lock_button_six = pgui.elements.UIButton(relative_rect=pg.Rect(l1_lock, layer_one_pos[1]+167, 12, 12), text="", manager=ui_manager,
-                                              object_id="lock_button_six")
-    lock_button_seven = pgui.elements.UIButton(relative_rect=pg.Rect(l2_lock, layer_two_pos[1]+37, 12, 12), text="", manager=ui_manager,
-                                             object_id="lock_button_seven")
-    lock_button_eight = pgui.elements.UIButton(relative_rect=pg.Rect(l2_lock, layer_two_pos[1]+67, 12, 12), text="", manager=ui_manager,
-                                               object_id="lock_button_eight")
-    lock_button_nine = pgui.elements.UIButton(relative_rect=pg.Rect(l2_lock, layer_two_pos[1]+117, 12, 12), text="", manager=ui_manager,
-                                               object_id="lock_button_nine")
-    lock_button_ten = pgui.elements.UIButton(relative_rect=pg.Rect(l2_lock, layer_two_pos[1]+167, 12, 12), text="", manager=ui_manager,
-                                              object_id="lock_button_ten")
-    lock_button_eleven = pgui.elements.UIButton(relative_rect=pg.Rect(l3_lock, layer_three_pos[1]+37, 12, 12), text="", manager=ui_manager,
-                                             object_id="lock_button_eleven")
-    lock_button_twelve = pgui.elements.UIButton(relative_rect=pg.Rect(l3_lock, layer_three_pos[1]+67, 12, 12), text="", manager=ui_manager,
-                                               object_id="lock_button_twelve")
-    lock_button_thirteen = pgui.elements.UIButton(relative_rect=pg.Rect(l3_lock, layer_three_pos[1]+117, 12, 12), text="", manager=ui_manager,
-                                               object_id="lock_button_thirteen")
-    lock_button_fourteen = pgui.elements.UIButton(relative_rect=pg.Rect(l3_lock, layer_three_pos[1]+167, 12, 12), text="", manager=ui_manager,
-                                              object_id="lock_button_fourteen")
+    # lock_button_three = pgui.elements.UIButton(relative_rect=pg.Rect(l1_lock, layer_one_pos[1]+37, 12, 12), text="", manager=ui_manager,
+    #                                          object_id="lock_button_three")
+    # lock_button_four = pgui.elements.UIButton(relative_rect=pg.Rect(l1_lock, layer_one_pos[1]+67, 12, 12), text="", manager=ui_manager,
+    #                                            object_id="lock_button_four")
+    # lock_button_five = pgui.elements.UIButton(relative_rect=pg.Rect(l1_lock, layer_one_pos[1]+117, 12, 12), text="", manager=ui_manager,
+    #                                           object_id="lock_button_five")
+    # lock_button_six = pgui.elements.UIButton(relative_rect=pg.Rect(l1_lock, layer_one_pos[1]+167, 12, 12), text="", manager=ui_manager,
+    #                                           object_id="lock_button_six")
+    # lock_button_seven = pgui.elements.UIButton(relative_rect=pg.Rect(l2_lock, layer_two_pos[1]+37, 12, 12), text="", manager=ui_manager,
+    #                                          object_id="lock_button_seven")
+    # lock_button_eight = pgui.elements.UIButton(relative_rect=pg.Rect(l2_lock, layer_two_pos[1]+67, 12, 12), text="", manager=ui_manager,
+    #                                            object_id="lock_button_eight")
+    # lock_button_nine = pgui.elements.UIButton(relative_rect=pg.Rect(l2_lock, layer_two_pos[1]+117, 12, 12), text="", manager=ui_manager,
+    #                                            object_id="lock_button_nine")
+    # lock_button_ten = pgui.elements.UIButton(relative_rect=pg.Rect(l2_lock, layer_two_pos[1]+167, 12, 12), text="", manager=ui_manager,
+    #                                           object_id="lock_button_ten")
+    # lock_button_eleven = pgui.elements.UIButton(relative_rect=pg.Rect(l3_lock, layer_three_pos[1]+37, 12, 12), text="", manager=ui_manager,
+    #                                          object_id="lock_button_eleven")
+    # lock_button_twelve = pgui.elements.UIButton(relative_rect=pg.Rect(l3_lock, layer_three_pos[1]+67, 12, 12), text="", manager=ui_manager,
+    #                                            object_id="lock_button_twelve")
+    # lock_button_thirteen = pgui.elements.UIButton(relative_rect=pg.Rect(l3_lock, layer_three_pos[1]+117, 12, 12), text="", manager=ui_manager,
+    #                                            object_id="lock_button_thirteen")
+    # lock_button_fourteen = pgui.elements.UIButton(relative_rect=pg.Rect(l3_lock, layer_three_pos[1]+167, 12, 12), text="", manager=ui_manager,
+    #                                           object_id="lock_button_fourteen")
 
     overlay1_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-197, overlay_pos[1]+90, 14, 14), text="", manager=ui_manager,
                                              object_id="overlay1_button")
@@ -1322,6 +1333,10 @@ c1 = Canvas((3840, 2160), (int(SW//1.8), int(SH//1.8)))
 
 p1 = color_palette(palette_pos[0], palette_pos[1], window, ui_manager)
 help_module = help(help_pos[0], help_pos[1], window, ui_manager)
+l1 = layer(layer_one_pos[0], layer_one_pos[1], window, ui_manager, "ONE")
+l2 = layer(layer_two_pos[0], layer_two_pos[1], window, ui_manager, "TWO")
+l3 = layer(layer_three_pos[0], layer_three_pos[1], window, ui_manager, "THREE")
+
 layer_one_style = "Striped Vertical"
 layer_one_shape = "Lines"
 layer_two_style = "Cornered"
@@ -1371,7 +1386,7 @@ while run:
                 c1.generate_fg(overlays[5])
             if event.key == pg.K_7:
                 c1.clean_layer(c1.fg_layer)
-                c1.blit_to_canvas()
+                c1.blit_to_canvas([l1, l2, l3])
             if event.key == pg.K_ESCAPE:
                 run = False
                 break
@@ -1380,6 +1395,9 @@ while run:
 
             p1.events(event)
             help_module.events(event)
+            l1.events(event)
+            l2.events(event)
+            l3.events(event)
 
             if event.user_type == pgui.UI_BUTTON_PRESSED:
                 if event.ui_object_id == "generate_button":
@@ -1388,17 +1406,21 @@ while run:
                     c1.generate_bg(bg_color)
                     cp = p1.get_foreground_colors()
 
-                    c1.generate_layer_one(art_style=layer_one_style, art_shape=layer_one_shape,
-                                          color_palette=cp, complexity=layer_one_complexity,
-                                          magnitude=layer_one_magnitude)
-                    c1.generate_layer_two(art_style=layer_two_style, art_shape=layer_two_shape,
-                                          color_palette=cp, complexity=layer_two_complexity,
-                                          magnitude=layer_two_magnitude)
-                    c1.generate_layer_three(art_style=layer_three_style, art_shape=layer_three_shape,
-                                          color_palette=cp, complexity=layer_three_complexity,
-                                          magnitude=layer_three_magnitude) #AH
+                    # c1.generate_layer_one(art_style=layer_one_style, art_shape=layer_one_shape,
+                    #                       color_palette=cp, complexity=layer_one_complexity,
+                    #                       magnitude=layer_one_magnitude)
+                    # c1.generate_layer_two(art_style=layer_two_style, art_shape=layer_two_shape,
+                    #                       color_palette=cp, complexity=layer_two_complexity,
+                    #                       magnitude=layer_two_magnitude)
+                    # c1.generate_layer_three(art_style=layer_three_style, art_shape=layer_three_shape,
+                    #                       color_palette=cp, complexity=layer_three_complexity,
+                    #                       magnitude=layer_three_magnitude) #AH
 
-                    c1.blit_to_canvas()
+                    c1.generate_layer(l1, cp)
+                    c1.generate_layer(l2, cp)
+                    c1.generate_layer(l3, cp)
+
+                    c1.blit_to_canvas([l1, l2, l3])
 
                 if event.ui_object_id == "random_generate_button":
                     # if option_locks[0] == 0:
@@ -1410,30 +1432,35 @@ while run:
                     
                         # bg_color_index = randint(0, len(current_color_palette) - 1)
                     p1.randomize()
-                    if option_locks[2] == 0:
-                        layer_one_style = art_styles_list[randint(0, len(art_styles_list)-1)]
-                    if option_locks[3] == 0:
-                        layer_one_shape = art_shapes_list[randint(0, len(art_shapes_list)-1)]
-                    if option_locks[4] == 0:
-                        layer_one_complexity = randint(10, 30)
-                    if option_locks[5] == 0:
-                        layer_one_magnitude[1] = randint(51, 400)
-                    if option_locks[6] == 0:
-                        layer_two_style = art_styles_list[randint(0, len(art_styles_list)-1)]
-                    if option_locks[7] == 0:
-                        layer_two_shape = art_shapes_list[randint(0, len(art_shapes_list)-1)]
-                    if option_locks[8] == 0:
-                        layer_two_complexity = randint(10, 30)
-                    if option_locks[9] == 0:
-                        layer_two_magnitude[1] = randint(51, 400)
-                    if option_locks[10] == 0:
-                        layer_three_style = art_styles_list[randint(0, len(art_styles_list)-1)] #AH
-                    if option_locks[11] == 0:
-                        layer_three_shape = art_shapes_list[randint(0, len(art_shapes_list)-1)] #AH
-                    if option_locks[12] == 0:
-                        layer_three_complexity = randint(10, 30) #AH
-                    if option_locks[13] == 0:
-                        layer_three_magnitude[1] = randint(51, 400) #AH
+
+                    # if option_locks[2] == 0:
+                    #     layer_one_style = art_styles_list[randint(0, len(art_styles_list)-1)]
+                    # if option_locks[3] == 0:
+                    #     layer_one_shape = art_shapes_list[randint(0, len(art_shapes_list)-1)]
+                    # if option_locks[4] == 0:
+                    #     layer_one_complexity = randint(10, 30)
+                    # if option_locks[5] == 0:
+                    #     layer_one_magnitude[1] = randint(51, 400)
+                    # if option_locks[6] == 0:
+                    #     layer_two_style = art_styles_list[randint(0, len(art_styles_list)-1)]
+                    # if option_locks[7] == 0:
+                    #     layer_two_shape = art_shapes_list[randint(0, len(art_shapes_list)-1)]
+                    # if option_locks[8] == 0:
+                    #     layer_two_complexity = randint(10, 30)
+                    # if option_locks[9] == 0:
+                    #     layer_two_magnitude[1] = randint(51, 400)
+                    # if option_locks[10] == 0:
+                    #     layer_three_style = art_styles_list[randint(0, len(art_styles_list)-1)] #AH
+                    # if option_locks[11] == 0:
+                    #     layer_three_shape = art_shapes_list[randint(0, len(art_shapes_list)-1)] #AH
+                    # if option_locks[12] == 0:
+                    #     layer_three_complexity = randint(10, 30) #AH
+                    # if option_locks[13] == 0:
+                    #     layer_three_magnitude[1] = randint(51, 400) #AH
+
+                    l1.randomize()
+                    l2.randomize()
+                    l3.randomize()
 
                     generate_ui()
                     
@@ -1441,17 +1468,21 @@ while run:
                     c1.generate_bg(bg_color)
                     cp = p1.get_foreground_colors()
 
-                    c1.generate_layer_one(art_style=layer_one_style, art_shape=layer_one_shape,
-                                          color_palette=cp, complexity=layer_one_complexity,
-                                          magnitude=layer_one_magnitude)
-                    c1.generate_layer_two(art_style=layer_two_style, art_shape=layer_two_shape,
-                                          color_palette=cp, complexity=layer_two_complexity,
-                                          magnitude=layer_two_magnitude)
-                    c1.generate_layer_three(art_style=layer_three_style, art_shape=layer_three_shape,
-                                          color_palette=cp, complexity=layer_three_complexity,
-                                          magnitude=layer_three_magnitude) #AH
+                    # c1.generate_layer_one(art_style=layer_one_style, art_shape=layer_one_shape,
+                    #                       color_palette=cp, complexity=layer_one_complexity,
+                    #                       magnitude=layer_one_magnitude)
+                    # c1.generate_layer_two(art_style=layer_two_style, art_shape=layer_two_shape,
+                    #                       color_palette=cp, complexity=layer_two_complexity,
+                    #                       magnitude=layer_two_magnitude)
+                    # c1.generate_layer_three(art_style=layer_three_style, art_shape=layer_three_shape,
+                    #                       color_palette=cp, complexity=layer_three_complexity,
+                    #                       magnitude=layer_three_magnitude) #AH
 
-                    c1.blit_to_canvas()
+                    c1.generate_layer(l1, cp)
+                    c1.generate_layer(l2, cp)
+                    c1.generate_layer(l3, cp)
+
+                    c1.blit_to_canvas([l1, l2, l3])
 
                 # if event.ui_object_id == "help_opt_button":
                 #     help_opt = 1 if help_opt == 0 else 0
@@ -1473,30 +1504,30 @@ while run:
                 #     option_locks[0] = 1 if option_locks[0] == 0 else 0
                 # if event.ui_object_id == "lock_button_two":
                 #     option_locks[1] = 1 if option_locks[1] == 0 else 0
-                if event.ui_object_id == "lock_button_three":
-                    option_locks[2] = 1 if option_locks[2] == 0 else 0
-                if event.ui_object_id == "lock_button_four":
-                    option_locks[3] = 1 if option_locks[3] == 0 else 0
-                if event.ui_object_id == "lock_button_five":
-                    option_locks[4] = 1 if option_locks[4] == 0 else 0
-                if event.ui_object_id == "lock_button_six":
-                    option_locks[5] = 1 if option_locks[5] == 0 else 0
-                if event.ui_object_id == "lock_button_seven":
-                    option_locks[6] = 1 if option_locks[6] == 0 else 0
-                if event.ui_object_id == "lock_button_eight":
-                    option_locks[7] = 1 if option_locks[7] == 0 else 0
-                if event.ui_object_id == "lock_button_nine":
-                    option_locks[8] = 1 if option_locks[8] == 0 else 0
-                if event.ui_object_id == "lock_button_ten":
-                    option_locks[9] = 1 if option_locks[9] == 0 else 0 #AH
-                if event.ui_object_id == "lock_button_eleven":
-                    option_locks[10] = 1 if option_locks[10] == 0 else 0 #AH
-                if event.ui_object_id == "lock_button_twelve":
-                    option_locks[11] = 1 if option_locks[11] == 0 else 0 #AH
-                if event.ui_object_id == "lock_button_thirteen":
-                    option_locks[12] = 1 if option_locks[12] == 0 else 0 #AH
-                if event.ui_object_id == "lock_button_fourteen":
-                    option_locks[13] = 1 if option_locks[13] == 0 else 0 #AH
+                # if event.ui_object_id == "lock_button_three":
+                #     option_locks[2] = 1 if option_locks[2] == 0 else 0
+                # if event.ui_object_id == "lock_button_four":
+                #     option_locks[3] = 1 if option_locks[3] == 0 else 0
+                # if event.ui_object_id == "lock_button_five":
+                #     option_locks[4] = 1 if option_locks[4] == 0 else 0
+                # if event.ui_object_id == "lock_button_six":
+                #     option_locks[5] = 1 if option_locks[5] == 0 else 0
+                # if event.ui_object_id == "lock_button_seven":
+                #     option_locks[6] = 1 if option_locks[6] == 0 else 0
+                # if event.ui_object_id == "lock_button_eight":
+                #     option_locks[7] = 1 if option_locks[7] == 0 else 0
+                # if event.ui_object_id == "lock_button_nine":
+                #     option_locks[8] = 1 if option_locks[8] == 0 else 0
+                # if event.ui_object_id == "lock_button_ten":
+                #     option_locks[9] = 1 if option_locks[9] == 0 else 0 #AH
+                # if event.ui_object_id == "lock_button_eleven":
+                #     option_locks[10] = 1 if option_locks[10] == 0 else 0 #AH
+                # if event.ui_object_id == "lock_button_twelve":
+                #     option_locks[11] = 1 if option_locks[11] == 0 else 0 #AH
+                # if event.ui_object_id == "lock_button_thirteen":
+                #     option_locks[12] = 1 if option_locks[12] == 0 else 0 #AH
+                # if event.ui_object_id == "lock_button_fourteen":
+                #     option_locks[13] = 1 if option_locks[13] == 0 else 0 #AH
 
                 # if event.ui_object_id == "bg_color_button_one":
                 #     bg_color_index = 0
@@ -1536,7 +1567,7 @@ while run:
                 if event.ui_object_id == "overlay7_button":
                     active_overlay = 0
                     c1.clean_layer(c1.fg_layer)
-                    c1.blit_to_canvas()
+                    c1.blit_to_canvas([l1, l2, l3])
 
             if event.user_type == pgui.UI_DROP_DOWN_MENU_CHANGED:
                 if event.ui_object_id == "resolution_dropdown":
@@ -1547,32 +1578,32 @@ while run:
                 #     generate_ui(len(current_color_palette))
                 #     if bg_color_index >= len(current_color_palette):
                 #         bg_color_index = randint(0, len(current_color_palette)-1)
-                if event.ui_object_id == "layer_one_style_dropdown":
-                    layer_one_style = event.text
-                if event.ui_object_id == "layer_one_shape_dropdown":
-                    layer_one_shape = event.text
-                if event.ui_object_id == "layer_two_style_dropdown":
-                    layer_two_style = event.text
-                if event.ui_object_id == "layer_two_shape_dropdown":
-                    layer_two_shape = event.text
-                if event.ui_object_id == "layer_three_style_dropdown":
-                    layer_three_style = event.text #AH
-                if event.ui_object_id == "layer_three_shape_dropdown":
-                    layer_three_shape = event.text #AH
+            #     if event.ui_object_id == "layer_one_style_dropdown":
+            #         layer_one_style = event.text
+            #     if event.ui_object_id == "layer_one_shape_dropdown":
+            #         layer_one_shape = event.text
+            #     if event.ui_object_id == "layer_two_style_dropdown":
+            #         layer_two_style = event.text
+            #     if event.ui_object_id == "layer_two_shape_dropdown":
+            #         layer_two_shape = event.text
+            #     if event.ui_object_id == "layer_three_style_dropdown":
+            #         layer_three_style = event.text #AH
+            #     if event.ui_object_id == "layer_three_shape_dropdown":
+            #         layer_three_shape = event.text #AH
 
-            if event.user_type == pgui.UI_HORIZONTAL_SLIDER_MOVED:
-                if event.ui_object_id == "layer_one_complexity_slider":
-                    layer_one_complexity = event.value
-                if event.ui_object_id == "layer_one_size_slider":
-                    layer_one_magnitude[1] = event.value
-                if event.ui_object_id == "layer_two_complexity_slider":
-                    layer_two_complexity = event.value
-                if event.ui_object_id == "layer_two_size_slider":
-                    layer_two_magnitude[1] = event.value
-                if event.ui_object_id == "layer_three_complexity_slider":
-                    layer_three_complexity = event.value #AH
-                if event.ui_object_id == "layer_three_size_slider":
-                    layer_three_magnitude[1] = event.value #AH
+            # if event.user_type == pgui.UI_HORIZONTAL_SLIDER_MOVED:
+            #     if event.ui_object_id == "layer_one_complexity_slider":
+            #         layer_one_complexity = event.value
+            #     if event.ui_object_id == "layer_one_size_slider":
+            #         layer_one_magnitude[1] = event.value
+            #     if event.ui_object_id == "layer_two_complexity_slider":
+            #         layer_two_complexity = event.value
+            #     if event.ui_object_id == "layer_two_size_slider":
+            #         layer_two_magnitude[1] = event.value
+            #     if event.ui_object_id == "layer_three_complexity_slider":
+            #         layer_three_complexity = event.value #AH
+            #     if event.ui_object_id == "layer_three_size_slider":
+            #         layer_three_magnitude[1] = event.value #AH
 
         ui_manager.process_events(event)
 
