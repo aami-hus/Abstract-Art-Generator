@@ -1,4 +1,7 @@
 import pygame as pg
+import pygame.freetype
+
+pg.freetype.init()
 
 logo = pg.image.load("assets/logo.png")
 

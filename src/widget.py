@@ -1,7 +1,6 @@
-from abc import abstractmethod
 from abc import ABC, abstractmethod
 
-def widget(ABC):
+class widget(ABC):
     
     # draw dynamic ui elements (basically anything that isn't a pgui widget) (OVERRIDE)
     @abstractmethod
