@@ -108,6 +108,9 @@ class ui_controller:
 
     def draw_ui_dynamic(self):
         self.window.fill(assets.background_color)
+
+        self.canvas.draw()
+
         assets.text_to_screen(window=self.window, text="ABSTRACT ART GENERATOR", color=assets.ui_h1_color, pos=(430, 35), font_size=40)
         assets.text_to_screen(window=self.window, text="LAYERS", color=assets.ui_h1_color, pos=(self.layer_one_pos[0] + 42,
                             self.layer_one_pos[1]-25), font_size=24)
@@ -170,9 +173,8 @@ class ui_controller:
 
             self.draw_ui_dynamic()
 
-            self.canvas.draw()
-
             self.ui_manager.draw_ui(self.window)
+
             pg.display.update()
 
         pg.quit()
