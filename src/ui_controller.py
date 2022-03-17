@@ -1,9 +1,12 @@
-# ABSTRACT ART GENERATOR
-# By Burak U. - github.com/Burakcoli
+##
+# @file ui_controller.py
+#
+# @brief Defines and initializes the ui_controller class.
+#
+# @section author_sensors Author(s)
+# - Created by Jessica Dawson on 03/16/2022.
 
-from random import randint
-
-from turtle import color
+# Imports
 import pygame as pg
 import pygame_gui as pgui
 from tkinter import *
@@ -16,24 +19,31 @@ from modules.help import help
 import assets
 
 class ui_controller:
+    """! The ui_controller class.
 
-    #canvas export resolution
+    A high level class that calls all other modules.
+    Orchestrates pygame event handling, ui drawing, art generation, setting randomization, and art exporting.
+    """
+
+    ## Possible canvas export resolutions.
     resolutions_list = [
         "4K: 3840x2160",
         "Full HD: 1920x1080",
         "HD: 1280x720"
     ]
+    ## Current canvas export resolution.
     export_resolution = resolutions_list[0]
 
-    #application resolution
+    ## Application window width.
     SW = 1280
+    ## Application window height
     SH = 720
 
-    #general menu locations
+    # general menu locations
     ui_menus_left = 18
     ui_menus_right = SW-270
 
-    #positions of dialogs
+    # positions of widgets
     palette_pos = (ui_menus_right, 60)
     layer_one_pos = (ui_menus_left, 60)
     layer_two_pos = (ui_menus_left, layer_one_pos[1]+200)
@@ -41,13 +51,17 @@ class ui_controller:
     overlay_pos = (0, palette_pos[1]+155)
     help_pos = (284, 60)
 
-    #canvas settings
+    # canvas settings
     canvas_size = (3840, 2160)
     canvas_display_size = (int(SW//1.8), int(SH//1.8))
     canvas_pos = ((SW - canvas_display_size[0])//2, (SH - canvas_display_size[1])//2)
 
 
     def __init__(self):
+        """! Initializes ui_controller.
+        
+        Initializes pygame, the application window, the canvas, and all widgets.
+        """
         pg.init()
         
         self.__create_window()
@@ -73,6 +87,10 @@ class ui_controller:
 
 
     def process_events(self):
+        """! Processes pygame events.
+        
+        Handles generation and export controls itself and calls events() in widgets for all other event processing.
+        """
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 self.isrunning = False
@@ -107,6 +125,10 @@ class ui_controller:
 
 
     def draw_ui_dynamic(self):
+        """! Draws the dynamic ui.
+        
+        Draws background color and some text itself and calls canvas and widgets for all other drawing.
+        """
         self.window.fill(assets.background_color)
 
         self.canvas.draw()
@@ -121,6 +143,10 @@ class ui_controller:
 
 
     def draw_ui_static(self):
+        """! Draws the static ui.
+        
+        Draws generation and export controls itself and calls widgets for all other drawing.
+        """
         self.ui_manager.clear_and_reset()
 
         widgets.color_palette.draw_ui_static()
@@ -143,6 +169,7 @@ class ui_controller:
 
 
     def export_art(self):
+        """! Exports the canvas to a png image. """
         tkinter_window = Tk()
         tkinter_window.withdraw()
 
@@ -151,17 +178,21 @@ class ui_controller:
 
         if filename:
             path = filename[:]
-            if self.export_resolution == self.resolutions_list[0]:
+            if self.__export_resolution == self.resolutions_list[0]:
                 pg.image.save(self.canvas.get_canvas(), path + ".png")
-            elif self.export_resolution == self.resolutions_list[1]:
+            elif self.__export_resolution == self.resolutions_list[1]:
                 pg.image.save(pg.transform.smoothscale(self.canvas.get_canvas(), (1920, 1080)), path + ".png")
-            elif self.export_resolution == self.resolutions_list[2]:
+            elif self.__export_resolution == self.resolutions_list[2]:
                 pg.image.save(pg.transform.smoothscale(self.canvas.get_canvas(), (1280, 720)), path + ".png")
         else:
             pass
 
 
     def run(self):
+        """! Main loop.
+
+        Draws static ui then enters loop where it processes events and draws the dynamic ui.
+        """
         self.draw_ui_static()
 
         while self.isrunning:

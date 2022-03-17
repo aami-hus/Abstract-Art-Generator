@@ -1,3 +1,12 @@
+##
+# @file color_palette.py
+#
+# @brief Defines the color_palette class.
+#
+# @section author_sensors Author(s)
+# - Created by Jessica Dawson on 03/16/2022.
+
+# Imports
 from random import randint, choice
 
 import pygame_gui as pgui
@@ -6,7 +15,7 @@ import pygame as pg
 from modules.widget import widget
 import assets
 
-color_palettes = {
+_color_palettes = {
     "Forest" : ["#323232", "#295f4e", "#6db193", "#f4e5c2"],
     "Futuristic" : ["#222831", "#393e46", "#00adb5", "#eeeeee"],
     "Sunset" : ["#f9ed69", "#f08a5d", "#b83b5e", "#6a2c70"],
@@ -42,15 +51,27 @@ color_palettes = {
 #cp_lock = palette_pos[0] + 6
 
 class color_palette(widget):
+    """! The color palette widget class.
+
+    Provides ui settings to change the current color palette and the background color.
+    """
 
     def __init__(self, x, y, window, ui_manager):
+        """! Initializes the color palette widget.
+
+        @param x                Horizontal position to draw the widget at on the ui.
+        @param y                Vertical position to draw the widget at on the ui.
+        @param window           Ui window to draw the widget to.
+        @param ui_manager       Pygame_gui element manager to tie pygame_gui elements to.
+        """
+
         self.__x = x
         self.__y = y
         self.__window = window
         self.__ui_manager = ui_manager
 
-        self.__palette_name = choice(list(color_palettes.keys()))
-        self.__palette_colors = color_palettes[self.__palette_name]
+        self.__palette_name = choice(list(_color_palettes.keys()))
+        self.__palette_colors = _color_palettes[self.__palette_name]
         self.__background_index = 0
 
         self.__palette_lock = 0
@@ -58,6 +79,11 @@ class color_palette(widget):
 
 
     def draw_ui_dynamic(self):
+        """! Draws the dynamic ui elements for the color palette widget.
+        
+        Draws the text, lock icons, and color swatches.
+        """
+
         interactables_margin = self.__x + 42
         lock_margin = self.__x + 17
 
@@ -81,12 +107,17 @@ class color_palette(widget):
 
 
     def draw_ui_static(self):
+        """! Draws the static ui elements for the color palette widget.
+        
+        Draws the palette dropdown, lock buttons, and color swatch buttons.
+        """
+
         interactables_margin = self.__x + 42
         lock_margin = self.__x + 6
 
         cp_len = len(self.__palette_colors)
 
-        current_palette_dropdown = pgui.elements.UIDropDownMenu(options_list=color_palettes.keys(),
+        current_palette_dropdown = pgui.elements.UIDropDownMenu(options_list=_color_palettes.keys(),
                                                             starting_option=self.__palette_name,
                                                             relative_rect=pg.Rect(interactables_margin, self.__y+35, 200, 22), manager=self.__ui_manager,
                                                             object_id="current_palette_dropdown")
@@ -118,6 +149,11 @@ class color_palette(widget):
 
 
     def refresh_ui_static(self):
+        """! Refreshes the static ui elements for the color palette widget.
+        
+        Changes how many color swatch buttons display based on the length of the color palette.
+        """
+
         cp_len = len(self.__palette_colors)
 
         for i in range(8):
@@ -128,9 +164,11 @@ class color_palette(widget):
 
 
     def randomize(self):
+        """! Randomize the current color palette and background color. """
+
         if self.__palette_lock == 0:
-            self.__palette_name = choice(list(color_palettes.keys()))
-            self.__palette_colors = color_palettes[self.__palette_name]
+            self.__palette_name = choice(list(_color_palettes.keys()))
+            self.__palette_colors = _color_palettes[self.__palette_name]
             if self.__background_index >= len(self.__palette_colors):
                     self.__background_index = randint(0, len(self.__palette_colors)-1)
             self.refresh_ui_static()
@@ -140,6 +178,13 @@ class color_palette(widget):
 
 
     def events(self, event):
+        """! Processes pygame events for the color palette widget.
+        
+        Handles the palette dropdown, lock buttons, and background color buttons.
+
+        @param event    The pygame event being processed.
+        """
+
         if event.user_type == pgui.UI_BUTTON_PRESSED:
             if event.ui_object_id == "palette_lock_button":
                 self.__palette_lock = 1 if self.__palette_lock == 0 else 0
@@ -166,23 +211,39 @@ class color_palette(widget):
         if event.user_type == pgui.UI_DROP_DOWN_MENU_CHANGED:
             if event.ui_object_id == "current_palette_dropdown":
                 self.__palette_name = event.text
-                self.__palette_colors = color_palettes[self.__palette_name]
+                self.__palette_colors = _color_palettes[self.__palette_name]
                 if self.__background_index >= len(self.__palette_colors):
                     self.__background_index = randint(0, len(self.__palette_colors)-1)
                 self.refresh_ui_static()
 
 
     def get_name_of_palette(self):
+        """! Get the name of the current palette. 
+        
+        @return The palette name.
+        """
         return self.__palette_name
 
 
     def get_colors_from_palette(self):
+        """! Get the list of colors for the current palette in hex form. 
+        
+        @return A list of the palette colors.
+        """
         return self.__palette_colors
 
 
     def get_background_color(self):
+        """! Get the background color in hex form. 
+        
+        @return The background color.
+        """
         return self.__palette_colors[self.__background_index]
 
 
     def get_foreground_colors(self):
+        """! Get the list of foreground colors in hex form. 
+        
+        @return A list of the palette colors excluding the background color.
+        """
         return [c for c in self.__palette_colors if c != self.__palette_colors[self.__background_index]]

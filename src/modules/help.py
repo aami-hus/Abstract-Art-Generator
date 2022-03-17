@@ -1,5 +1,12 @@
-from random import randint, choice
+##
+# @file help.py
+#
+# @brief Defines the help class.
+#
+# @section author_sensors Author(s)
+# - Created by Jessica Dawson on 03/16/2022.
 
+# Imports
 import pygame_gui as pgui
 import pygame as pg
 
@@ -7,22 +14,38 @@ from modules.widget import widget
 import assets
 
 class help(widget):
+    """! The help widget class.
+
+    Displays a ui help button that displays the program instructions when clicked.
+    """
 
     def __init__(self, x, y, window, ui_manager):
+        """! Initializes the help widget.
+
+        @param x                Horizontal position to draw the widget at on the ui.
+        @param y                Vertical position to draw the widget at on the ui.
+        @param window           Ui window to draw the widget to.
+        @param ui_manager       Pygame_gui element manager to tie pygame_gui elements to.
+        """
+
         self.__x = x
         self.__y = y
         self.__window = window
         self.__ui_manager = ui_manager
 
         self.__help_opt = 0
-        self.help_left = False
+        self.__help_left = False
 
 
     def draw_ui_dynamic(self):
+        """! Draws the dynamic ui elements for the help widget.
+        
+        Draws a dialog with the instructions for using the program.
+        """
         if self.__help_opt == 0:
             return
         
-        if self.help_left:
+        if self.__help_left:
             pg.draw.rect(self.__window, pg.Color("#2B2834"), (self.__x - 510, self.__y, 510, 380))
             p = [self.__x - 500, self.__y+10]
         else:
@@ -85,14 +108,20 @@ class help(widget):
 
 
     def draw_ui_static(self):
+        """! Draws the static ui elements for the help widget.
+        
+        Draws a button with "help" written on it.
+        """
         __help_opt_button = pgui.elements.UIButton(relative_rect=pg.Rect(self.__x, self.__y, 100, 30), text="HELP", manager=self.__ui_manager,
-                                             object_id="help_opt_button")
-
-
-    def randomize(self):
-        pass
+                                            object_id="help_opt_button")
 
 
     def events(self, event):
+        """! Processes pygame events for the help widget.
+        
+        If event in the help button being pressed display the instructions dialog.
+
+        @param event    The pygame event being processed.
+        """
         if event.user_type == pgui.UI_BUTTON_PRESSED and event.ui_object_id == "help_opt_button":
             self.__help_opt = 1 if self.__help_opt == 0 else 0
