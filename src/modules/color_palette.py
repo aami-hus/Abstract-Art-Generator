@@ -3,7 +3,7 @@
 #
 # @brief Defines the color_palette class.
 #
-# @section author_sensors Author(s)
+# @section author_palette Author(s)
 # - Created by Jessica Dawson on 03/16/2022.
 
 # Imports

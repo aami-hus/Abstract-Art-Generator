@@ -3,7 +3,7 @@
 #
 # @brief Stores various assets useful to other modules.
 #
-# @section author_sensors Author(s)
+# @section author_assets Author(s)
 # - Created by Jessica Dawson on 03/16/2022.
 
 # Imports

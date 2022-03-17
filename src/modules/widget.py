@@ -3,7 +3,7 @@
 #
 # @brief Defines the widget abstract class.
 #
-# @section author_sensors Author(s)
+# @section author_widget Author(s)
 # - Created by Jessica Dawson on 03/16/2022.
 
 # Imports

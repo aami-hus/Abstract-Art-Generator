@@ -3,7 +3,7 @@
 #
 # @brief Defines the help class.
 #
-# @section author_sensors Author(s)
+# @section author_help Author(s)
 # - Created by Jessica Dawson on 03/16/2022.
 
 # Imports
