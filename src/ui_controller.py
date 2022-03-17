@@ -16,6 +16,7 @@ from canvas import canvas
 from widget_storage import widgets
 from modules.color_palette import color_palette
 from modules.help import help
+from modules.layer import layer
 import assets
 
 class ui_controller:
@@ -84,6 +85,9 @@ class ui_controller:
     def __initialize_widgets(self):
         widgets.color_palette = color_palette(self.palette_pos[0], self.palette_pos[1], self.window, self.ui_manager)
         widgets.help = help(self.help_pos[0], self.help_pos[1], self.window, self.ui_manager)
+        widgets.layer_one = layer(self.layer_one_pos[0], self.layer_one_pos[1], self.window, self.ui_manager, "ONE")
+        widgets.layer_two = layer(self.layer_two_pos[0], self.layer_two_pos[1], self.window, self.ui_manager, "TWO")
+        widgets.layer_three = layer(self.layer_three_pos[0], self.layer_three_pos[1], self.window, self.ui_manager, "THREE")
 
 
     def process_events(self):
@@ -109,6 +113,9 @@ class ui_controller:
 
                     if event.ui_object_id == "random_generate_button":
                         widgets.color_palette.randomize()
+                        widgets.layer_one.randomize()
+                        widgets.layer_two.randomize()
+                        widgets.layer_three.randomize()
 
                         self.draw_ui_static()
                         
@@ -120,6 +127,9 @@ class ui_controller:
 
                 widgets.color_palette.events(event)
                 widgets.help.events(event)
+                widgets.layer_one.events(event)
+                widgets.layer_two.events(event)
+                widgets.layer_three.events(event)
 
             self.ui_manager.process_events(event)
 
@@ -140,6 +150,9 @@ class ui_controller:
 
         widgets.color_palette.draw_ui_dynamic()
         widgets.help.draw_ui_dynamic()
+        widgets.layer_one.draw_ui_dynamic()
+        widgets.layer_two.draw_ui_dynamic()
+        widgets.layer_three.draw_ui_dynamic()
 
 
     def draw_ui_static(self):
@@ -151,6 +164,9 @@ class ui_controller:
 
         widgets.color_palette.draw_ui_static()
         widgets.help.draw_ui_static()
+        widgets.layer_one.draw_ui_static()
+        widgets.layer_two.draw_ui_static()
+        widgets.layer_three.draw_ui_static()
 
         resolution_dropdown = pgui.elements.UIDropDownMenu(options_list=self.resolutions_list,
                                                 starting_option=self.export_resolution,
