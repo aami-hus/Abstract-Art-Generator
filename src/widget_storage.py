@@ -21,5 +21,9 @@ class widget_storage:
         self.color_palette = None
         ## The help button widget.
         self.help = None
+        ## The layers widget
+        self.layer_one = None
+        self.layer_two = None
+        self.layer_three = None
 
 widgets = widget_storage()
