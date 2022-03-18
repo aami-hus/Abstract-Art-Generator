@@ -11,7 +11,7 @@ from random import randint
 
 import pygame as pg
 
-from generator import generator
+from generators.generator import generator
 
 art_styles_list = [
     "Chaotic",
@@ -23,10 +23,10 @@ art_styles_list = [
     "Empty"
 ]
 
-class rings_generator(generator):
+class ring_generator(generator):
     """! Class to draw rings. """
 
-    def draw(self, layer, complexity, cp, style, magnitude):
+    def draw(layer, complexity, cp, style, magnitude):
         """! Draws rings to a layer. 
         
         @param layer        The layer to draw to.

@@ -1,11 +1,30 @@
+##
+# @file layer.py
+#
+# @brief Defines the layer class.
+#
+# @section author_layer Author(s)
+# - Created by Aamina Hussain on 03/17/2022.
+
+# Imports
 import pygame_gui as pgui
 import pygame as pg
 from random import randint, choice
 
 from modules.widget import widget
+from widget_storage import widgets
 import assets
 
-art_styles_list = [
+from generators.circle_generator import circle_generator
+from generators.square_generator import square_generator
+from generators.line_generator import line_generator
+from generators.ring_generator import ring_generator
+from generators.dots_generator import dots_generator
+from generators.curves_generator import curves_generator
+from generators.hpolygons_generator import hpolygons_generator
+from generators.fpolygons_generator import fpolygons_generator
+
+_art_styles_list = [
     "Chaotic",
     "Striped Horizontal",
     "Striped Vertical",
@@ -15,7 +34,7 @@ art_styles_list = [
     "Empty"
 ]
 
-art_shapes_list = [
+_art_shapes_list = [
     "Lines",
     "Circles",
     "Squares",
@@ -28,9 +47,21 @@ art_shapes_list = [
 
 
 class layer(widget):
+    """! The layer widget class.
+
+    Provides a ui and functionality to specify a drawing algorithm and draw to a pygame surface.
+    """
     
-    #layer_num = string --> ex: "ONE"
     def __init__(self, x, y, window, ui_manager, layer_num):
+        """! Initializes the layer widget.
+
+        @param x                Horizontal position to draw the widget at on the ui.
+        @param y                Vertical position to draw the widget at on the ui.
+        @param window           Ui window to draw the widget to.
+        @param ui_manager       Pygame_gui element manager to tie pygame_gui elements to.
+        """
+
+        ## The pygame surface the layer draws to.
         self.layer = pg.Surface((3840, 2160), pg.SRCALPHA)
         self.__x = x
         self.__y = y
@@ -39,8 +70,8 @@ class layer(widget):
         self.__layer_num = layer_num
 
         #starting options for dropdown menus
-        self.__style = choice(art_styles_list)
-        self.__shape = choice(art_shapes_list)
+        self.__style = choice(_art_styles_list)
+        self.__shape = choice(_art_shapes_list)
         self.__complexity = randint(10,30)#15
         self.__size = randint(51, 400) #400
 
@@ -51,9 +82,12 @@ class layer(widget):
         self.__size_lock = 0
 
 
-    # draw dynamic ui elements (basically anything that isn't a pgui widget) (OVERRIDE)
-    #@abstractmethod
     def draw_ui_dynamic(self):
+        """! Draws the dynamic ui elements for the layer widget.
+        
+        Draws the text and lock icons.
+        """
+
         interactables_margin = self.__x + 42
         lock_margin = self.__x + 17
 
@@ -84,20 +118,22 @@ class layer(widget):
         assets.text_to_screen(window=self.__window, text="LAYER " + self.__layer_num + " SHAPE SIZE", color=assets.ui_color, pos=(interactables_margin, self.__y+145), font_size=14)
 
 
-
-    # draw static ui elements (basically the pgui widgets) (OVERRIDE)
-    #@abstractmethod
     def draw_ui_static(self):
+        """! Draws the static ui elements for the layer widget.
+        
+        Draws the shape and style dropdowns, the complexity and size sliders, and lock button.
+        """
+
         interactables_margin = self.__x + 42
         lock_margin = self.__x + 6
         num_of_layer = self.__layer_num.lower()
 
-        style_dropdown = pgui.elements.UIDropDownMenu(options_list=art_styles_list,
+        style_dropdown = pgui.elements.UIDropDownMenu(options_list=_art_styles_list,
                                                                 starting_option=self.__style,
                                                                 relative_rect=pg.Rect(interactables_margin, self.__y+30, 200, 22), manager=self.__ui_manager,
                                                                 object_id="layer_"+num_of_layer+"_style_dropdown")
 
-        shape_dropdown = pgui.elements.UIDropDownMenu(options_list=art_shapes_list,
+        shape_dropdown = pgui.elements.UIDropDownMenu(options_list=_art_shapes_list,
                                                                 starting_option=self.__shape,
                                                                 relative_rect=pg.Rect(interactables_margin, self.__y+60, 200, 22), manager=self.__ui_manager,
                                                                 object_id="layer_"+num_of_layer+"_shape_dropdown")
@@ -124,22 +160,27 @@ class layer(widget):
                                                 object_id="layer_"+num_of_layer+"_size_lock_button")
 
 
-
-    # randomize settings (OVERRIDE)
-    #@abstractmethod
     def randomize(self):
+        """! Randomize the shape, style, complexity, and size of the layer drawing algorithm. """
+
         if self.__style_lock == 0:
-            self.__style = choice(art_styles_list)
+            self.__style = choice(_art_styles_list)
         if self.__shape_lock == 0:
-            self.__shape = choice(art_shapes_list)
+            self.__shape = choice(_art_shapes_list)
         if self.__complexity_lock == 0:
             self.__complexity = randint(10,30)
         if self.__size_lock == 0:
             self.__size = randint(51, 400)
 
-    # process pgui interaction events (OVERRIDE)
-    #@abstractmethod
+
     def events(self, event):
+        """! Processes pygame events for the layer widget.
+        
+        Handles the shape and style dropdowns, the complexity and size sliders, and lock button.
+
+        @param event    The pygame event being processed.
+        """
+
         num_of_layer = self.__layer_num.lower()
 
         if event.user_type == pgui.UI_BUTTON_PRESSED:
@@ -165,24 +206,52 @@ class layer(widget):
                 self.__size = event.value
 
 
+    def draw_canvas(self):
+        """! Draw the layer to self.layer based on the current widget settings. """
 
-    # draw to canvas (MAYBE OVERRIDE)
-    def draw_canvas(self, color_palette):
-        pass
+        self.clean_layer()
+        self.layer.set_colorkey((0, 0, 0))
 
-    # refresh the static ui elements, useful when you need to change the widgets pgui widgets (MAYBE OVERRIDE)
-    def refresh_ui_static(self):
-        pass
+        color_palette = widgets.color_palette.get_foreground_colors()
+
+        if _art_shapes_list[0] == self.__shape:
+            line_generator.draw(self.layer, self.__complexity, color_palette, self.__style, self.__size)
+
+        if _art_shapes_list[1] == self.__shape:
+            circle_generator.draw(self.layer, self.__complexity, color_palette, self.__style, self.__size)
+
+        if _art_shapes_list[2] == self.__shape:
+            square_generator.draw(self.layer, self.__complexity, color_palette, self.__style, self.__size)
+
+        if _art_shapes_list[3] == self.__shape:
+            hpolygons_generator.draw(self.layer, self.__complexity, color_palette, self.__style, self.__size)
+
+        if _art_shapes_list[4] == self.__shape:
+            fpolygons_generator.draw(self.layer, self.__complexity, color_palette, self.__style, self.__size)
+
+        if _art_shapes_list[5] == self.__shape:
+            dots_generator.draw(self.layer, self.__complexity, color_palette, self.__style, self.__size)
+
+        if _art_shapes_list[6] == self.__shape:
+            curves_generator.draw(self.layer, self.__complexity, color_palette, self.__style, self.__size)
+
+        if _art_shapes_list[7] == self.__shape:
+            ring_generator.draw(self.layer, self.__complexity, color_palette, self.__style, self.__size)
 
 
     def clean_layer(self):
+        """! Clean the layer by setting it to be blank and see-through. """
         self.layer.fill((0, 0, 0, 0))
 
     def get_layer_style(self):
+        """! @return The layer style. """
         return self.__style
     def get_layer_shape(self):
+        """! @return The layer shape. """
         return self.__shape
     def get_layer_complexity(self):
+        """! @return The layer complexity. """
         return self.__complexity
     def get_layer_size(self):
+        """! @return The layer size. """
         return self.__size

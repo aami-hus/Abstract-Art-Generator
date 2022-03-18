@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['widget_2epy_64',['widget.py',['../widget_8py.html',1,'']]],
-  ['widget_5fstorage_2epy_65',['widget_storage.py',['../widget__storage_8py.html',1,'']]]
+  ['generator_2epy_122',['generator.py',['../generator_8py.html',1,'']]],
+  ['generator_5fstorage_2epy_123',['generator_storage.py',['../generator__storage_8py.html',1,'']]]
 ];

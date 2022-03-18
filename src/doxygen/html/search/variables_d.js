@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['xl_5ffont_105',['xl_font',['../assets_8py.html#a0027b8d26d13d58b5ad29cd759d8048d',1,'assets']]],
-  ['xs_5ffont_106',['xs_font',['../assets_8py.html#a16fdc8e9985666b22770f221830c1b04',1,'assets']]],
-  ['xxl_5ffont_107',['xxl_font',['../assets_8py.html#a9c2bbe78f1a6521c2e48d8376cf4b8f6',1,'assets']]]
+  ['sh_189',['SH',['../classui__controller_1_1ui__controller.html#a34cb2331d6df785dce40e59ecf1c16a0',1,'ui_controller::ui_controller']]],
+  ['small_5ffont_190',['small_font',['../assets_8py.html#aa1db7272755bfea8092192bab4f1fe5b',1,'assets']]],
+  ['sw_191',['SW',['../classui__controller_1_1ui__controller.html#a2f69b530ed2b72f72f27d4ab578113f8',1,'ui_controller::ui_controller']]]
 ];

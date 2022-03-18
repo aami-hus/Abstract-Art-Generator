@@ -11,7 +11,7 @@ from random import randint
 
 import pygame as pg
 
-from generator import generator
+from generators.generator import generator
 
 art_styles_list = [
     "Chaotic",
@@ -26,7 +26,7 @@ art_styles_list = [
 class curves_generator(generator):
     """! Class to draw curves. """
 
-    def draw(self, layer, complexity, cp, style, magnitude):
+    def draw(layer, complexity, cp, style, magnitude):
         """! Draws curves to a layer. 
         
         @param layer        The layer to draw to.

@@ -14,72 +14,179 @@
 \contentsline {subsubsection}{\numberline {4.1.3.1}draw\_to\_canvas()}{8}{subsubsection.4.1.3.1}%
 \contentsline {subsubsection}{\numberline {4.1.3.2}generate\_bg()}{8}{subsubsection.4.1.3.2}%
 \contentsline {subsubsection}{\numberline {4.1.3.3}get\_canvas()}{9}{subsubsection.4.1.3.3}%
-\contentsline {section}{\numberline {4.2}color\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}palette.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}color\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}palette Class Reference}{9}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Detailed Description}{10}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Constructor \& Destructor Documentation}{10}{subsection.4.2.2}%
-\contentsline {subsubsection}{\numberline {4.2.2.1}\_\_init\_\_()}{10}{subsubsection.4.2.2.1}%
-\contentsline {subsection}{\numberline {4.2.3}Member Function Documentation}{11}{subsection.4.2.3}%
-\contentsline {subsubsection}{\numberline {4.2.3.1}draw\_ui\_dynamic()}{11}{subsubsection.4.2.3.1}%
-\contentsline {subsubsection}{\numberline {4.2.3.2}draw\_ui\_static()}{11}{subsubsection.4.2.3.2}%
-\contentsline {subsubsection}{\numberline {4.2.3.3}events()}{11}{subsubsection.4.2.3.3}%
-\contentsline {subsubsection}{\numberline {4.2.3.4}get\_background\_color()}{11}{subsubsection.4.2.3.4}%
-\contentsline {subsubsection}{\numberline {4.2.3.5}get\_colors\_from\_palette()}{12}{subsubsection.4.2.3.5}%
-\contentsline {subsubsection}{\numberline {4.2.3.6}get\_foreground\_colors()}{12}{subsubsection.4.2.3.6}%
-\contentsline {subsubsection}{\numberline {4.2.3.7}get\_name\_of\_palette()}{12}{subsubsection.4.2.3.7}%
-\contentsline {subsubsection}{\numberline {4.2.3.8}refresh\_ui\_static()}{12}{subsubsection.4.2.3.8}%
-\contentsline {section}{\numberline {4.3}help.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}help Class Reference}{13}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Detailed Description}{13}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Constructor \& Destructor Documentation}{13}{subsection.4.3.2}%
-\contentsline {subsubsection}{\numberline {4.3.2.1}\_\_init\_\_()}{13}{subsubsection.4.3.2.1}%
-\contentsline {subsection}{\numberline {4.3.3}Member Function Documentation}{14}{subsection.4.3.3}%
-\contentsline {subsubsection}{\numberline {4.3.3.1}draw\_ui\_dynamic()}{14}{subsubsection.4.3.3.1}%
-\contentsline {subsubsection}{\numberline {4.3.3.2}draw\_ui\_static()}{14}{subsubsection.4.3.3.2}%
-\contentsline {subsubsection}{\numberline {4.3.3.3}events()}{14}{subsubsection.4.3.3.3}%
-\contentsline {section}{\numberline {4.4}ui\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}controller.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}ui\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}controller Class Reference}{15}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Detailed Description}{16}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}Constructor \& Destructor Documentation}{16}{subsection.4.4.2}%
-\contentsline {subsubsection}{\numberline {4.4.2.1}\_\_init\_\_()}{16}{subsubsection.4.4.2.1}%
-\contentsline {subsection}{\numberline {4.4.3}Member Function Documentation}{16}{subsection.4.4.3}%
-\contentsline {subsubsection}{\numberline {4.4.3.1}draw\_ui\_dynamic()}{16}{subsubsection.4.4.3.1}%
-\contentsline {subsubsection}{\numberline {4.4.3.2}draw\_ui\_static()}{16}{subsubsection.4.4.3.2}%
-\contentsline {subsubsection}{\numberline {4.4.3.3}process\_events()}{16}{subsubsection.4.4.3.3}%
-\contentsline {subsubsection}{\numberline {4.4.3.4}run()}{17}{subsubsection.4.4.3.4}%
-\contentsline {subsection}{\numberline {4.4.4}Member Data Documentation}{17}{subsection.4.4.4}%
-\contentsline {subsubsection}{\numberline {4.4.4.1}resolutions\_list}{17}{subsubsection.4.4.4.1}%
-\contentsline {section}{\numberline {4.5}widget.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}widget Class Reference}{17}{section.4.5}%
-\contentsline {subsection}{\numberline {4.5.1}Detailed Description}{18}{subsection.4.5.1}%
-\contentsline {subsection}{\numberline {4.5.2}Constructor \& Destructor Documentation}{18}{subsection.4.5.2}%
-\contentsline {subsubsection}{\numberline {4.5.2.1}\_\_init\_\_()}{18}{subsubsection.4.5.2.1}%
-\contentsline {subsection}{\numberline {4.5.3}Member Function Documentation}{19}{subsection.4.5.3}%
-\contentsline {subsubsection}{\numberline {4.5.3.1}draw\_ui\_dynamic()}{19}{subsubsection.4.5.3.1}%
-\contentsline {subsubsection}{\numberline {4.5.3.2}draw\_ui\_static()}{19}{subsubsection.4.5.3.2}%
-\contentsline {subsubsection}{\numberline {4.5.3.3}events()}{19}{subsubsection.4.5.3.3}%
-\contentsline {section}{\numberline {4.6}widget\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}storage.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}widget\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}storage Class Reference}{19}{section.4.6}%
-\contentsline {subsection}{\numberline {4.6.1}Detailed Description}{20}{subsection.4.6.1}%
-\contentsline {chapter}{\numberline {5}File Documentation}{21}{chapter.5}%
-\contentsline {section}{\numberline {5.1}assets.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{21}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Detailed Description}{22}{subsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.1.2}Author(s)}{22}{subsection.5.1.2}%
-\contentsline {subsection}{\numberline {5.1.3}Function Documentation}{22}{subsection.5.1.3}%
-\contentsline {subsubsection}{\numberline {5.1.3.1}text\_to\_screen()}{22}{subsubsection.5.1.3.1}%
-\contentsline {section}{\numberline {5.2}canvas.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{22}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Detailed Description}{23}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Author(s)}{23}{subsection.5.2.2}%
-\contentsline {section}{\numberline {5.3}color\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}palette.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{23}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Detailed Description}{23}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Author(s)}{23}{subsection.5.3.2}%
-\contentsline {section}{\numberline {5.4}help.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{23}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Detailed Description}{24}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {5.4.2}Author(s)}{24}{subsection.5.4.2}%
-\contentsline {section}{\numberline {5.5}ui\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}controller.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{24}{section.5.5}%
-\contentsline {subsection}{\numberline {5.5.1}Detailed Description}{24}{subsection.5.5.1}%
-\contentsline {subsection}{\numberline {5.5.2}Author(s)}{24}{subsection.5.5.2}%
-\contentsline {section}{\numberline {5.6}widget.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{24}{section.5.6}%
-\contentsline {subsection}{\numberline {5.6.1}Detailed Description}{24}{subsection.5.6.1}%
-\contentsline {subsection}{\numberline {5.6.2}Author(s)}{25}{subsection.5.6.2}%
-\contentsline {section}{\numberline {5.7}widget\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}storage.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{25}{section.5.7}%
-\contentsline {subsection}{\numberline {5.7.1}Detailed Description}{25}{subsection.5.7.1}%
-\contentsline {subsection}{\numberline {5.7.2}Author(s)}{25}{subsection.5.7.2}%
-\contentsline {subsection}{\numberline {5.7.3}Variable Documentation}{25}{subsection.5.7.3}%
-\contentsline {subsubsection}{\numberline {5.7.3.1}widgets}{25}{subsubsection.5.7.3.1}%
-\contentsline {chapter}{Index}{27}{section*.24}%
+\contentsline {section}{\numberline {4.2}circle\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}generator.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}circle\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}generator Class Reference}{9}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Detailed Description}{9}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Member Function Documentation}{10}{subsection.4.2.2}%
+\contentsline {subsubsection}{\numberline {4.2.2.1}draw()}{10}{subsubsection.4.2.2.1}%
+\contentsline {section}{\numberline {4.3}color\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}palette.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}color\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}palette Class Reference}{10}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Detailed Description}{11}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Constructor \& Destructor Documentation}{11}{subsection.4.3.2}%
+\contentsline {subsubsection}{\numberline {4.3.2.1}\_\_init\_\_()}{11}{subsubsection.4.3.2.1}%
+\contentsline {subsection}{\numberline {4.3.3}Member Function Documentation}{12}{subsection.4.3.3}%
+\contentsline {subsubsection}{\numberline {4.3.3.1}draw\_ui\_dynamic()}{12}{subsubsection.4.3.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.3.2}draw\_ui\_static()}{12}{subsubsection.4.3.3.2}%
+\contentsline {subsubsection}{\numberline {4.3.3.3}events()}{12}{subsubsection.4.3.3.3}%
+\contentsline {subsubsection}{\numberline {4.3.3.4}get\_background\_color()}{13}{subsubsection.4.3.3.4}%
+\contentsline {subsubsection}{\numberline {4.3.3.5}get\_colors\_from\_palette()}{13}{subsubsection.4.3.3.5}%
+\contentsline {subsubsection}{\numberline {4.3.3.6}get\_foreground\_colors()}{13}{subsubsection.4.3.3.6}%
+\contentsline {subsubsection}{\numberline {4.3.3.7}get\_name\_of\_palette()}{13}{subsubsection.4.3.3.7}%
+\contentsline {subsubsection}{\numberline {4.3.3.8}refresh\_ui\_static()}{14}{subsubsection.4.3.3.8}%
+\contentsline {section}{\numberline {4.4}curves\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}generator.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}curves\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}generator Class Reference}{14}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Detailed Description}{14}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Member Function Documentation}{14}{subsection.4.4.2}%
+\contentsline {subsubsection}{\numberline {4.4.2.1}draw()}{14}{subsubsection.4.4.2.1}%
+\contentsline {section}{\numberline {4.5}dots\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}generator.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dots\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}generator Class Reference}{15}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Detailed Description}{15}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Member Function Documentation}{15}{subsection.4.5.2}%
+\contentsline {subsubsection}{\numberline {4.5.2.1}draw()}{16}{subsubsection.4.5.2.1}%
+\contentsline {section}{\numberline {4.6}fpolygons\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}generator.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}fpolygons\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}generator Class Reference}{16}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}Detailed Description}{17}{subsection.4.6.1}%
+\contentsline {subsection}{\numberline {4.6.2}Member Function Documentation}{17}{subsection.4.6.2}%
+\contentsline {subsubsection}{\numberline {4.6.2.1}draw()}{17}{subsubsection.4.6.2.1}%
+\contentsline {section}{\numberline {4.7}generator.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}generator Class Reference}{17}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}Detailed Description}{18}{subsection.4.7.1}%
+\contentsline {subsection}{\numberline {4.7.2}Member Function Documentation}{18}{subsection.4.7.2}%
+\contentsline {subsubsection}{\numberline {4.7.2.1}draw()}{18}{subsubsection.4.7.2.1}%
+\contentsline {section}{\numberline {4.8}generator\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}storage.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}generator\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}storage Class Reference}{18}{section.4.8}%
+\contentsline {subsection}{\numberline {4.8.1}Detailed Description}{19}{subsection.4.8.1}%
+\contentsline {section}{\numberline {4.9}help.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}help Class Reference}{19}{section.4.9}%
+\contentsline {subsection}{\numberline {4.9.1}Detailed Description}{20}{subsection.4.9.1}%
+\contentsline {subsection}{\numberline {4.9.2}Constructor \& Destructor Documentation}{20}{subsection.4.9.2}%
+\contentsline {subsubsection}{\numberline {4.9.2.1}\_\_init\_\_()}{20}{subsubsection.4.9.2.1}%
+\contentsline {subsection}{\numberline {4.9.3}Member Function Documentation}{20}{subsection.4.9.3}%
+\contentsline {subsubsection}{\numberline {4.9.3.1}draw\_ui\_dynamic()}{20}{subsubsection.4.9.3.1}%
+\contentsline {subsubsection}{\numberline {4.9.3.2}draw\_ui\_static()}{20}{subsubsection.4.9.3.2}%
+\contentsline {subsubsection}{\numberline {4.9.3.3}events()}{21}{subsubsection.4.9.3.3}%
+\contentsline {section}{\numberline {4.10}hpolygons\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}generator.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}hpolygons\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}generator Class Reference}{21}{section.4.10}%
+\contentsline {subsection}{\numberline {4.10.1}Detailed Description}{21}{subsection.4.10.1}%
+\contentsline {subsection}{\numberline {4.10.2}Member Function Documentation}{22}{subsection.4.10.2}%
+\contentsline {subsubsection}{\numberline {4.10.2.1}draw()}{22}{subsubsection.4.10.2.1}%
+\contentsline {section}{\numberline {4.11}layer.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}layer Class Reference}{22}{section.4.11}%
+\contentsline {subsection}{\numberline {4.11.1}Detailed Description}{23}{subsection.4.11.1}%
+\contentsline {subsection}{\numberline {4.11.2}Constructor \& Destructor Documentation}{23}{subsection.4.11.2}%
+\contentsline {subsubsection}{\numberline {4.11.2.1}\_\_init\_\_()}{23}{subsubsection.4.11.2.1}%
+\contentsline {subsection}{\numberline {4.11.3}Member Function Documentation}{24}{subsection.4.11.3}%
+\contentsline {subsubsection}{\numberline {4.11.3.1}draw\_ui\_dynamic()}{24}{subsubsection.4.11.3.1}%
+\contentsline {subsubsection}{\numberline {4.11.3.2}draw\_ui\_static()}{24}{subsubsection.4.11.3.2}%
+\contentsline {subsubsection}{\numberline {4.11.3.3}events()}{24}{subsubsection.4.11.3.3}%
+\contentsline {subsubsection}{\numberline {4.11.3.4}get\_layer\_complexity()}{25}{subsubsection.4.11.3.4}%
+\contentsline {subsubsection}{\numberline {4.11.3.5}get\_layer\_shape()}{25}{subsubsection.4.11.3.5}%
+\contentsline {subsubsection}{\numberline {4.11.3.6}get\_layer\_size()}{25}{subsubsection.4.11.3.6}%
+\contentsline {subsubsection}{\numberline {4.11.3.7}get\_layer\_style()}{25}{subsubsection.4.11.3.7}%
+\contentsline {section}{\numberline {4.12}line\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}generator.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}line\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}generator Class Reference}{26}{section.4.12}%
+\contentsline {subsection}{\numberline {4.12.1}Detailed Description}{26}{subsection.4.12.1}%
+\contentsline {subsection}{\numberline {4.12.2}Member Function Documentation}{26}{subsection.4.12.2}%
+\contentsline {subsubsection}{\numberline {4.12.2.1}draw()}{26}{subsubsection.4.12.2.1}%
+\contentsline {section}{\numberline {4.13}overlay.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}overlay Class Reference}{27}{section.4.13}%
+\contentsline {subsection}{\numberline {4.13.1}Detailed Description}{27}{subsection.4.13.1}%
+\contentsline {subsection}{\numberline {4.13.2}Constructor \& Destructor Documentation}{28}{subsection.4.13.2}%
+\contentsline {subsubsection}{\numberline {4.13.2.1}\_\_init\_\_()}{28}{subsubsection.4.13.2.1}%
+\contentsline {subsection}{\numberline {4.13.3}Member Function Documentation}{28}{subsection.4.13.3}%
+\contentsline {subsubsection}{\numberline {4.13.3.1}draw\_ui\_dynamic()}{28}{subsubsection.4.13.3.1}%
+\contentsline {subsubsection}{\numberline {4.13.3.2}draw\_ui\_static()}{28}{subsubsection.4.13.3.2}%
+\contentsline {subsubsection}{\numberline {4.13.3.3}events()}{28}{subsubsection.4.13.3.3}%
+\contentsline {section}{\numberline {4.14}ring\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}generator.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}ring\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}generator Class Reference}{29}{section.4.14}%
+\contentsline {subsection}{\numberline {4.14.1}Detailed Description}{29}{subsection.4.14.1}%
+\contentsline {subsection}{\numberline {4.14.2}Member Function Documentation}{29}{subsection.4.14.2}%
+\contentsline {subsubsection}{\numberline {4.14.2.1}draw()}{29}{subsubsection.4.14.2.1}%
+\contentsline {section}{\numberline {4.15}square\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}generator.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}square\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}generator Class Reference}{30}{section.4.15}%
+\contentsline {subsection}{\numberline {4.15.1}Detailed Description}{30}{subsection.4.15.1}%
+\contentsline {subsection}{\numberline {4.15.2}Member Function Documentation}{30}{subsection.4.15.2}%
+\contentsline {subsubsection}{\numberline {4.15.2.1}draw()}{31}{subsubsection.4.15.2.1}%
+\contentsline {section}{\numberline {4.16}ui\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}controller.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}ui\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}controller Class Reference}{31}{section.4.16}%
+\contentsline {subsection}{\numberline {4.16.1}Detailed Description}{32}{subsection.4.16.1}%
+\contentsline {subsection}{\numberline {4.16.2}Constructor \& Destructor Documentation}{32}{subsection.4.16.2}%
+\contentsline {subsubsection}{\numberline {4.16.2.1}\_\_init\_\_()}{32}{subsubsection.4.16.2.1}%
+\contentsline {subsection}{\numberline {4.16.3}Member Function Documentation}{33}{subsection.4.16.3}%
+\contentsline {subsubsection}{\numberline {4.16.3.1}draw\_ui\_dynamic()}{33}{subsubsection.4.16.3.1}%
+\contentsline {subsubsection}{\numberline {4.16.3.2}draw\_ui\_static()}{33}{subsubsection.4.16.3.2}%
+\contentsline {subsubsection}{\numberline {4.16.3.3}process\_events()}{33}{subsubsection.4.16.3.3}%
+\contentsline {subsubsection}{\numberline {4.16.3.4}run()}{33}{subsubsection.4.16.3.4}%
+\contentsline {subsection}{\numberline {4.16.4}Member Data Documentation}{33}{subsection.4.16.4}%
+\contentsline {subsubsection}{\numberline {4.16.4.1}resolutions\_list}{34}{subsubsection.4.16.4.1}%
+\contentsline {section}{\numberline {4.17}widget.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}widget Class Reference}{34}{section.4.17}%
+\contentsline {subsection}{\numberline {4.17.1}Detailed Description}{35}{subsection.4.17.1}%
+\contentsline {subsection}{\numberline {4.17.2}Constructor \& Destructor Documentation}{35}{subsection.4.17.2}%
+\contentsline {subsubsection}{\numberline {4.17.2.1}\_\_init\_\_()}{35}{subsubsection.4.17.2.1}%
+\contentsline {subsection}{\numberline {4.17.3}Member Function Documentation}{35}{subsection.4.17.3}%
+\contentsline {subsubsection}{\numberline {4.17.3.1}draw\_ui\_dynamic()}{35}{subsubsection.4.17.3.1}%
+\contentsline {subsubsection}{\numberline {4.17.3.2}draw\_ui\_static()}{35}{subsubsection.4.17.3.2}%
+\contentsline {subsubsection}{\numberline {4.17.3.3}events()}{36}{subsubsection.4.17.3.3}%
+\contentsline {section}{\numberline {4.18}widget\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}storage.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}widget\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}storage Class Reference}{36}{section.4.18}%
+\contentsline {subsection}{\numberline {4.18.1}Detailed Description}{36}{subsection.4.18.1}%
+\contentsline {chapter}{\numberline {5}File Documentation}{37}{chapter.5}%
+\contentsline {section}{\numberline {5.1}assets.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{37}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Detailed Description}{38}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Author(s)}{38}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Function Documentation}{38}{subsection.5.1.3}%
+\contentsline {subsubsection}{\numberline {5.1.3.1}text\_to\_screen()}{38}{subsubsection.5.1.3.1}%
+\contentsline {section}{\numberline {5.2}canvas.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{38}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Detailed Description}{39}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Author(s)}{39}{subsection.5.2.2}%
+\contentsline {section}{\numberline {5.3}circle\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}generator.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{39}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Detailed Description}{39}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Author(s)}{39}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Variable Documentation}{39}{subsection.5.3.3}%
+\contentsline {subsubsection}{\numberline {5.3.3.1}art\_styles\_list}{40}{subsubsection.5.3.3.1}%
+\contentsline {section}{\numberline {5.4}color\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}palette.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{40}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Detailed Description}{40}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Author(s)}{40}{subsection.5.4.2}%
+\contentsline {section}{\numberline {5.5}curves\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}generator.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{40}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Detailed Description}{41}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Author(s)}{41}{subsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.5.3}Variable Documentation}{41}{subsection.5.5.3}%
+\contentsline {subsubsection}{\numberline {5.5.3.1}art\_styles\_list}{41}{subsubsection.5.5.3.1}%
+\contentsline {section}{\numberline {5.6}dots\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}generator.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{41}{section.5.6}%
+\contentsline {subsection}{\numberline {5.6.1}Detailed Description}{41}{subsection.5.6.1}%
+\contentsline {subsection}{\numberline {5.6.2}Author(s)}{41}{subsection.5.6.2}%
+\contentsline {subsection}{\numberline {5.6.3}Variable Documentation}{42}{subsection.5.6.3}%
+\contentsline {subsubsection}{\numberline {5.6.3.1}art\_styles\_list}{42}{subsubsection.5.6.3.1}%
+\contentsline {section}{\numberline {5.7}fpolygons\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}generator.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{42}{section.5.7}%
+\contentsline {subsection}{\numberline {5.7.1}Detailed Description}{42}{subsection.5.7.1}%
+\contentsline {subsection}{\numberline {5.7.2}Author(s)}{42}{subsection.5.7.2}%
+\contentsline {subsection}{\numberline {5.7.3}Variable Documentation}{42}{subsection.5.7.3}%
+\contentsline {subsubsection}{\numberline {5.7.3.1}art\_styles\_list}{43}{subsubsection.5.7.3.1}%
+\contentsline {section}{\numberline {5.8}generator.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{43}{section.5.8}%
+\contentsline {subsection}{\numberline {5.8.1}Detailed Description}{43}{subsection.5.8.1}%
+\contentsline {subsection}{\numberline {5.8.2}Author(s)}{43}{subsection.5.8.2}%
+\contentsline {section}{\numberline {5.9}generator\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}storage.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{43}{section.5.9}%
+\contentsline {subsection}{\numberline {5.9.1}Detailed Description}{44}{subsection.5.9.1}%
+\contentsline {subsection}{\numberline {5.9.2}Author(s)}{44}{subsection.5.9.2}%
+\contentsline {subsection}{\numberline {5.9.3}Variable Documentation}{44}{subsection.5.9.3}%
+\contentsline {subsubsection}{\numberline {5.9.3.1}generator\_storage}{44}{subsubsection.5.9.3.1}%
+\contentsline {section}{\numberline {5.10}help.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{44}{section.5.10}%
+\contentsline {subsection}{\numberline {5.10.1}Detailed Description}{44}{subsection.5.10.1}%
+\contentsline {subsection}{\numberline {5.10.2}Author(s)}{44}{subsection.5.10.2}%
+\contentsline {section}{\numberline {5.11}hpolygons\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}generator.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{44}{section.5.11}%
+\contentsline {subsection}{\numberline {5.11.1}Detailed Description}{45}{subsection.5.11.1}%
+\contentsline {subsection}{\numberline {5.11.2}Author(s)}{45}{subsection.5.11.2}%
+\contentsline {subsection}{\numberline {5.11.3}Variable Documentation}{45}{subsection.5.11.3}%
+\contentsline {subsubsection}{\numberline {5.11.3.1}art\_styles\_list}{45}{subsubsection.5.11.3.1}%
+\contentsline {section}{\numberline {5.12}layer.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{45}{section.5.12}%
+\contentsline {subsection}{\numberline {5.12.1}Detailed Description}{46}{subsection.5.12.1}%
+\contentsline {subsection}{\numberline {5.12.2}Author(s)}{46}{subsection.5.12.2}%
+\contentsline {section}{\numberline {5.13}line\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}generator.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{46}{section.5.13}%
+\contentsline {subsection}{\numberline {5.13.1}Detailed Description}{46}{subsection.5.13.1}%
+\contentsline {subsection}{\numberline {5.13.2}Author(s)}{46}{subsection.5.13.2}%
+\contentsline {subsection}{\numberline {5.13.3}Variable Documentation}{46}{subsection.5.13.3}%
+\contentsline {subsubsection}{\numberline {5.13.3.1}art\_styles\_list}{46}{subsubsection.5.13.3.1}%
+\contentsline {section}{\numberline {5.14}overlay.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{47}{section.5.14}%
+\contentsline {subsection}{\numberline {5.14.1}Detailed Description}{47}{subsection.5.14.1}%
+\contentsline {subsection}{\numberline {5.14.2}Author(s)}{47}{subsection.5.14.2}%
+\contentsline {section}{\numberline {5.15}square\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}generator.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{47}{section.5.15}%
+\contentsline {subsection}{\numberline {5.15.1}Detailed Description}{47}{subsection.5.15.1}%
+\contentsline {subsection}{\numberline {5.15.2}Author(s)}{47}{subsection.5.15.2}%
+\contentsline {subsection}{\numberline {5.15.3}Variable Documentation}{47}{subsection.5.15.3}%
+\contentsline {subsubsection}{\numberline {5.15.3.1}art\_styles\_list}{48}{subsubsection.5.15.3.1}%
+\contentsline {section}{\numberline {5.16}ui\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}controller.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{48}{section.5.16}%
+\contentsline {subsection}{\numberline {5.16.1}Detailed Description}{48}{subsection.5.16.1}%
+\contentsline {subsection}{\numberline {5.16.2}Author(s)}{48}{subsection.5.16.2}%
+\contentsline {section}{\numberline {5.17}widget.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{48}{section.5.17}%
+\contentsline {subsection}{\numberline {5.17.1}Detailed Description}{49}{subsection.5.17.1}%
+\contentsline {subsection}{\numberline {5.17.2}Author(s)}{49}{subsection.5.17.2}%
+\contentsline {section}{\numberline {5.18}widget\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}storage.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{49}{section.5.18}%
+\contentsline {subsection}{\numberline {5.18.1}Detailed Description}{49}{subsection.5.18.1}%
+\contentsline {subsection}{\numberline {5.18.2}Author(s)}{49}{subsection.5.18.2}%
+\contentsline {subsection}{\numberline {5.18.3}Variable Documentation}{49}{subsection.5.18.3}%
+\contentsline {subsubsection}{\numberline {5.18.3.1}widgets}{49}{subsubsection.5.18.3.1}%
+\contentsline {chapter}{Index}{51}{section*.69}%

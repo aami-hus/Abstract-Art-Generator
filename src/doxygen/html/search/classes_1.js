@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['help_55',['help',['../classhelp_1_1help.html',1,'help']]]
+  ['dots_5fgenerator_101',['dots_generator',['../classdots__generator_1_1dots__generator.html',1,'dots_generator']]]
 ];
