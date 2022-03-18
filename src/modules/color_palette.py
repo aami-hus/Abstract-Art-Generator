@@ -80,7 +80,7 @@ class color_palette(widget):
 
     def draw_ui_dynamic(self):
         """! Draws the dynamic ui elements for the color palette widget.
-        
+
         Draws the text, lock icons, and color swatches.
         """
 
@@ -108,7 +108,7 @@ class color_palette(widget):
 
     def draw_ui_static(self):
         """! Draws the static ui elements for the color palette widget.
-        
+
         Draws the palette dropdown, lock buttons, and color swatch buttons.
         """
 
@@ -126,7 +126,7 @@ class color_palette(widget):
                                                 object_id="palette_lock_button")
         background_lock_button = pgui.elements.UIButton(relative_rect=pg.Rect(lock_margin, self.__y+72, 12, 12), text="", manager=self.__ui_manager,
                                                 object_id="background_lock_button")
-        
+
         background_index_button_one = pgui.elements.UIButton(relative_rect=pg.Rect(interactables_margin+12, self.__y+65+12, 14, 14), text="",
                                                 manager=self.__ui_manager, object_id="background_index_button_one", visible=cp_len>0)
         background_index_button_two = pgui.elements.UIButton(relative_rect=pg.Rect(interactables_margin+50+12, self.__y+65+12, 14, 14), text="",
@@ -150,7 +150,7 @@ class color_palette(widget):
 
     def refresh_ui_static(self):
         """! Refreshes the static ui elements for the color palette widget.
-        
+
         Changes how many color swatch buttons display based on the length of the color palette.
         """
 
