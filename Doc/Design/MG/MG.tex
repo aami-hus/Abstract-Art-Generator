@@ -29,17 +29,18 @@
 \newcommand{\mthemnum}{M\themnum}
 \newcommand{\mref}[1]{M\ref{#1}}
 
-\title{SE 3XA3: Software Requirements Specification\\Title of Project}
+\title{SE 3XA3: Module Guide}
 
-\author{Team \#, Team Name
-		\\ Student 1 name and macid
-		\\ Student 2 name and macid
-		\\ Student 3 name and macid
+\author{Group \#10
+        \\Lab: L03
+		\\ Aamina Hussain, hussaa54
+		\\ Jessica Dawson, dawsor1
+		\\ Fady Morcos, morcof2
 }
 
-\date{\today}
+\date{}
 
-\input{../../Comments}
+%\input{../../Comments}
 
 \begin{document}
 
@@ -50,13 +51,14 @@
 \listoftables
 \listoffigures
 
-\begin{table}[bp]
+\begin{table}[h!]
 \caption{\bf Revision History}
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+March 16, 2022 & 0.0 & Initial Document; Completed Section 3, 7\\
+March 17, 2022 & 0.1 & Completed Section 2, 6\\
+March 18, 2022 & 0.2 & Completed Section 1, 4, 5\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -67,43 +69,21 @@ Date 2 & 1.1 & Notes\\
 
 \section{Introduction}
 
-Decomposing a system into modules is a commonly accepted approach to developing
-software.  A module is a work assignment for a programmer or programming
-team~\citep{ParnasEtAl1984}.  We advocate a decomposition
-based on the principle of information hiding~\citep{Parnas1972a}.  This
-principle supports design for change, because the ``secrets'' that each module
-hides represent likely future changes.  Design for change is valuable in SC,
-where modifications are frequent, especially during initial development as the
-solution space is explored.  
-
-Our design follows the rules layed out by \citet{ParnasEtAl1984}, as follows:
-\begin{itemize}
-\item System details that are likely to change independently should be the
-  secrets of separate modules.
-\item Each data structure is used in only one module.
-\item Any other program that requires information stored in a module's data
-  structures must obtain it by calling access programs belonging to that module.
-\end{itemize}
-
-After completing the first stage of the design, the Software Requirements
-Specification (SRS), the Module Guide (MG) is developed~\citep{ParnasEtAl1984}. The MG
-specifies the modular structure of the system and is intended to allow both
-designers and maintainers to easily identify the parts of the software.  The
-potential readers of this document are as follows:
+This document is the module guide for the Abstract Art Generator program. This document is intended to be read by:
 
 \begin{itemize}
-\item New project members: This document can be a guide for a new project member
-  to easily understand the overall structure and quickly find the
-  relevant modules they are searching for.
-\item Maintainers: The hierarchical structure of the module guide improves the
-  maintainers' understanding when they need to make changes to the system. It is
-  important for a maintainer to update the relevant sections of the document
-  after changes have been made.
-\item Designers: Once the module guide has been written, it can be used to
-  check for consistency, feasibility and flexibility. Designers can verify the
-  system in various ways, such as consistency among modules, feasibility of the
-  decomposition, and flexibility of the design.
+  \item Designers and Developers
+  \item Future project members/maintainers
+  \item Stakeholders
 \end{itemize}
+
+The \emph{Abstract Art Generator} project is a Python program which uses Pygame and Pygame\_GUI to display a graphical user interface that allows interaction with the user. It generates random abstract art images that may be exported as PNG files. 
+
+Most successful systems are composed of multiple modules, and this modularization allows for better understandability and maintainability. It also creates a simple way to add new features and deal with the anticipated changes without having to re-implement the entire system.
+
+The Python Painters Team made the decision to follow a \emph{Design for Change} design pattern, as well as the concept of information hiding, where each module holds a single secret.
+
+This document will break down the system into modules, each of which will have their own MIS specified in the MIS document. It will also contain a traceability matrix mapping every requirement from the SRS document to at least one of the modules.
 
 The rest of the document is organized as follows. Section
 \ref{SecChange} lists the anticipated and unlikely changes of the software
@@ -132,11 +112,11 @@ adapted here is called design for
 change.
 
 \begin{description}
-\item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
-  hardware on which the software is running.
-\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
-  initial input data.
-\item ...
+\item[\refstepcounter{acnum} \actheacnum \label{acLayerDraw}:] The ways layers can be drawn, new or modified drawing algorithms.
+\item[\refstepcounter{acnum} \actheacnum \label{acWidget}:] What widgets exist.
+\item[\refstepcounter{acnum} \actheacnum \label{acUILayout}:] The layout of the UI.
+\item[\refstepcounter{acnum} \actheacnum \label{acHelp}:] The contents of the help dialogue.
+\item[\refstepcounter{acnum} \actheacnum \label{acPalettes}:] The list of color palettes.
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -149,14 +129,13 @@ will potentially need to be modified. Hence, it is not intended that these
 decisions will be changed.
 
 \begin{description}
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
-  (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] There will always be
-  a source of input data external to the software.
-\item ...
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] The library used for input and graphical display.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucPalette}:] The existence of the color palette widget.
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
+
+%Each one of the setting dialogues on the UI is defined as a widget which handles behaviour relating to it, the color palette is a widget, each of the layers is a widget, etc.
 
 This section provides an overview of the module design. Modules are summarized
 in a hierarchy decomposed by secrets in Table \ref{TblMH}. The modules listed
@@ -165,7 +144,16 @@ actually be implemented.
 
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
+\item [\refstepcounter{mnum} \mthemnum \label{mUI}:] Controller UI Module
+\item [\refstepcounter{mnum} \mthemnum \label{mCV}:] Canvas Module
+\item [\refstepcounter{mnum} \mthemnum \label{mW}:] Widget Module
+\item [\refstepcounter{mnum} \mthemnum \label{mL}:] Layer Module
+\item [\refstepcounter{mnum} \mthemnum \label{mOL}:] Overlay Module
+\item [\refstepcounter{mnum} \mthemnum \label{mCP}:] Color Palette Module
+\item [\refstepcounter{mnum} \mthemnum \label{mH}:] Help Module
+\item [\refstepcounter{mnum} \mthemnum \label{mGS}:] Generate Shape Module
+\item [\refstepcounter{mnum} \mthemnum \label{mWS}:] Widget Storage Module
+\item [\refstepcounter{mnum} \mthemnum \label{mA}:] Assets Module
 \end{description}
 
 
@@ -176,22 +164,21 @@ actually be implemented.
 \textbf{Level 1} & \textbf{Level 2}\\
 \midrule
 
-{Hardware-Hiding Module} & ~ \\
+{Hardware-Hiding Module} & pygame Library \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\ 
-& ?\\
+\multirow{1}{0.3\textwidth}{Behaviour-Hiding Module} & Controller UI Module\\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision Module} & {?}\\
-& ?\\
-& ?\\
+\multirow{9}{0.3\textwidth}{Software Decision Module} & Canvas Module\\
+& Widget Module\\
+& Layer Module\\
+& Overlay Module\\
+& Color Palette Module\\
+& Help Module\\
+& Generate Shape Module\\
+& Widget Storage Module\\
+& Assets Module\\
 \bottomrule
 
 \end{tabular}
@@ -199,11 +186,12 @@ actually be implemented.
 \label{TblMH}
 \end{table}
 
+\newpage
 \section{Connection Between Requirements and Design} \label{SecConnection}
 
 The design of the system is intended to satisfy the requirements developed in
 the SRS. In this stage, the system is decomposed into modules. The connection
-between requirements and modules is listed in Table \ref{TblRT}.
+between requirements and modules is listed in Table \ref{TblRT} which is located in section 7 of this document. However readers of this document are recommended to read section 3 and section 5 first before looking at the traceability matrix in section 7.
 
 \section{Module Decomposition} \label{SecMD}
 
@@ -231,7 +219,7 @@ selected.
 \item[Services:]Serves as a virtual hardware used by the rest of the
   system. This module provides the interface between the hardware and the
   software. So, the system can use it to display outputs or to accept inputs.
-\item[Implemented By:] OS
+\item[Implemented By:] pygame
 \end{description}
 
 \subsection{Behaviour-Hiding Module}
@@ -243,19 +231,16 @@ selected.
   documents. This module serves as a communication layer between the
   hardware-hiding module and the software decision module. The programs in this
   module will need to change if there are changes in the SRS.
-\item[Implemented By:] --
+\item[Implemented By:] N/A
 \end{description}
 
-\subsubsection{Input Format Module (\mref{mInput})}
+\subsubsection{Controller UI Module (\mref{mUI})}
 
 \begin{description}
-\item[Secrets:]The format and structure of the input data.
-\item[Services:]Converts the input data into the data structure used by the
-  input parameters module.
-\item[Implemented By:] [Your Program Name Here]
+\item[Secrets:] The processes required to convert user input into a display.
+\item[Services:] Takes in input data from the user and displays corresponding visual output.
+\item[Implemented By:] AbstractArtGenerator
 \end{description}
-
-\subsubsection{Etc.}
 
 
 \subsection{Software Decision Module}
@@ -268,10 +253,80 @@ selected.
   do not provide direct interaction with the user. 
   % Changes in these modules are more likely to be motivated by a desire to
   % improve performance than by externally imposed changes.
-\item[Implemented By:] --
+\item[Implemented By:] N/A
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Canvas Module (\mref{mCV})}
+
+\begin{description}
+\item[Secrets:] The decision making for how the pygame surfaces are placed in the display.
+\item[Services:] Includes the main decision making for how the art image is produced.
+\item[Implemented By:] AbstractArtGenerator
+\end{description}
+
+\subsubsection{Widget Module (\mref{mW})}
+
+\begin{description}
+\item[Secrets:] The abstract methods other classes can inherit.
+\item[Services:] An abstract class that contains a framework of methods other classes can inherit and use. This accounts for anticipated changes.
+\item[Implemented By:] AbstractArtGenerator
+\end{description}
+
+\subsubsection{Layer Module (\mref{mL})}
+
+\begin{description}
+\item[Secrets:] The processes required to generate a layer.
+\item[Services:] Contains all methods relating to generating, displaying, and interacting with the layers of the generated art image.
+\item[Implemented By:] AbstractArtGenerator
+\end{description}
+
+\subsubsection{Overlay Module (\mref{mOL})}
+
+\begin{description}
+\item[Secrets:] The processes required to use an overlay/border.
+\item[Services:] Contains all methods relating to displaying and interacting with the overlays/borders that are placed over top of the generated art image.
+\item[Implemented By:] AbstractArtGenerator
+\end{description}
+
+\subsubsection{Color Palette Module (\mref{mCP})}
+
+\begin{description}
+\item[Secrets:] The processes required to use the color palettes.
+\item[Services:] Contains all methods relating to displaying, randomly choosing, and interacting with the color palette options.
+\item[Implemented By:] AbstractArtGenerator
+\end{description}
+
+\subsubsection{Help Module (\mref{mH})}
+
+\begin{description}
+\item[Secrets:] How the instructions are displayed.
+\item[Services:] Contains all methods relating to displaying the instructions and interacting with the help option.
+\item[Implemented By:] AbstractArtGenerator
+\end{description}
+
+\subsubsection{Generate Shape Module (\mref{mGS})}
+
+\begin{description}
+\item[Secrets:] The processes required to generate shapes.
+\item[Services:] Contains methods that are used to generate different shapes that are a part of each layer of the art image.
+\item[Implemented By:] AbstractArtGenerator
+\end{description}
+
+\subsubsection{Widget Storage Module (\mref{mWS})}
+
+\begin{description}
+\item[Secrets:] Storage for program widgets.
+\item[Services:] Allows all other modules to access \texttt{program widgets}. The widgets include the layer module, help module, overlay module, and color palette module.
+\item[Implemented By:] AbstractArtGenerator
+\end{description}
+
+\subsubsection{Assets Module (\mref{mA})}
+
+\begin{description}
+\item[Secrets:] Storage for assets (such as constants).
+\item[Services:] Contains assets that are used by other modules.
+\item[Implemented By:] AbstractArtGenerator
+\end{description}
 
 \section{Traceability Matrix} \label{SecTM}
 
@@ -286,17 +341,26 @@ requirements and between the modules and the anticipated changes.
 \toprule
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+FR1 & \mref{mCP}\\
+FR2 & \mref{mUI}, \mref{mCP}\\
+FR3 & \mref{mUI}, \mref{mCV}\\
+FR4 & \mref{mL}, \mref{mGS}\\
+FR5 & \mref{mUI}, \mref{mL}\\
+FR6 & \mref{mCV}\\
+FR7 & \mref{mUI}, \mref{mCV}, \mref{mA}\\
+FR8 & \mref{mUI}, \mref{mCV}, \mref{mA}\\
+FR9 & \mref{mUI}, \mref{mCV}, \mref{mA}\\
+FR10 & \mref{mUI}, \mref{mCV}, \mref{mOL}\\
+FR11 & \mref{mUI}, \mref{mOL}\\
+FR12 & \mref{mUI}, \mref{mH}, \mref{mA}\\
+FR13 & \mref{mUI}\\
+LF1 & \mref{mCV}, \mref{mL}, \mref{mOL}, \mref{mCP}\\
+LF2 & \mref{mCV}\\
+UH1 & \mref{mUI}, \mref{mCV}\\
+UH2 & \mref{mUI}, \mref{mL}, \mref{mOL}, \mref{mCP}, \mref{mH}, \mref{mA}\\
+UH3 & \mref{mUI}, \mref{mH}\\
+PR1 & \mref{mUI}\\
+PR2 & \mref{mCV}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
@@ -309,40 +373,39 @@ R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
 \toprule
 \textbf{AC} & \textbf{Modules}\\
 \midrule
-\acref{acHardware} & \mref{mHH}\\
-\acref{acInput} & \mref{mInput}\\
-\acref{acParams} & \mref{mParams}\\
-\acref{acVerify} & \mref{mVerify}\\
-\acref{acOutput} & \mref{mOutput}\\
-\acref{acVerifyOut} & \mref{mVerifyOut}\\
-\acref{acODEs} & \mref{mODEs}\\
-\acref{acEnergy} & \mref{mEnergy}\\
-\acref{acControl} & \mref{mControl}\\
-\acref{acSeqDS} & \mref{mSeqDS}\\
-\acref{acSolver} & \mref{mSolver}\\
-\acref{acPlot} & \mref{mPlot}\\
+\acref{acLayerDraw} & \mref{mL}, \mref{mOL}, \mref{mGS}\\
+\acref{acWidget} & \mref{mUI}, \mref{mWS}\\
+\acref{acUILayout} & \mref{mUI}\\
+\acref{acHelp} & \mref{mH}\\
+\acref{acPalettes} & \mref{mCP}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
 \label{TblACT}
 \end{table}
 
+
+% \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
+% \item [\refstepcounter{mnum} \mthemnum \label{mUI}:] Controller UI Module
+% \item [\refstepcounter{mnum} \mthemnum \label{mCV}:] Canvas Module
+% \item [\refstepcounter{mnum} \mthemnum \label{mW}:] Widget Module
+% \item [\refstepcounter{mnum} \mthemnum \label{mL}:] Layer Module
+% \item [\refstepcounter{mnum} \mthemnum \label{mOL}:] Overlay Module
+% \item [\refstepcounter{mnum} \mthemnum \label{mCP}:] Color Palette Module
+% \item [\refstepcounter{mnum} \mthemnum \label{mH}:] Help Module
+% \item [\refstepcounter{mnum} \mthemnum \label{mGS}:] Generate Shape Module
+% \item [\refstepcounter{mnum} \mthemnum \label{mMS}:] Widget Storage Module
+% \item [\refstepcounter{mnum} \mthemnum \label{mA}:] Assets Module
+
+
 \section{Use Hierarchy Between Modules} \label{SecUse}
 
 In this section, the uses hierarchy between modules is
-provided. \citet{Parnas1978} said of two programs A and B that A {\em uses} B if
-correct execution of B may be necessary for A to complete the task described in
-its specification. That is, A {\em uses} B if there exist situations in which
-the correct functioning of A depends upon the availability of a correct
-implementation of B.  Figure \ref{FigUH} illustrates the use relation between
-the modules. It can be seen that the graph is a directed acyclic graph
-(DAG). Each level of the hierarchy offers a testable and usable subset of the
-system, and modules in the higher level of the hierarchy are essentially simpler
-because they use modules from the lower levels.
+provided.
 
 \begin{figure}[H]
 \centering
-%\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
+\includegraphics[width=0.7\textwidth]{images/UsesHierarchy.png}
 \caption{Use hierarchy among modules}
 \label{FigUH}
 \end{figure}
