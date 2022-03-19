@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="PythonPaintersGanttChart" company="" webLink="http://" view-date="2022-01-16" view-index="0" gantt-divider-location="557" resource-divider-location="300" version="3.1.3103" locale="en_CA">
+<?xml version="1.0" encoding="UTF-8"?><project name="PythonPaintersGanttChart" company="" webLink="http://" view-date="2022-01-30" view-index="0" gantt-divider-location="510" resource-divider-location="300" version="3.1.3100" locale="en_CA">
     <description>
         <![CDATA[This is a Gantt project for the 3XA3 Python Painters project. The tasks will be completed by Aamina Hussain, Jessica Dawson, and Fady Morcos.]]>
     </description>
-    <view zooming-state="default:6" id="gantt-chart">
-        <field id="tpd3" name="Name" width="238" order="0"/>
-        <field id="tpd4" name="Begin date" width="110" order="1"/>
-        <field id="tpd5" name="End date" width="98" order="2"/>
-        <field id="tpd6" name="Duration" width="107" order="3"/>
+    <view zooming-state="default:5" id="gantt-chart">
+        <field id="tpd3" name="Name" width="264" order="0"/>
+        <field id="tpd4" name="Begin date" width="86" order="1"/>
+        <field id="tpd5" name="End date" width="91" order="2"/>
+        <field id="tpd6" name="Duration" width="50" order="3"/>
     </view>
     <view id="resource-table">
         <field id="0" name="Name" width="210" order="0"/>
@@ -17,7 +17,7 @@
         <day-types>
             <day-type id="0"/>
             <day-type id="1"/>
-            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <default-week id="1" name="default" sun="0" mon="0" tue="0" wed="0" thu="0" fri="0" sat="0"/>
             <only-show-weekends value="false"/>
             <overriden-day-types/>
             <days/>
@@ -36,24 +36,34 @@
             <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
         </taskproperties>
-        <task id="0" name="Research Project Ideas" color="#8cb6ce" meeting="false" start="2022-01-19" duration="3" complete="100" thirdDate="2022-02-02" thirdDate-constraint="0" expand="true"/>
+        <task id="0" name="Research Project Ideas" color="#8cb6ce" meeting="false" start="2022-01-19" duration="5" complete="100" thirdDate="2022-02-02" thirdDate-constraint="0" expand="true"/>
         <task id="4" name="Choose Project" color="#8cb6ce" meeting="false" start="2022-01-24" duration="1" complete="100" thirdDate="2022-02-02" thirdDate-constraint="0" expand="true"/>
         <task id="8" name="Project Approval Document" color="#8cb6ce" meeting="false" start="2022-01-24" duration="2" complete="100" thirdDate="2022-02-02" thirdDate-constraint="0" expand="true"/>
         <task id="6" name="Receive Project Approval" color="#8cb6ce" meeting="false" start="2022-01-26" duration="1" complete="100" thirdDate="2022-02-02" thirdDate-constraint="0" expand="true"/>
         <task id="9" name="Problem Statement" color="#8cb6ce" meeting="false" start="2022-01-27" duration="2" complete="100" thirdDate="2022-02-02" thirdDate-constraint="0" expand="true"/>
-        <task id="12" name="Development Plan" color="#8cb6ce" meeting="false" start="2022-01-31" duration="5" complete="50" thirdDate="2022-02-02" thirdDate-constraint="0" expand="true"/>
-        <task id="17" name="Requirements Document Revision 0" color="#8cb6ce" meeting="false" start="2022-02-07" duration="5" complete="0" thirdDate="2022-01-14" thirdDate-constraint="0" expand="true"/>
-        <task id="35" name="Learning Pygame &amp; Tkinter" color="#8cb6ce" meeting="false" start="2022-02-14" duration="7" complete="0" thirdDate="2022-01-11" thirdDate-constraint="0" expand="true"/>
-        <task id="51" name="Additional Layers" color="#8cb6ce" meeting="false" start="2022-02-21" duration="6" complete="0" thirdDate="2022-02-22" thirdDate-constraint="0" expand="true"/>
-        <task id="21" name="Proof of Concept Demonstration" color="#8cb6ce" meeting="false" start="2022-02-28" duration="1" complete="0" thirdDate="2022-01-18" thirdDate-constraint="0" expand="true"/>
-        <task id="57" name="Color Palette Changes" color="#8cb6ce" meeting="false" start="2022-02-28" duration="4" complete="0" thirdDate="2022-03-01" thirdDate-constraint="0" expand="true"/>
-        <task id="43" name="Modularize/Clean-up Code" color="#8cb6ce" meeting="false" start="2022-03-14" duration="8" complete="0" thirdDate="2022-01-25" thirdDate-constraint="0" expand="true"/>
-        <task id="24" name="Test Plan Revision 0" color="#8cb6ce" meeting="false" start="2022-03-11" duration="1" complete="0" thirdDate="2021-12-29" thirdDate-constraint="0" expand="true"/>
-        <task id="26" name="Design &amp; Document Revision 0" color="#8cb6ce" meeting="false" start="2022-03-14" duration="5" complete="0" thirdDate="2021-12-29" thirdDate-constraint="0" expand="true"/>
-        <task id="55" name="Text on top of Image" color="#8cb6ce" meeting="false" start="2022-03-21" duration="3" complete="0" thirdDate="2022-03-01" thirdDate-constraint="0" expand="true"/>
+        <task id="12" name="Development Plan" color="#8cb6ce" meeting="false" start="2022-01-31" duration="5" complete="100" thirdDate="2022-02-02" thirdDate-constraint="0" expand="true"/>
+        <task id="17" name="Requirements Document Revision 0" color="#8cb6ce" meeting="false" start="2022-02-07" duration="5" complete="100" thirdDate="2022-01-14" thirdDate-constraint="0" expand="true"/>
+        <task id="35" name="Learning Pygame &amp; Tkinter" color="#8cb6ce" meeting="false" start="2022-02-14" duration="7" complete="100" thirdDate="2022-01-11" thirdDate-constraint="0" expand="true"/>
+        <task id="51" name="Additional Layers" color="#8cb6ce" meeting="false" start="2022-02-21" duration="6" complete="100" thirdDate="2022-02-22" thirdDate-constraint="0" expand="true"/>
+        <task id="21" name="Proof of Concept Demonstration" color="#8cb6ce" meeting="false" start="2022-03-02" duration="1" complete="100" thirdDate="2022-01-18" thirdDate-constraint="0" expand="true"/>
+        <task id="24" name="Test Plan Revision 0" color="#8cb6ce" meeting="false" start="2022-03-05" duration="7" complete="100" thirdDate="2021-12-29" thirdDate-constraint="0" expand="true"/>
+        <task id="43" name="Modularize/Clean-up Code" color="#8cb6ce" meeting="false" start="2022-03-12" duration="9" complete="68" thirdDate="2022-01-25" thirdDate-constraint="0" expand="true">
+            <task id="63" name="Implement Assets Module" color="#8cb6ce" meeting="false" start="2022-03-12" duration="9" complete="68" thirdDate="2022-02-25" thirdDate-constraint="0" expand="true"/>
+            <task id="67" name="Implement Layer Module" color="#8cb6ce" meeting="false" start="2022-03-12" duration="9" complete="68" thirdDate="2022-03-12" thirdDate-constraint="0" expand="true"/>
+            <task id="68" name="Implement Canvas Module" color="#8cb6ce" meeting="false" start="2022-03-12" duration="9" complete="68" thirdDate="2022-03-12" thirdDate-constraint="0" expand="true"/>
+            <task id="69" name="Implement UI Controller Module" color="#8cb6ce" meeting="false" start="2022-03-12" duration="9" complete="68" thirdDate="2022-03-12" thirdDate-constraint="0" expand="true"/>
+            <task id="70" name="Implement Help Module" color="#8cb6ce" meeting="false" start="2022-03-12" duration="9" complete="68" thirdDate="2022-03-10" thirdDate-constraint="0" expand="true"/>
+            <task id="72" name="Implement Color Palette Module" color="#8cb6ce" meeting="false" start="2022-03-12" duration="9" complete="68" thirdDate="2022-03-12" thirdDate-constraint="0" expand="true"/>
+            <task id="73" name="Implement Overlay Module" color="#8cb6ce" meeting="false" start="2022-03-12" duration="9" complete="68" thirdDate="2022-03-12" thirdDate-constraint="0" expand="true"/>
+        </task>
+        <task id="26" name="Design &amp; Document Revision 0" color="#8cb6ce" meeting="false" start="2022-03-14" duration="5" complete="100" thirdDate="2021-12-29" thirdDate-constraint="0" expand="true"/>
+        <task id="57" name="Color Palette Changes" color="#8cb6ce" meeting="false" start="2022-03-19" duration="4" complete="0" thirdDate="2022-03-01" thirdDate-constraint="0" expand="true"/>
+        <task id="90" name="Adding Border Options" color="#8cb6ce" meeting="false" start="2022-03-19" duration="4" complete="0" thirdDate="2022-03-23" thirdDate-constraint="0" expand="true"/>
         <task id="28" name="Revision 0 Demonstration" color="#8cb6ce" meeting="false" start="2022-03-23" duration="1" complete="0" thirdDate="2022-01-11" thirdDate-constraint="0" expand="true"/>
-        <task id="59" name="Additional Generators" color="#8cb6ce" meeting="false" start="2022-03-23" duration="8" complete="0" thirdDate="2022-03-01" thirdDate-constraint="0" expand="true"/>
-        <task id="34" name="Final Documentation (Revision 1)" color="#8cb6ce" meeting="false" start="2022-03-23" duration="9" complete="0" thirdDate="2022-01-11" thirdDate-constraint="0" expand="true"/>
+        <task id="55" name="Text on top of Image" color="#8cb6ce" meeting="false" start="2022-03-24" duration="4" complete="0" thirdDate="2022-03-01" thirdDate-constraint="0" expand="true"/>
+        <task id="93" name="Layer Transparency" color="#8cb6ce" meeting="false" start="2022-03-24" duration="4" complete="0" thirdDate="2022-03-22" thirdDate-constraint="0" expand="true"/>
+        <task id="97" name="Testing Final Program" color="#8cb6ce" meeting="false" start="2022-03-28" duration="4" complete="0" thirdDate="2022-03-23" thirdDate-constraint="0" expand="true"/>
+        <task id="34" name="Final Documentation (Revision 1)" color="#8cb6ce" meeting="false" start="2022-03-24" duration="11" complete="0" thirdDate="2022-01-11" thirdDate-constraint="0" expand="true"/>
         <task id="30" name="Final Demonstration (Revision 1)" color="#8cb6ce" meeting="false" start="2022-04-04" duration="1" complete="0" thirdDate="2022-01-11" thirdDate-constraint="0" expand="true"/>
         <task id="32" name="Peer Evaluation" color="#8cb6ce" meeting="false" start="2022-04-04" duration="1" complete="0" thirdDate="2022-01-11" thirdDate-constraint="0" expand="true"/>
     </tasks>
@@ -68,8 +78,6 @@
         <allocation task-id="8" resource-id="0" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="12" resource-id="0" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="17" resource-id="0" function="Default:0" responsible="false" load="33.3"/>
-        <allocation task-id="55" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
-        <allocation task-id="59" resource-id="0" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="35" resource-id="0" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="43" resource-id="0" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="24" resource-id="0" function="Default:0" responsible="false" load="33.3"/>
@@ -77,14 +85,20 @@
         <allocation task-id="28" resource-id="0" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="30" resource-id="0" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="34" resource-id="0" function="Default:0" responsible="false" load="33.3"/>
+        <allocation task-id="51" resource-id="0" function="Default:0" responsible="false" load="50.0"/>
+        <allocation task-id="67" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="69" resource-id="0" function="Default:0" responsible="false" load="20.0"/>
+        <allocation task-id="57" resource-id="0" function="Default:0" responsible="false" load="40.0"/>
+        <allocation task-id="55" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="90" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="93" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="97" resource-id="0" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="0" resource-id="1" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="4" resource-id="1" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="8" resource-id="1" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="9" resource-id="1" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="12" resource-id="1" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="17" resource-id="1" function="Default:0" responsible="false" load="33.3"/>
-        <allocation task-id="51" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
-        <allocation task-id="59" resource-id="1" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="35" resource-id="1" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="43" resource-id="1" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="24" resource-id="1" function="Default:0" responsible="false" load="33.3"/>
@@ -93,14 +107,20 @@
         <allocation task-id="28" resource-id="1" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="30" resource-id="1" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="34" resource-id="1" function="Default:0" responsible="false" load="33.3"/>
+        <allocation task-id="51" resource-id="1" function="Default:0" responsible="false" load="50.0"/>
+        <allocation task-id="63" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="68" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="69" resource-id="1" function="Default:0" responsible="false" load="80.0"/>
+        <allocation task-id="70" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="72" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="57" resource-id="1" function="Default:0" responsible="false" load="60.0"/>
+        <allocation task-id="97" resource-id="1" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="0" resource-id="2" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="4" resource-id="2" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="8" resource-id="2" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="9" resource-id="2" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="12" resource-id="2" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="17" resource-id="2" function="Default:0" responsible="false" load="33.3"/>
-        <allocation task-id="57" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
-        <allocation task-id="59" resource-id="2" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="35" resource-id="2" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="43" resource-id="2" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="24" resource-id="2" function="Default:0" responsible="false" load="33.3"/>
@@ -109,6 +129,8 @@
         <allocation task-id="28" resource-id="2" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="30" resource-id="2" function="Default:0" responsible="false" load="33.3"/>
         <allocation task-id="34" resource-id="2" function="Default:0" responsible="false" load="33.3"/>
+        <allocation task-id="73" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="97" resource-id="2" function="Default:0" responsible="false" load="33.3"/>
     </allocations>
     <vacations/>
     <previous/>
