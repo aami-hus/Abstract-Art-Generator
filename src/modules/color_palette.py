@@ -41,6 +41,17 @@ _color_palettes = {
     "#D162A4", "#B55690", "#A30262"],
     "Test" : ["#73f7dd", "#2cc4cb", "#1972a4", "#2e3a87",
     "#fcf0c8", "#f7d098", "#911f27", "#630a10"],
+    "Rose" : ["#6f58c9", "#7e78d2", "#b6b8d6", "#bbdbd1", "#bdede0"],
+    "Rainforest": ["#00241B", "#4e878c", "#65B891", "##93E5AB", "#B5FFE1"],
+    "Spring" : ["#040926", "#251351", "#7D2E68", "#A85751", "#C97B84"],
+    "Halloween" : ["#5E503F","#A9927D","#F2F4F3","#22333B","#0A0908"],
+    "Autumn" : ["#C3E991","#DFCC74","#CB904D","#75485E","#51A3A3"],
+    "Bright" : ["#89FC00","#008BF8","#DC0073","#F5B700","#04E762"],
+    "Pistacho" : ["#3C1742","#F3FFB9","#C42021","#6C0E23","#561643"],
+    "Steal Teal" : ["#492C1D","#5B5750","#6B7F82","#7C99B4","#8EB8E5"],
+    "Violet Desert" : ["#18020C","#634B66","#9590A8","#BBCBCB","#E5FFDE"],
+    "Verve" : ["#A2666F","#F49390","#F45866","#C45AB3","#631A86"],
+    
 }
 
 #margins for where to place text/interactables in the dialogs
