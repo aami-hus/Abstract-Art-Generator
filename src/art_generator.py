@@ -893,7 +893,7 @@ class Canvas:
     def generate_fg(self, overlay):
         self.clean_layer(self.fg_layer)
         self.fg_layer.blit(overlay, (0, 0))
-        self.blit_to_canvas()
+        self.blit_to_canvas([l1,l2,l3])
 
     # def generate_layer_one(self, art_style, art_shape, color_palette, complexity, magnitude):
     #     self.generate_art(self.layer_one, art_style, art_shape, color_palette, complexity, magnitude)
@@ -940,6 +940,14 @@ class Canvas:
         # self.canvas.blit(self.layer_one, (0, 0))
         # self.canvas.blit(self.layer_two, (0, 0))
         # self.canvas.blit(self.layer_three, (0, 0)) #AH
+
+        #below added to allow surfaces (layers) to change transparency
+        #layers[0].layer.convert_alpha()
+        layers[0].layer.set_alpha(layers[0].get_layer_transparency())
+        #layers[1].layer.convert_alpha()
+        layers[1].layer.set_alpha(layers[1].get_layer_transparency())
+        #layers[2].layer.convert_alpha()
+        layers[2].layer.set_alpha(layers[2].get_layer_transparency())
         for i in layers:
             self.canvas.blit(i.layer, (0, 0)) #AH2
         self.canvas.blit(self.fg_layer, (0, 0))
@@ -955,9 +963,9 @@ ui_menus_right = SW-270
 
 #positions of dialogs
 palette_pos = (ui_menus_right, 60)
-layer_one_pos = (ui_menus_left, 60)
-layer_two_pos = (ui_menus_left, layer_one_pos[1]+200)
-layer_three_pos = (ui_menus_left, layer_two_pos[1]+200)
+layer_one_pos = (ui_menus_left, 30) #changed from 60 to 30
+layer_two_pos = (ui_menus_left, layer_one_pos[1]+230) #200 to 250
+layer_three_pos = (ui_menus_left, layer_two_pos[1]+230)
 overlay_pos = (0, palette_pos[1]+155)
 help_pos = (284, 60)
 # help_left = 0
@@ -1066,7 +1074,7 @@ def draw_menu(window, option_locks):
     inactive_color = (20, 20, 20)
 
     text_to_screen(window=window, text="ABSTRACT ART GENERATOR", color=ui_h1_color, pos=(430, 35), font_size=40)
-    text_to_screen(window=window, text="LAYERS", color=ui_h1_color, pos=(l1m, layer_one_pos[1]-25), font_size=24)
+    text_to_screen(window=window, text="LAYERS", color=ui_h1_color, pos=(l1m, layer_one_pos[1]-22.5), font_size=24)
     # text_to_screen(window=window, text="COLOR PALETTE", color=ui_h1_color, pos=(cpm, palette_pos[1]+15), font_size=18)
     # for i, color in enumerate(color_palette):
     #     pg.draw.rect(window, active_color if bg_color_index == i else inactive_color, (cpm+((i%4)*50), palette_pos[1]+65+(36*(i//4)), 26, 26))
