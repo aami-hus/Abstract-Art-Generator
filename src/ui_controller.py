@@ -42,16 +42,6 @@ class ui_controller:
     SH = 720
 
     # general menu locations
-<<<<<<< HEAD
-    ui_menus_left = 18
-    ui_menus_right = SW-270
-
-    # positions of widgets
-    palette_pos = (ui_menus_right, 60)
-    layer_one_pos = (ui_menus_left, 30)
-    layer_two_pos = (ui_menus_left, layer_one_pos[1]+230)
-    layer_three_pos = (ui_menus_left, layer_two_pos[1]+230)
-=======
     _ui_menus_left = 18
     _ui_menus_right = SW-270
 
@@ -64,7 +54,6 @@ class ui_controller:
     ## Position of the layer three widget.
     layer_three_pos = (_ui_menus_left, layer_two_pos[1]+200)
     ## Position of the overlay widget.
->>>>>>> palette-widget-full-dox
     overlay_pos = (0, palette_pos[1]+155)
     ## Position of the help widget.
     help_pos = (284, 60)

@@ -61,13 +61,13 @@ class canvas:
         self.__canvas.blit(self.__bg_layer, (0, 0))
 
         widgets.layer_one.draw_canvas()
-        self.__canvas.blit(widgets.layer_one.layer)
+        self.__canvas.blit(widgets.layer_one.layer, (0, 0))
 
         widgets.layer_two.draw_canvas()
-        self.__canvas.blit(widgets.layer_two.layer)
+        self.__canvas.blit(widgets.layer_two.layer, (0, 0))
 
         widgets.layer_three.draw_canvas()
-        self.__canvas.blit(widgets.layer_three.layer)
+        self.__canvas.blit(widgets.layer_three.layer, (0, 0))
 
         self.__canvas.convert()
         self.__display_canvas = pg.transform.smoothscale(self.__canvas, (self.__display_width, self.__display_height))

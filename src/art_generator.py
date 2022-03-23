@@ -2,6 +2,7 @@
 # By Burak U. - github.com/Burakcoli
 
 from random import randint
+from time import sleep
 
 from turtle import color
 import pygame as pg
@@ -14,6 +15,9 @@ from tkinter.filedialog import asksaveasfilename
 from modules.color_palette import color_palette
 from modules.help import help
 from modules.layer import layer
+from modules.text_overlay import text_overlay
+
+from widget_storage import widgets
 
 #-----------------Define UI-----------------
 pg.init()
@@ -950,6 +954,7 @@ class Canvas:
         layers[2].layer.set_alpha(layers[2].get_layer_transparency())
         for i in layers:
             self.canvas.blit(i.layer, (0, 0)) #AH2
+        self.canvas.blit(to.layer, (0, 0))
         self.canvas.blit(self.fg_layer, (0, 0))
         self.canvas.convert()
         self.display_canvas = pg.transform.smoothscale(self.canvas, self.display_size)
@@ -962,11 +967,12 @@ ui_menus_left = 18
 ui_menus_right = SW-270
 
 #positions of dialogs
-palette_pos = (ui_menus_right, 60)
+palette_pos = (ui_menus_right, 15)
 layer_one_pos = (ui_menus_left, 30) #changed from 60 to 30
 layer_two_pos = (ui_menus_left, layer_one_pos[1]+230) #200 to 250
 layer_three_pos = (ui_menus_left, layer_two_pos[1]+230)
-overlay_pos = (0, palette_pos[1]+155)
+overlay_pos = (0, palette_pos[1]+145)
+text_overlay_pos = (ui_menus_right, overlay_pos[1]+360)
 help_pos = (284, 60)
 # help_left = 0
 
@@ -994,6 +1000,7 @@ def draw_menu(window, option_locks):
     l1.draw_ui_dynamic()
     l2.draw_ui_dynamic()
     l3.draw_ui_dynamic()
+    to.draw_ui_dynamic()
 
     cp_lock = palette_pos[0] + 17
     l1_lock = layer_one_pos[0] + 17
@@ -1091,7 +1098,7 @@ def draw_menu(window, option_locks):
 
     text_to_screen(window=window, text="OVERLAY", color=ui_h1_color, pos=(SW-174, overlay_pos[1]+12), font_size=18)
 
-    text_to_screen(window=window, text="RESOLUTION", color=ui_color, pos=(SW-240, 560+20), font_size=14)
+    text_to_screen(window=window, text="RESOLUTION", color=ui_color, pos=(SW // 2 + 100, 560+20), font_size=14)
 
     pg.draw.rect(window, active_color if active_overlay == 1 else inactive_color, (SW-232, overlay_pos[1]+38, 84, 49), 1)
     pg.draw.rect(window, active_color if active_overlay == 2 else inactive_color, (SW-132, overlay_pos[1]+38, 84, 49), 1)
@@ -1120,6 +1127,7 @@ def generate_ui():
     l1.draw_ui_static()
     l2.draw_ui_static()
     l3.draw_ui_static()
+    to.draw_ui_static()
 
     #locations for lock buttons
     cp_lock = palette_pos[0] + 6
@@ -1191,16 +1199,16 @@ def generate_ui():
 
     resolution_dropdown = pgui.elements.UIDropDownMenu(options_list=resolutions_list,
                                                        starting_option=export_resolution,
-                                                       relative_rect=pg.Rect(SW-240, 575+20, 200, 22), manager=ui_manager,
+                                                       relative_rect=pg.Rect(SW // 2 + 100, 575+20, 200, 22), manager=ui_manager,
                                                        object_id = "resolution_dropdown")
 
-    export_art_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW - 240, SH - 100, 200, 50),
+    export_art_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW // 2 + 100, SH - 100, 200, 50), #SW - 240
                                                text="Export", manager=ui_manager, object_id="export_art_button")
 
-    generate_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW // 2 - 200, SH - 100, 200, 50),
+    generate_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW // 2 - 200 - 100, SH - 100, 200, 50),
                                              text="Generate", manager=ui_manager, object_id="generate_button")
 
-    random_generate_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW // 2, SH - 100, 200, 50),
+    random_generate_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW // 2 - 200 + 100, SH - 100, 200, 50),
                                                     text="Generate Randomly", manager=ui_manager,
                                                     object_id="random_generate_button")
 
@@ -1339,11 +1347,20 @@ def generate_ui():
 
 c1 = Canvas((3840, 2160), (int(SW//1.8), int(SH//1.8)))
 
-p1 = color_palette(palette_pos[0], palette_pos[1], window, ui_manager)
-help_module = help(help_pos[0], help_pos[1], window, ui_manager)
-l1 = layer(layer_one_pos[0], layer_one_pos[1], window, ui_manager, "ONE")
-l2 = layer(layer_two_pos[0], layer_two_pos[1], window, ui_manager, "TWO")
-l3 = layer(layer_three_pos[0], layer_three_pos[1], window, ui_manager, "THREE")
+widgets.color_palette = color_palette(palette_pos[0], palette_pos[1], window, ui_manager)
+widgets.help = help(help_pos[0], help_pos[1], window, ui_manager)
+widgets.layer_one = layer(layer_one_pos[0], layer_one_pos[1], window, ui_manager, "ONE")
+widgets.layer_two = layer(layer_two_pos[0], layer_two_pos[1], window, ui_manager, "TWO")
+widgets.layer_three = layer(layer_three_pos[0], layer_three_pos[1], window, ui_manager, "THREE")
+widgets.text_overlay = text_overlay(text_overlay_pos[0], text_overlay_pos[1], window, ui_manager)
+
+p1 = widgets.color_palette
+help_module = widgets.help
+l1 = widgets.layer_one
+l2 = widgets.layer_two
+l3 = widgets.layer_three
+to = widgets.text_overlay
+
 
 layer_one_style = "Striped Vertical"
 layer_one_shape = "Lines"
@@ -1372,29 +1389,30 @@ export_resolution = resolutions_list[0]
 generate_ui()
 
 run = True
+clock = pg.time.Clock()
 while run:
-    delta_time = pg.time.Clock().tick(60)/1000.0
+    delta_time = clock.tick(60)/1000.0
     for event in pg.event.get():
         if event.type == pg.QUIT:
             run = False
             break
 
         if event.type == pg.KEYDOWN:
-            if event.key == pg.K_1:
-                c1.generate_fg(overlays[0])
-            if event.key == pg.K_2:
-                c1.generate_fg(overlays[1])
-            if event.key == pg.K_3:
-                c1.generate_fg(overlays[2])
-            if event.key == pg.K_4:
-                c1.generate_fg(overlays[3])
-            if event.key == pg.K_5:
-                c1.generate_fg(overlays[4])
-            if event.key == pg.K_6:
-                c1.generate_fg(overlays[5])
-            if event.key == pg.K_7:
-                c1.clean_layer(c1.fg_layer)
-                c1.blit_to_canvas([l1, l2, l3])
+            # if event.key == pg.K_1:
+            #     c1.generate_fg(overlays[0])
+            # if event.key == pg.K_2:
+            #     c1.generate_fg(overlays[1])
+            # if event.key == pg.K_3:
+            #     c1.generate_fg(overlays[2])
+            # if event.key == pg.K_4:
+            #     c1.generate_fg(overlays[3])
+            # if event.key == pg.K_5:
+            #     c1.generate_fg(overlays[4])
+            # if event.key == pg.K_6:
+            #     c1.generate_fg(overlays[5])
+            # if event.key == pg.K_7:
+            #     c1.clean_layer(c1.fg_layer)
+            #     c1.blit_to_canvas([l1, l2, l3])
             if event.key == pg.K_ESCAPE:
                 run = False
                 break
@@ -1406,6 +1424,7 @@ while run:
             l1.events(event)
             l2.events(event)
             l3.events(event)
+            to.events(event)
 
             if event.user_type == pgui.UI_BUTTON_PRESSED:
                 if event.ui_object_id == "generate_button":
@@ -1427,6 +1446,7 @@ while run:
                     c1.generate_layer(l1, cp)
                     c1.generate_layer(l2, cp)
                     c1.generate_layer(l3, cp)
+                    to.draw_canvas()
 
                     c1.blit_to_canvas([l1, l2, l3])
 
@@ -1489,6 +1509,7 @@ while run:
                     c1.generate_layer(l1, cp)
                     c1.generate_layer(l2, cp)
                     c1.generate_layer(l3, cp)
+                    to.draw_canvas()
 
                     c1.blit_to_canvas([l1, l2, l3])
 
@@ -1577,9 +1598,23 @@ while run:
                     c1.clean_layer(c1.fg_layer)
                     c1.blit_to_canvas([l1, l2, l3])
 
+            if event.user_type == pgui.UI_HORIZONTAL_SLIDER_MOVED:
+                if event.ui_object_id == "size_slider":
+                    c1.blit_to_canvas([l1,l2,l3])
+                if event.ui_object_id == "x_slider":
+                    c1.blit_to_canvas([l1,l2,l3])
+                if event.ui_object_id == "y_slider":
+                    c1.blit_to_canvas([l1,l2,l3])
+
+            if event.user_type == pgui.UI_TEXT_ENTRY_FINISHED:
+                if event.ui_object_id == "text_entry":
+                    c1.blit_to_canvas([l1,l2,l3])
+
             if event.user_type == pgui.UI_DROP_DOWN_MENU_CHANGED:
                 if event.ui_object_id == "resolution_dropdown":
                     export_resolution = event.text
+                if event.ui_object_id == "font_dropdown":
+                    c1.blit_to_canvas([l1,l2,l3])
                 # if event.ui_object_id == "current_palette_dropdown":
                 #     current_color_palette = p1.get_colors_from_palette(event.text)
                 #     current_palette_name = p1.get_name_of_palette(current_color_palette)

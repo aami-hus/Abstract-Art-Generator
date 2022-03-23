@@ -9,8 +9,6 @@
 # Import
 from abc import ABC, abstractmethod
 
-from ui_controller import controller
-
 class generator(ABC):
     """! Abstract class for generators to extend. """
 

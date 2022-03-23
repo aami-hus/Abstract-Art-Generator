@@ -28,5 +28,7 @@ class widget_storage:
         self.layer_two = None
         ## The layer three widget
         self.layer_three = None
+        ## The text overlay widget
+        self.text_overlay = None
 
 widgets = widget_storage()
