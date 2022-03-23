@@ -46,9 +46,9 @@ class ui_controller:
 
     # positions of widgets
     palette_pos = (ui_menus_right, 60)
-    layer_one_pos = (ui_menus_left, 60)
-    layer_two_pos = (ui_menus_left, layer_one_pos[1]+200)
-    layer_three_pos = (ui_menus_left, layer_two_pos[1]+200)
+    layer_one_pos = (ui_menus_left, 30)
+    layer_two_pos = (ui_menus_left, layer_one_pos[1]+230)
+    layer_three_pos = (ui_menus_left, layer_two_pos[1]+230)
     overlay_pos = (0, palette_pos[1]+155)
     help_pos = (284, 60)
 

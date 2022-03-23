@@ -43,12 +43,14 @@ class layer(widget):
         self.__shape = choice(art_shapes_list)
         self.__complexity = randint(10,30)#15
         self.__size = randint(51, 400) #400
+        self.__transparency = randint(0, 255)
 
         #locks
         self.__style_lock = 0
         self.__shape_lock = 0
         self.__complexity_lock = 0
         self.__size_lock = 0
+        self.__transparency_lock = 0
 
 
     # draw dynamic ui elements (basically anything that isn't a pgui widget) (OVERRIDE)
@@ -57,7 +59,7 @@ class layer(widget):
         interactables_margin = self.__x + 42
         lock_margin = self.__x + 17
 
-        pg.draw.rect(self.__window, pg.Color("#2B2834"), (self.__x, self.__y, 252, 190))
+        pg.draw.rect(self.__window, pg.Color("#2B2834"), (self.__x, self.__y, 252, 220))
 
         if self.__style_lock == 0:
             self.__window.blit(assets.lock_disabled, (lock_margin, self.__y+30))
@@ -65,23 +67,29 @@ class layer(widget):
             self.__window.blit(assets.lock_enabled, (lock_margin, self.__y+30))
 
         if self.__shape_lock == 0:
-            self.__window.blit(assets.lock_disabled, (lock_margin, self.__y+60))
+            self.__window.blit(assets.lock_disabled, (lock_margin, self.__y+55))
         else:
-            self.__window.blit(assets.lock_enabled, (lock_margin, self.__y+60))
+            self.__window.blit(assets.lock_enabled, (lock_margin, self.__y+55))
 
         if self.__complexity_lock == 0:
-            self.__window.blit(assets.lock_disabled, (lock_margin, self.__y+110))
+            self.__window.blit(assets.lock_disabled, (lock_margin, self.__y+100))
         else:
-            self.__window.blit(assets.lock_enabled, (lock_margin, self.__y+110))
+            self.__window.blit(assets.lock_enabled, (lock_margin, self.__y+100))
 
         if self.__size_lock == 0:
-            self.__window.blit(assets.lock_disabled, (lock_margin, self.__y+160))
+            self.__window.blit(assets.lock_disabled, (lock_margin, self.__y+145))
         else:
-            self.__window.blit(assets.lock_enabled, (lock_margin, self.__y+160))
+            self.__window.blit(assets.lock_enabled, (lock_margin, self.__y+145))
+        
+        if self.__transparency_lock == 0:
+            self.__window.blit(assets.lock_disabled, (lock_margin, self.__y+190))
+        else:
+            self.__window.blit(assets.lock_enabled, (lock_margin, self.__y+190))
 
         assets.text_to_screen(window=self.__window, text="LAYER " + self.__layer_num + " STYLE", color=assets.ui_h1_color, pos=(interactables_margin, self.__y+10), font_size=18)
-        assets.text_to_screen(window=self.__window, text="LAYER " + self.__layer_num + " COMPLEXITY", color=assets.ui_color, pos=(interactables_margin, self.__y+95), font_size=14)
-        assets.text_to_screen(window=self.__window, text="LAYER " + self.__layer_num + " SHAPE SIZE", color=assets.ui_color, pos=(interactables_margin, self.__y+145), font_size=14)
+        assets.text_to_screen(window=self.__window, text="LAYER " + self.__layer_num + " COMPLEXITY", color=assets.ui_color, pos=(interactables_margin, self.__y+85), font_size=14)
+        assets.text_to_screen(window=self.__window, text="LAYER " + self.__layer_num + " SHAPE SIZE", color=assets.ui_color, pos=(interactables_margin, self.__y+130), font_size=14)
+        assets.text_to_screen(window=self.__window, text="LAYER " + self.__layer_num + " TRANSPARENCY", color=assets.ui_color, pos=(interactables_margin, self.__y+175), font_size=14)
 
 
 
@@ -99,29 +107,35 @@ class layer(widget):
 
         shape_dropdown = pgui.elements.UIDropDownMenu(options_list=art_shapes_list,
                                                                 starting_option=self.__shape,
-                                                                relative_rect=pg.Rect(interactables_margin, self.__y+60, 200, 22), manager=self.__ui_manager,
+                                                                relative_rect=pg.Rect(interactables_margin, self.__y+55, 200, 22), manager=self.__ui_manager,
                                                                 object_id="layer_"+num_of_layer+"_shape_dropdown")
 
-        complexity_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(interactables_margin, self.__y+110, 200, 22),
+        complexity_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(interactables_margin, self.__y+100, 200, 22),
                                                                     start_value=self.__complexity,
                                                                     value_range=(10, 30), manager=self.__ui_manager,
                                                                     object_id="layer_"+num_of_layer+"_complexity_slider")
 
-        size_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(interactables_margin, self.__y+160, 200, 22),
+        size_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(interactables_margin, self.__y+145, 200, 22),
                                                                 start_value=self.__size, value_range=(50, 400),
                                                                 manager=self.__ui_manager, object_id="layer_"+num_of_layer+"_size_slider")
+        
+        transparency_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(interactables_margin, self.__y+190, 200, 22),
+                                                                start_value=self.__transparency, value_range=(0, 255),
+                                                                manager=self.__ui_manager, object_id="layer_"+num_of_layer+"_transparency_slider")
 
         # "lock_button_three" changed to "layer_one_lock_butter"
         # etc, 4 = layer 1 shape, 5 = layer 1 complex, 6 = layer 1 size
         # repeat for layer 2 and 3
         style_lock_button = pgui.elements.UIButton(relative_rect=pg.Rect(lock_margin, self.__y+37, 12, 12), text="", manager=self.__ui_manager,
                                                 object_id="layer_"+num_of_layer+"_style_lock_button")
-        shape_lock_button = pgui.elements.UIButton(relative_rect=pg.Rect(lock_margin, self.__y+67, 12, 12), text="", manager=self.__ui_manager,
+        shape_lock_button = pgui.elements.UIButton(relative_rect=pg.Rect(lock_margin, self.__y+62, 12, 12), text="", manager=self.__ui_manager,
                                                 object_id="layer_"+num_of_layer+"_shape_lock_button")
-        complexity_lock_button = pgui.elements.UIButton(relative_rect=pg.Rect(lock_margin, self.__y+117, 12, 12), text="", manager=self.__ui_manager,
+        complexity_lock_button = pgui.elements.UIButton(relative_rect=pg.Rect(lock_margin, self.__y+107, 12, 12), text="", manager=self.__ui_manager,
                                                 object_id="layer_"+num_of_layer+"_complexity_lock_button")
-        size_lock_button = pgui.elements.UIButton(relative_rect=pg.Rect(lock_margin, self.__y+167, 12, 12), text="", manager=self.__ui_manager,
+        size_lock_button = pgui.elements.UIButton(relative_rect=pg.Rect(lock_margin, self.__y+152, 12, 12), text="", manager=self.__ui_manager,
                                                 object_id="layer_"+num_of_layer+"_size_lock_button")
+        transparency_lock_button = pgui.elements.UIButton(relative_rect=pg.Rect(lock_margin, self.__y+197, 12, 12), text="", manager=self.__ui_manager,
+                                                object_id="layer_"+num_of_layer+"_transparency_lock_button")
 
 
 
@@ -136,6 +150,8 @@ class layer(widget):
             self.__complexity = randint(10,30)
         if self.__size_lock == 0:
             self.__size = randint(51, 400)
+        if self.__transparency_lock == 0:
+            self.__transparency = randint(0, 255)
 
     # process pgui interaction events (OVERRIDE)
     #@abstractmethod
@@ -151,6 +167,8 @@ class layer(widget):
                 self.__complexity_lock = 1 if self.__complexity_lock == 0 else 0
             if event.ui_object_id == "layer_"+num_of_layer+"_size_lock_button":
                 self.__size_lock = 1 if self.__size_lock == 0 else 0
+            if event.ui_object_id == "layer_"+num_of_layer+"_transparency_lock_button":
+                self.__transparency_lock = 1 if self.__transparency_lock == 0 else 0
 
         if event.user_type == pgui.UI_DROP_DOWN_MENU_CHANGED:
             if event.ui_object_id == "layer_"+num_of_layer+"_style_dropdown":
@@ -163,6 +181,8 @@ class layer(widget):
                 self.__complexity = event.value
             if event.ui_object_id == "layer_"+num_of_layer+"_size_slider":
                 self.__size = event.value
+            if event.ui_object_id == "layer_"+num_of_layer+"_transparency_slider":
+                self.__transparency = event.value
 
 
 
@@ -186,3 +206,5 @@ class layer(widget):
         return self.__complexity
     def get_layer_size(self):
         return self.__size
+    def get_layer_transparency(self):
+        return self.__transparency
