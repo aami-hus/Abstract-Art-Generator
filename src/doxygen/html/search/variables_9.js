@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['resolutions_5flist_98',['resolutions_list',['../classui__controller_1_1ui__controller.html#a72bc1f25dbaa8a0eabbd69ef3483fb4e',1,'ui_controller::ui_controller']]]
+  ['medium_5ffont_184',['medium_font',['../assets_8py.html#a35ecfbde72c93461f45f78ba59eaf8db',1,'assets']]]
 ];

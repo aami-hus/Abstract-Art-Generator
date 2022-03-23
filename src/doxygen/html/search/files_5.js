@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['ui_5fcontroller_2epy_170',['ui_controller.py',['../ui__controller_8py.html',1,'']]]
+  ['help_2epy_124',['help.py',['../help_8py.html',1,'']]],
+  ['hpolygons_5fgenerator_2epy_125',['hpolygons_generator.py',['../hpolygons__generator_8py.html',1,'']]]
 ];

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="PythonPaintersGanttChart" company="" webLink="http://" view-date="2022-01-09" view-index="1" gantt-divider-location="557" resource-divider-location="300" version="3.1.3100" locale="en_CA">
+<?xml version="1.0" encoding="UTF-8"?><project name="PythonPaintersGanttChart" company="" webLink="http://" view-date="2022-01-16" view-index="0" gantt-divider-location="557" resource-divider-location="300" version="3.1.3103" locale="en_CA">
     <description>
         <![CDATA[This is a Gantt project for the 3XA3 Python Painters project. The tasks will be completed by Aamina Hussain, Jessica Dawson, and Fady Morcos.]]>
     </description>
@@ -44,20 +44,18 @@
         <task id="12" name="Development Plan" color="#8cb6ce" meeting="false" start="2022-01-31" duration="5" complete="50" thirdDate="2022-02-02" thirdDate-constraint="0" expand="true"/>
         <task id="17" name="Requirements Document Revision 0" color="#8cb6ce" meeting="false" start="2022-02-07" duration="5" complete="0" thirdDate="2022-01-14" thirdDate-constraint="0" expand="true"/>
         <task id="35" name="Learning Pygame &amp; Tkinter" color="#8cb6ce" meeting="false" start="2022-02-14" duration="7" complete="0" thirdDate="2022-01-11" thirdDate-constraint="0" expand="true"/>
+        <task id="51" name="Additional Layers" color="#8cb6ce" meeting="false" start="2022-02-21" duration="6" complete="0" thirdDate="2022-02-22" thirdDate-constraint="0" expand="true"/>
         <task id="21" name="Proof of Concept Demonstration" color="#8cb6ce" meeting="false" start="2022-02-28" duration="1" complete="0" thirdDate="2022-01-18" thirdDate-constraint="0" expand="true"/>
-        <task id="43" name="Modularize/Clean-up Code" color="#8cb6ce" meeting="false" start="2022-03-01" duration="8" complete="0" thirdDate="2022-01-25" thirdDate-constraint="0" expand="true"/>
+        <task id="57" name="Color Palette Changes" color="#8cb6ce" meeting="false" start="2022-02-28" duration="4" complete="0" thirdDate="2022-03-01" thirdDate-constraint="0" expand="true"/>
+        <task id="43" name="Modularize/Clean-up Code" color="#8cb6ce" meeting="false" start="2022-03-14" duration="8" complete="0" thirdDate="2022-01-25" thirdDate-constraint="0" expand="true"/>
         <task id="24" name="Test Plan Revision 0" color="#8cb6ce" meeting="false" start="2022-03-11" duration="1" complete="0" thirdDate="2021-12-29" thirdDate-constraint="0" expand="true"/>
-        <task id="46" name="Additional Features" color="#8cb6ce" meeting="false" start="2022-03-14" duration="16" complete="0" thirdDate="2022-02-17" thirdDate-constraint="0" expand="true">
-            <task id="51" name="Additional Layers" color="#8cb6ce" meeting="false" start="2022-03-14" duration="16" complete="0" thirdDate="2022-02-22" thirdDate-constraint="0" expand="true"/>
-            <task id="55" name="Text on top of Image" color="#8cb6ce" meeting="false" start="2022-03-14" duration="16" complete="0" thirdDate="2022-03-01" thirdDate-constraint="0" expand="true"/>
-            <task id="57" name="Choosing Background Color" color="#8cb6ce" meeting="false" start="2022-03-14" duration="16" complete="0" thirdDate="2022-03-01" thirdDate-constraint="0" expand="true"/>
-            <task id="59" name="Additional Generators" color="#8cb6ce" meeting="false" start="2022-03-14" duration="16" complete="0" thirdDate="2022-03-01" thirdDate-constraint="0" expand="true"/>
-        </task>
         <task id="26" name="Design &amp; Document Revision 0" color="#8cb6ce" meeting="false" start="2022-03-14" duration="5" complete="0" thirdDate="2021-12-29" thirdDate-constraint="0" expand="true"/>
-        <task id="28" name="Revision 0 Demonstration" color="#8cb6ce" meeting="false" start="2022-03-21" duration="1" complete="0" thirdDate="2022-01-11" thirdDate-constraint="0" expand="true"/>
+        <task id="55" name="Text on top of Image" color="#8cb6ce" meeting="false" start="2022-03-21" duration="3" complete="0" thirdDate="2022-03-01" thirdDate-constraint="0" expand="true"/>
+        <task id="28" name="Revision 0 Demonstration" color="#8cb6ce" meeting="false" start="2022-03-23" duration="1" complete="0" thirdDate="2022-01-11" thirdDate-constraint="0" expand="true"/>
+        <task id="59" name="Additional Generators" color="#8cb6ce" meeting="false" start="2022-03-23" duration="8" complete="0" thirdDate="2022-03-01" thirdDate-constraint="0" expand="true"/>
+        <task id="34" name="Final Documentation (Revision 1)" color="#8cb6ce" meeting="false" start="2022-03-23" duration="9" complete="0" thirdDate="2022-01-11" thirdDate-constraint="0" expand="true"/>
         <task id="30" name="Final Demonstration (Revision 1)" color="#8cb6ce" meeting="false" start="2022-04-04" duration="1" complete="0" thirdDate="2022-01-11" thirdDate-constraint="0" expand="true"/>
         <task id="32" name="Peer Evaluation" color="#8cb6ce" meeting="false" start="2022-04-04" duration="1" complete="0" thirdDate="2022-01-11" thirdDate-constraint="0" expand="true"/>
-        <task id="34" name="Final Documentation (Revision 1)" color="#8cb6ce" meeting="false" start="2022-03-21" duration="11" complete="0" thirdDate="2022-01-11" thirdDate-constraint="0" expand="true"/>
     </tasks>
     <resources>
         <resource id="0" name="Aamina Hussain" function="Default:0" contacts="hussaa54@mcmaster.ca" phone=""/>

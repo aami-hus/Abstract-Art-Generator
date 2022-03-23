@@ -3,7 +3,7 @@
 #
 # @brief Defines the dots_generator class.
 #
-# @section author_dotss Author(s)
+# @section author_dots Author(s)
 # - Created by Jessica Dawson on 03/17/2022.
 
 # Imports
@@ -11,7 +11,7 @@ from random import randint
 
 import pygame as pg
 
-from generator import generator
+from generators.generator import generator
 
 art_styles_list = [
     "Chaotic",
@@ -26,7 +26,7 @@ art_styles_list = [
 class dots_generator(generator):
     """! Class to draw dots. """
 
-    def draw(self, layer, complexity, cp, style, magnitude):
+    def draw(layer, complexity, cp, style, magnitude):
         """! Draws dots to a layer. 
         
         @param layer        The layer to draw to.
@@ -35,6 +35,8 @@ class dots_generator(generator):
         @param style        The style of the layer.
         @param magnitude    The magnitude of the layer.
         """
+
+        
 
         if style == art_styles_list[0]:     # Chaotic
             for i in range(complexity*20):

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['widget_146',['widget',['../classwidget_1_1widget.html',1,'widget']]],
-  ['widget_5fstorage_147',['widget_storage',['../classwidget__storage_1_1widget__storage.html',1,'widget_storage']]]
+  ['help_105',['help',['../classhelp_1_1help.html',1,'help']]],
+  ['hpolygons_5fgenerator_106',['hpolygons_generator',['../classhpolygons__generator_1_1hpolygons__generator.html',1,'hpolygons_generator']]]
 ];

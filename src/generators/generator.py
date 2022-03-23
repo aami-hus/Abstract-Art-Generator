@@ -9,11 +9,13 @@
 # Import
 from abc import ABC, abstractmethod
 
+from ui_controller import controller
+
 class generator(ABC):
     """! Abstract class for generators to extend. """
 
     @abstractmethod
-    def draw(self, layer, complexity, cp, style, magnitude):
+    def draw(layer, complexity, cp, style, magnitude):
         """! Draws to a layer. 
         
         @param layer        The layer to draw to.

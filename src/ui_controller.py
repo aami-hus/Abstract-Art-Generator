@@ -3,8 +3,9 @@
 #
 # @brief Defines and initializes the ui_controller class.
 #
-# @section author_sensors Author(s)
+# @section author_controller Author(s)
 # - Created by Jessica Dawson on 03/16/2022.
+# - Modified by Aamina Hussain on 03/17/2022.
 
 # Imports
 import pygame as pg
@@ -23,7 +24,7 @@ class ui_controller:
     """! The ui_controller class.
 
     A high level class that calls all other modules.
-    Orchestrates pygame event handling, ui drawing, art generation, setting randomization, and art exporting.
+    Orchestrates pygame event handling, ui drawing, art generation, randomization, and art exporting.
     """
 
     ## Possible canvas export resolutions.
@@ -37,10 +38,11 @@ class ui_controller:
 
     ## Application window width.
     SW = 1280
-    ## Application window height
+    ## Application window height.
     SH = 720
 
     # general menu locations
+<<<<<<< HEAD
     ui_menus_left = 18
     ui_menus_right = SW-270
 
@@ -49,12 +51,29 @@ class ui_controller:
     layer_one_pos = (ui_menus_left, 30)
     layer_two_pos = (ui_menus_left, layer_one_pos[1]+230)
     layer_three_pos = (ui_menus_left, layer_two_pos[1]+230)
+=======
+    _ui_menus_left = 18
+    _ui_menus_right = SW-270
+
+    ## Position of the color palette widget.
+    palette_pos = (_ui_menus_right, 60)
+    ## Position of the layer one widget.
+    layer_one_pos = (_ui_menus_left, 60)
+    ## Position of the layer two widget.
+    layer_two_pos = (_ui_menus_left, layer_one_pos[1]+200)
+    ## Position of the layer three widget.
+    layer_three_pos = (_ui_menus_left, layer_two_pos[1]+200)
+    ## Position of the overlay widget.
+>>>>>>> palette-widget-full-dox
     overlay_pos = (0, palette_pos[1]+155)
+    ## Position of the help widget.
     help_pos = (284, 60)
 
-    # canvas settings
+    ## Canvas internal size.
     canvas_size = (3840, 2160)
+    ## Canvas ui display port size.
     canvas_display_size = (int(SW//1.8), int(SH//1.8))
+    ## Position of the canvas on the ui.
     canvas_pos = ((SW - canvas_display_size[0])//2, (SH - canvas_display_size[1])//2)
 
 
@@ -67,18 +86,22 @@ class ui_controller:
         
         self.__create_window()
 
+        ## The canvas to draw the generated art on.
         self.canvas = canvas(self.canvas_pos[0], self.canvas_pos[1], self.canvas_size[0], self.canvas_size[1],
                             self.canvas_display_size[0], self.canvas_display_size[1], self.window)
 
         self.__initialize_widgets()
 
+        ## A boolean that specifies if the program is running, program terminates if False.
         self.isrunning = True
 
 
     def __create_window(self):
+        ## Program window.
         self.window = pg.display.set_mode((self.SW, self.SH))
         pg.display.set_caption("Abstract Art Generator")
         pg.display.set_icon(assets.logo)
+        ## Manages pygame_gui elements and events.
         self.ui_manager = pgui.UIManager((self.SW, self.SH))
 
 
@@ -137,7 +160,7 @@ class ui_controller:
     def draw_ui_dynamic(self):
         """! Draws the dynamic ui.
         
-        Draws background color and some text itself and calls canvas and widgets for all other drawing.
+        Draws the background color and some text itself and calls canvas and widgets for all other drawing.
         """
         self.window.fill(assets.background_color)
 

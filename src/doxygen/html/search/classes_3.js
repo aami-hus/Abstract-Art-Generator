@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['widget_57',['widget',['../classwidget_1_1widget.html',1,'widget']]],
-  ['widget_5fstorage_58',['widget_storage',['../classwidget__storage_1_1widget__storage.html',1,'widget_storage']]]
+  ['generator_103',['generator',['../classgenerator_1_1generator.html',1,'generator']]],
+  ['generator_5fstorage_104',['generator_storage',['../classgenerator__storage_1_1generator__storage.html',1,'generator_storage']]]
 ];

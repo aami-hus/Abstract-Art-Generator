@@ -54,17 +54,10 @@ _color_palettes = {
     
 }
 
-#margins for where to place text/interactables in the dialogs
-#cpm = palette_pos[0] + 42
-#dynamic:
-#cp_lock = palette_pos[0] + 17
-#static:
-#cp_lock = palette_pos[0] + 6
-
 class color_palette(widget):
     """! The color palette widget class.
 
-    Provides ui settings to change the current color palette and the background color.
+    Provides a ui and functionality to specify the current color palette and the background color.
     """
 
     def __init__(self, x, y, window, ui_manager):

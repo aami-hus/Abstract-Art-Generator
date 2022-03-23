@@ -3,7 +3,7 @@
 #
 # @brief Defines the canvas class.
 #
-# @section author_sensors Author(s)
+# @section author_canvas Author(s)
 # - Created by Jessica Dawson on 03/16/2022.
 
 # Imports
@@ -60,6 +60,15 @@ class canvas:
         self.generate_bg(widgets.color_palette.get_background_color())
         self.__canvas.blit(self.__bg_layer, (0, 0))
 
+        widgets.layer_one.draw_canvas()
+        self.__canvas.blit(widgets.layer_one.layer)
+
+        widgets.layer_two.draw_canvas()
+        self.__canvas.blit(widgets.layer_two.layer)
+
+        widgets.layer_three.draw_canvas()
+        self.__canvas.blit(widgets.layer_three.layer)
+
         self.__canvas.convert()
         self.__display_canvas = pg.transform.smoothscale(self.__canvas, (self.__display_width, self.__display_height))
 
@@ -76,3 +85,8 @@ class canvas:
         @return The pygame surface the canvas draws on.
         """
         return self.__canvas
+
+    def get_width(self):
+        return self.__width
+    def get_height(self):
+        return self.__height
