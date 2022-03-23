@@ -14,6 +14,7 @@ from random import randint, choice
 from modules.widget import widget
 from widget_storage import widgets
 import assets
+from modules.switch_theme import switch_theme
 
 from generators.circle_generator import circle_generator
 from generators.square_generator import square_generator

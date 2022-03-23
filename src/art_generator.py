@@ -14,6 +14,7 @@ from tkinter.filedialog import asksaveasfilename
 
 from modules.color_palette import color_palette
 from modules.help import help
+from modules.switch_theme import switch_theme
 from modules.layer import layer
 from modules.text_overlay import text_overlay
 
@@ -974,6 +975,7 @@ layer_three_pos = (ui_menus_left, layer_two_pos[1]+230)
 overlay_pos = (0, palette_pos[1]+145)
 text_overlay_pos = (ui_menus_right, overlay_pos[1]+360)
 help_pos = (284, 60)
+switch_theme_pos = (284, 90)
 # help_left = 0
 
 #margins for where to place text/interactables in the dialogs
@@ -1080,8 +1082,8 @@ def draw_menu(window, option_locks):
     active_color = (90, 90, 90)
     inactive_color = (20, 20, 20)
 
-    text_to_screen(window=window, text="ABSTRACT ART GENERATOR", color=ui_h1_color, pos=(430, 35), font_size=40)
-    text_to_screen(window=window, text="LAYERS", color=ui_h1_color, pos=(l1m, layer_one_pos[1]-22.5), font_size=24)
+    text_to_screen(window=window, text="ABSTRACT ART GENERATOR", color=ui_h1_color if switch_theme_module.getDarkMode() else pg.Color("#000000"), pos=(430, 35), font_size=40)
+    text_to_screen(window=window, text="LAYERS", color=ui_h1_color if switch_theme_module.getDarkMode() else pg.Color("#000000"), pos=(l1m, layer_one_pos[1]-22.5), font_size=24)
     # text_to_screen(window=window, text="COLOR PALETTE", color=ui_h1_color, pos=(cpm, palette_pos[1]+15), font_size=18)
     # for i, color in enumerate(color_palette):
     #     pg.draw.rect(window, active_color if bg_color_index == i else inactive_color, (cpm+((i%4)*50), palette_pos[1]+65+(36*(i//4)), 26, 26))
@@ -1096,9 +1098,9 @@ def draw_menu(window, option_locks):
     # text_to_screen(window=window, text="LAYER THREE COMPLEXITY", color=ui_color, pos=(l3m, layer_three_pos[1]+95), font_size=14)
     # text_to_screen(window=window, text="LAYER THREE SHAPE SIZE", color=ui_color, pos=(l3m, layer_three_pos[1]+145), font_size=14)
 
-    text_to_screen(window=window, text="OVERLAY", color=ui_h1_color, pos=(SW-174, overlay_pos[1]+12), font_size=18)
+    text_to_screen(window=window, text="OVERLAY", color=ui_h1_color if switch_theme_module.getDarkMode() else pg.Color("#000000"), pos=(SW-174, overlay_pos[1]+12), font_size=18)
 
-    text_to_screen(window=window, text="RESOLUTION", color=ui_color, pos=(SW // 2 + 100, 560+20), font_size=14)
+    text_to_screen(window=window, text="RESOLUTION", color=ui_color if switch_theme_module.getDarkMode() else pg.Color("#000000"), pos=(SW // 2 + 100, 560+20), font_size=14)
 
     pg.draw.rect(window, active_color if active_overlay == 1 else inactive_color, (SW-232, overlay_pos[1]+38, 84, 49), 1)
     pg.draw.rect(window, active_color if active_overlay == 2 else inactive_color, (SW-132, overlay_pos[1]+38, 84, 49), 1)
@@ -1116,6 +1118,7 @@ def draw_menu(window, option_locks):
     window.blit(pg.transform.scale(overlays[5], (80, 45)), (SW-130, overlay_pos[1]+200))
 
     help_module.draw_ui_dynamic()
+    switch_theme_module.draw_ui_dynamic()
 
 
 #generates the ui interactables
@@ -1124,6 +1127,7 @@ def generate_ui():
 
     p1.draw_ui_static()
     help_module.draw_ui_static()
+    switch_theme_module.draw_ui_static()
     l1.draw_ui_static()
     l2.draw_ui_static()
     l3.draw_ui_static()
@@ -1349,6 +1353,8 @@ c1 = Canvas((3840, 2160), (int(SW//1.8), int(SH//1.8)))
 
 widgets.color_palette = color_palette(palette_pos[0], palette_pos[1], window, ui_manager)
 widgets.help = help(help_pos[0], help_pos[1], window, ui_manager)
+widgets.switch_theme = switch_theme(switch_theme_pos[0], switch_theme_pos[1], window, ui_manager)
+
 widgets.layer_one = layer(layer_one_pos[0], layer_one_pos[1], window, ui_manager, "ONE")
 widgets.layer_two = layer(layer_two_pos[0], layer_two_pos[1], window, ui_manager, "TWO")
 widgets.layer_three = layer(layer_three_pos[0], layer_three_pos[1], window, ui_manager, "THREE")
@@ -1356,6 +1362,8 @@ widgets.text_overlay = text_overlay(text_overlay_pos[0], text_overlay_pos[1], wi
 
 p1 = widgets.color_palette
 help_module = widgets.help
+switch_theme_module = widgets.switch_theme
+
 l1 = widgets.layer_one
 l2 = widgets.layer_two
 l3 = widgets.layer_three
@@ -1421,6 +1429,7 @@ while run:
 
             p1.events(event)
             help_module.events(event)
+            switch_theme_module.events(event)
             l1.events(event)
             l2.events(event)
             l3.events(event)
@@ -1651,7 +1660,7 @@ while run:
         ui_manager.process_events(event)
 
     ui_manager.update(delta_time)
-    window.fill(background_color)
+    window.fill(background_color if switch_theme_module.getDarkMode() else pg.Color("#ffffff"))
     c1.draw(window)
     draw_menu(window, option_locks)
     ui_manager.draw_ui(window)
