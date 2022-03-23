@@ -40,7 +40,7 @@ _color_palettes = {
     "Girls" : ["#d52d00", "#ef7627", "#ff9a56", "#ffffff",
     "#D162A4", "#B55690", "#A30262"],
     "Test" : ["#73f7dd", "#2cc4cb", "#1972a4", "#2e3a87",
-    "#fcf0c8", "#f7d098", "#911f27", "#630a10"],
+    "#fcf0c8", "#f7d098", "#911f27", "#630a10"]
 }
 
 class color_palette(widget):
