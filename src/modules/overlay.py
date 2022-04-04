@@ -39,6 +39,9 @@ class overlay(widget):
         self.__ui_manager = ui_manager
         self.__overlays = overlays
         
+        self.color = "#2B2834"
+        self.ui_h1_color = "#FFFFFF"
+
         self.__active_overlay = 0
         self.__active_color = assets.active_color
         self.__inactive_color = assets.inactive_color
@@ -50,7 +53,7 @@ class overlay(widget):
         Draws the text and overlay thumbnails.
         """
 
-        pg.draw.rect(self.__window, pg.Color("#2B2834"), (self.__x, self.__y, 210, 350))
+        pg.draw.rect(self.__window, pg.Color(self.color), (self.__x, self.__y, 210, 350))
 
         pg.draw.rect(self.__window, self.__active_color if self.__active_overlay == 1 else self.__inactive_color, (self.__x+13, self.__y+38, 84, 49), 1)
         pg.draw.rect(self.__window, self.__active_color if self.__active_overlay == 2 else self.__inactive_color, (self.__x+113, self.__y+38, 84, 49), 1)
@@ -66,6 +69,12 @@ class overlay(widget):
         self.__window.blit(pg.transform.scale(self.__overlays[3], (80, 45)), (self.__x+115, self.__y+120))
         self.__window.blit(pg.transform.scale(self.__overlays[4], (80, 45)), (self.__x+15, self.__y+200))
         self.__window.blit(pg.transform.scale(self.__overlays[5], (80, 45)), (self.__x+115, self.__y+200))
+
+
+
+    def change_colors(self):
+        self.color = "#eeeeee" if self.color=="#2B2834" else "#2B2834"
+        self.ui_h1_color = "#000000" if self.ui_h1_color=="#FFFFFF" else "#FFFFFF"
 
     def draw_ui_static(self):
         """! Draws the static ui elements for the overlay widget.

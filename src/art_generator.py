@@ -1186,10 +1186,22 @@ while run:
                 break
 
         if event.type == pg.USEREVENT:
-
             p1.events(event)
             help_module.events(event)
-            switch_theme_module.events(event)
+            if switch_theme_module.events(event):
+                l1.change_colors()
+                l2.change_colors()
+                l3.change_colors()
+                p1.change_colors()
+                to.change_colors()
+                ob.change_colors()
+                l1.draw_ui_dynamic()
+                l2.draw_ui_dynamic()
+                l3.draw_ui_dynamic()
+                p1.draw_ui_dynamic()
+                to.draw_ui_dynamic()
+                ob.draw_ui_dynamic()
+
             l1.events(event)
             l2.events(event)
             l3.events(event)

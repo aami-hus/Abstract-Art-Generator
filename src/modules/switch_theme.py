@@ -4,7 +4,7 @@
 # @brief Defines the switch theme class.
 #
 # @section author_sensors Author(s)
-# - Created by Jessica Dawson on 03/16/2022.
+# - Created by Fady Morcos on 04/04/2022.
 
 # Imports
 import pygame_gui as pgui
@@ -59,4 +59,5 @@ class switch_theme(widget):
         """
         if event.user_type == pgui.UI_BUTTON_PRESSED and event.ui_object_id == "switch_theme_opt_button":
             self.__switch_theme_dark = (self.__switch_theme_dark != True)
+            return True
             

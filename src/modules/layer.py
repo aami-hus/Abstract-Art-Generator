@@ -70,6 +70,7 @@ class layer(widget):
         self.__ui_manager = ui_manager
         self.__layer_num = layer_num
         self.color = "#2B2834"
+        self.u1_h1_color = "#FFFFFF"
 
         #starting options for dropdown menus
         self.__style = choice(_art_styles_list)
@@ -86,8 +87,10 @@ class layer(widget):
         self.__transparency_lock = 0
 
 
-    def change_bg_color(self, new_color):
+    def change_colors(self):
         self.color = "#eeeeee" if self.color=="#2B2834" else "#2B2834"
+        self.u1_h1_color = "#000000" if self.u1_h1_color=="#FFFFFF" else "#FFFFFF"
+
 
     def draw_ui_dynamic(self):
         """! Draws the dynamic ui elements for the layer widget.
@@ -99,7 +102,7 @@ class layer(widget):
         lock_margin = self.__x + 17
 
         # pg.draw.rect(self.__window, pg.Color("#2B2834"), (self.__x, self.__y, 252, 220))
-        pg.draw.rect(self.__window, pg.Color("#2B2834"), (self.__x, self.__y, 252, 220))
+        pg.draw.rect(self.__window, pg.Color(self.color), (self.__x, self.__y, 252, 220))
         
         if self.__style_lock == 0:
             self.__window.blit(assets.lock_disabled, (lock_margin, self.__y+30))
@@ -126,10 +129,10 @@ class layer(widget):
         else:
             self.__window.blit(assets.lock_enabled, (lock_margin, self.__y+190))
 
-        assets.text_to_screen(window=self.__window, text="LAYER " + self.__layer_num + " STYLE", color=assets.ui_h1_color, pos=(interactables_margin, self.__y+10), font_size=18)
-        assets.text_to_screen(window=self.__window, text="LAYER " + self.__layer_num + " COMPLEXITY", color=assets.ui_color, pos=(interactables_margin, self.__y+85), font_size=14)
-        assets.text_to_screen(window=self.__window, text="LAYER " + self.__layer_num + " SHAPE SIZE", color=assets.ui_color, pos=(interactables_margin, self.__y+130), font_size=14)
-        assets.text_to_screen(window=self.__window, text="LAYER " + self.__layer_num + " TRANSPARENCY", color=assets.ui_color, pos=(interactables_margin, self.__y+175), font_size=14)
+        assets.text_to_screen(window=self.__window, text="LAYER " + self.__layer_num + " STYLE", color=self.u1_h1_color, pos=(interactables_margin, self.__y+10), font_size=18)
+        assets.text_to_screen(window=self.__window, text="LAYER " + self.__layer_num + " COMPLEXITY", color=self.u1_h1_color, pos=(interactables_margin, self.__y+85), font_size=14)
+        assets.text_to_screen(window=self.__window, text="LAYER " + self.__layer_num + " SHAPE SIZE", color=self.u1_h1_color, pos=(interactables_margin, self.__y+130), font_size=14)
+        assets.text_to_screen(window=self.__window, text="LAYER " + self.__layer_num + " TRANSPARENCY", color=self.u1_h1_color, pos=(interactables_margin, self.__y+175), font_size=14)
 
 
     def draw_ui_static(self):

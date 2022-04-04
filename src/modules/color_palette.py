@@ -73,6 +73,8 @@ class color_palette(widget):
         self.__y = y
         self.__window = window
         self.__ui_manager = ui_manager
+        self.color = "#2B2834"
+        self.ui_h1_color = "#FFFFFF"
 
         self.__palette_name = choice(list(_color_palettes.keys()))
         self.__palette_colors = _color_palettes[self.__palette_name]
@@ -91,7 +93,7 @@ class color_palette(widget):
         interactables_margin = self.__x + 42
         lock_margin = self.__x + 17
 
-        pg.draw.rect(self.__window, pg.Color("#2B2834"), (self.__x, self.__y, 252, 135))
+        pg.draw.rect(self.__window, pg.Color(self.color), (self.__x, self.__y, 252, 135))
 
         if self.__palette_lock == 0:
             self.__window.blit(assets.lock_disabled, (lock_margin, self.__y+35))
@@ -103,12 +105,16 @@ class color_palette(widget):
         else:
             self.__window.blit(assets.lock_enabled, (lock_margin, self.__y+68))
 
-        assets.text_to_screen(window=self.__window, text="COLOR PALETTE", color=assets.ui_h1_color, pos=(interactables_margin, self.__y+15), font_size=18)
+        assets.text_to_screen(window=self.__window, text="COLOR PALETTE", color=self.ui_h1_color, pos=(interactables_margin, self.__y+15), font_size=18)
         for i, color in enumerate(self.__palette_colors):
             pg.draw.rect(self.__window, assets.active_color if self.__background_index == i else assets.inactive_color,
                         (interactables_margin+((i%4)*50), self.__y+65+(36*(i//4)), 26, 26))
             pg.draw.rect(self.__window, pg.Color(color), (interactables_margin+3+((i%4)*50), self.__y+68+(36*(i//4)), 20, 20))
 
+
+    def change_colors(self):
+        self.color = "#eeeeee" if self.color=="#2B2834" else "#2B2834"
+        self.ui_h1_color = "#000000" if self.ui_h1_color=="#FFFFFF" else "#FFFFFF"
 
     def draw_ui_static(self):
         """! Draws the static ui elements for the color palette widget.
