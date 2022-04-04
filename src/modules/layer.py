@@ -69,6 +69,7 @@ class layer(widget):
         self.__window = window
         self.__ui_manager = ui_manager
         self.__layer_num = layer_num
+        self.color = "#2B2834"
 
         #starting options for dropdown menus
         self.__style = choice(_art_styles_list)
@@ -85,6 +86,9 @@ class layer(widget):
         self.__transparency_lock = 0
 
 
+    def change_bg_color(self, new_color):
+        self.color = "#eeeeee" if self.color=="#2B2834" else "#2B2834"
+
     def draw_ui_dynamic(self):
         """! Draws the dynamic ui elements for the layer widget.
         
@@ -94,8 +98,9 @@ class layer(widget):
         interactables_margin = self.__x + 42
         lock_margin = self.__x + 17
 
+        # pg.draw.rect(self.__window, pg.Color("#2B2834"), (self.__x, self.__y, 252, 220))
         pg.draw.rect(self.__window, pg.Color("#2B2834"), (self.__x, self.__y, 252, 220))
-
+        
         if self.__style_lock == 0:
             self.__window.blit(assets.lock_disabled, (lock_margin, self.__y+30))
         else:
