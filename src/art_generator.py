@@ -17,6 +17,7 @@ from modules.help import help
 from modules.switch_theme import switch_theme
 from modules.layer import layer
 from modules.text_overlay import text_overlay
+from modules.overlay import overlay
 
 from widget_storage import widgets
 
@@ -996,13 +997,14 @@ def draw_menu(window, option_locks):
     # pg.draw.rect(window, pg.Color("#2B2834"), (layer_one_pos[0], layer_one_pos[1], 252, 190))      # Layer One BG
     # pg.draw.rect(window, pg.Color("#2B2834"), (layer_two_pos[0], layer_two_pos[1], 252, 190))      # Layer Two BG
     # pg.draw.rect(window, pg.Color("#2B2834"), (layer_three_pos[0], layer_three_pos[1], 252, 190))  # Layer Three BG
-    pg.draw.rect(window, pg.Color("#2B2834"), (SW-245, overlay_pos[1], 210, 350))                  # Overlay BG
+    # pg.draw.rect(window, pg.Color("#2B2834"), (SW-245, overlay_pos[1], 210, 350))                  # Overlay BG
 
     p1.draw_ui_dynamic()
     l1.draw_ui_dynamic()
     l2.draw_ui_dynamic()
     l3.draw_ui_dynamic()
     to.draw_ui_dynamic()
+    ob.draw_ui_dynamic()
 
     cp_lock = palette_pos[0] + 17
     l1_lock = layer_one_pos[0] + 17
@@ -1102,20 +1104,20 @@ def draw_menu(window, option_locks):
 
     text_to_screen(window=window, text="RESOLUTION", color=ui_color if switch_theme_module.getDarkMode() else pg.Color("#000000"), pos=(SW // 2 + 100, 560+20), font_size=14)
 
-    pg.draw.rect(window, active_color if active_overlay == 1 else inactive_color, (SW-232, overlay_pos[1]+38, 84, 49), 1)
-    pg.draw.rect(window, active_color if active_overlay == 2 else inactive_color, (SW-132, overlay_pos[1]+38, 84, 49), 1)
-    pg.draw.rect(window, active_color if active_overlay == 3 else inactive_color, (SW-232, overlay_pos[1]+118, 84, 49), 1)
-    pg.draw.rect(window, active_color if active_overlay == 4 else inactive_color, (SW-132, overlay_pos[1]+118, 84, 49), 1)
-    pg.draw.rect(window, active_color if active_overlay == 5 else inactive_color, (SW-232, overlay_pos[1]+198, 84, 49), 1)
-    pg.draw.rect(window, active_color if active_overlay == 6 else inactive_color, (SW-132, overlay_pos[1]+198, 84, 49), 1)
-    pg.draw.rect(window, active_color if active_overlay == 0 else inactive_color, (SW-182, overlay_pos[1]+278, 84, 49), 1)
+    # pg.draw.rect(window, active_color if active_overlay == 1 else inactive_color, (SW-232, overlay_pos[1]+38, 84, 49), 1)
+    # pg.draw.rect(window, active_color if active_overlay == 2 else inactive_color, (SW-132, overlay_pos[1]+38, 84, 49), 1)
+    # pg.draw.rect(window, active_color if active_overlay == 3 else inactive_color, (SW-232, overlay_pos[1]+118, 84, 49), 1)
+    # pg.draw.rect(window, active_color if active_overlay == 4 else inactive_color, (SW-132, overlay_pos[1]+118, 84, 49), 1)
+    # pg.draw.rect(window, active_color if active_overlay == 5 else inactive_color, (SW-232, overlay_pos[1]+198, 84, 49), 1)
+    # pg.draw.rect(window, active_color if active_overlay == 6 else inactive_color, (SW-132, overlay_pos[1]+198, 84, 49), 1)
+    # pg.draw.rect(window, active_color if active_overlay == 0 else inactive_color, (SW-182, overlay_pos[1]+278, 84, 49), 1)
 
-    window.blit(pg.transform.scale(overlays[0], (80, 45)), (SW-230, overlay_pos[1]+40))
-    window.blit(pg.transform.scale(overlays[1], (80, 45)), (SW-130, overlay_pos[1]+40))
-    window.blit(pg.transform.scale(overlays[2], (80, 45)), (SW-230, overlay_pos[1]+120))
-    window.blit(pg.transform.scale(overlays[3], (80, 45)), (SW-130, overlay_pos[1]+120))
-    window.blit(pg.transform.scale(overlays[4], (80, 45)), (SW-230, overlay_pos[1]+200))
-    window.blit(pg.transform.scale(overlays[5], (80, 45)), (SW-130, overlay_pos[1]+200))
+    # window.blit(pg.transform.scale(overlays[0], (80, 45)), (SW-230, overlay_pos[1]+40))
+    # window.blit(pg.transform.scale(overlays[1], (80, 45)), (SW-130, overlay_pos[1]+40))
+    # window.blit(pg.transform.scale(overlays[2], (80, 45)), (SW-230, overlay_pos[1]+120))
+    # window.blit(pg.transform.scale(overlays[3], (80, 45)), (SW-130, overlay_pos[1]+120))
+    # window.blit(pg.transform.scale(overlays[4], (80, 45)), (SW-230, overlay_pos[1]+200))
+    # window.blit(pg.transform.scale(overlays[5], (80, 45)), (SW-130, overlay_pos[1]+200))
 
     help_module.draw_ui_dynamic()
     switch_theme_module.draw_ui_dynamic()
@@ -1132,6 +1134,7 @@ def generate_ui():
     l2.draw_ui_static()
     l3.draw_ui_static()
     to.draw_ui_static()
+    ob.draw_ui_static()
 
     #locations for lock buttons
     cp_lock = palette_pos[0] + 6
@@ -1245,20 +1248,20 @@ def generate_ui():
     # lock_button_fourteen = pgui.elements.UIButton(relative_rect=pg.Rect(l3_lock, layer_three_pos[1]+167, 12, 12), text="", manager=ui_manager,
     #                                           object_id="lock_button_fourteen")
 
-    overlay1_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-197, overlay_pos[1]+90, 14, 14), text="", manager=ui_manager,
-                                             object_id="overlay1_button")
-    overlay2_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-97, overlay_pos[1]+90, 14, 14), text="", manager=ui_manager,
-                                             object_id="overlay2_button")
-    overlay3_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-197, overlay_pos[1]+170, 14, 14), text="", manager=ui_manager,
-                                             object_id="overlay3_button")
-    overlay4_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-97, overlay_pos[1]+170, 14, 14), text="", manager=ui_manager,
-                                             object_id="overlay4_button")
-    overlay5_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-197, overlay_pos[1]+250, 14, 14), text="", manager=ui_manager,
-                                             object_id="overlay5_button")
-    overlay6_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-97, overlay_pos[1]+250, 14, 14), text="", manager=ui_manager,
-                                             object_id="overlay6_button")
-    overlay7_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-147, overlay_pos[1]+330, 14, 14), text="", manager=ui_manager,
-                                             object_id="overlay7_button")
+    # overlay1_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-197, overlay_pos[1]+90, 14, 14), text="", manager=ui_manager,
+    #                                          object_id="overlay1_button")
+    # overlay2_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-97, overlay_pos[1]+90, 14, 14), text="", manager=ui_manager,
+    #                                          object_id="overlay2_button")
+    # overlay3_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-197, overlay_pos[1]+170, 14, 14), text="", manager=ui_manager,
+    #                                          object_id="overlay3_button")
+    # overlay4_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-97, overlay_pos[1]+170, 14, 14), text="", manager=ui_manager,
+    #                                          object_id="overlay4_button")
+    # overlay5_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-197, overlay_pos[1]+250, 14, 14), text="", manager=ui_manager,
+    #                                          object_id="overlay5_button")
+    # overlay6_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-97, overlay_pos[1]+250, 14, 14), text="", manager=ui_manager,
+    #                                          object_id="overlay6_button")
+    # overlay7_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-147, overlay_pos[1]+330, 14, 14), text="", manager=ui_manager,
+    #                                          object_id="overlay7_button")
 
     # bg_color_button_one = pgui.elements.UIButton(relative_rect=pg.Rect(cpm+12, palette_pos[1]+65+12, 14, 14), text="", manager=ui_manager,
     #                                          object_id="bg_color_button_one", visible=cp_len>0)
@@ -1359,6 +1362,7 @@ widgets.layer_one = layer(layer_one_pos[0], layer_one_pos[1], window, ui_manager
 widgets.layer_two = layer(layer_two_pos[0], layer_two_pos[1], window, ui_manager, "TWO")
 widgets.layer_three = layer(layer_three_pos[0], layer_three_pos[1], window, ui_manager, "THREE")
 widgets.text_overlay = text_overlay(text_overlay_pos[0], text_overlay_pos[1], window, ui_manager)
+widgets.overlay = overlay(SW-245, overlay_pos[1], window, ui_manager, overlays) #SW = 1280 therefore self.__x = 1035
 
 p1 = widgets.color_palette
 help_module = widgets.help
@@ -1368,6 +1372,7 @@ l1 = widgets.layer_one
 l2 = widgets.layer_two
 l3 = widgets.layer_three
 to = widgets.text_overlay
+ob = widgets.overlay
 
 
 layer_one_style = "Striped Vertical"
@@ -1434,6 +1439,9 @@ while run:
             l2.events(event)
             l3.events(event)
             to.events(event)
+            # ob.events(event) #AH3
+            
+
 
             if event.user_type == pgui.UI_BUTTON_PRESSED:
                 if event.ui_object_id == "generate_button":
@@ -1456,7 +1464,6 @@ while run:
                     c1.generate_layer(l2, cp)
                     c1.generate_layer(l3, cp)
                     to.draw_canvas()
-
                     c1.blit_to_canvas([l1, l2, l3])
 
                 if event.ui_object_id == "random_generate_button":
@@ -1584,28 +1591,35 @@ while run:
                 # if event.ui_object_id == "bg_color_button_eight":
                 #     bg_color_index = 7
 
-                if event.ui_object_id == "overlay1_button":
-                    active_overlay = 1
-                    c1.generate_fg(overlays[0])
-                if event.ui_object_id == "overlay2_button":
-                    active_overlay = 2
-                    c1.generate_fg(overlays[1])
-                if event.ui_object_id == "overlay3_button":
-                    active_overlay = 3
-                    c1.generate_fg(overlays[2])
-                if event.ui_object_id == "overlay4_button":
-                    active_overlay = 4
-                    c1.generate_fg(overlays[3])
-                if event.ui_object_id == "overlay5_button":
-                    active_overlay = 5
-                    c1.generate_fg(overlays[4])
-                if event.ui_object_id == "overlay6_button":
-                    active_overlay = 6
-                    c1.generate_fg(overlays[5])
-                if event.ui_object_id == "overlay7_button":
-                    active_overlay = 0
+                # if event.ui_object_id == "overlay1_button":
+                #     active_overlay = 1
+                #     c1.generate_fg(overlays[0])
+                # if event.ui_object_id == "overlay2_button":
+                #     active_overlay = 2
+                #     c1.generate_fg(overlays[1])
+                # if event.ui_object_id == "overlay3_button":
+                #     active_overlay = 3
+                #     c1.generate_fg(overlays[2])
+                # if event.ui_object_id == "overlay4_button":
+                #     active_overlay = 4
+                #     c1.generate_fg(overlays[3])
+                # if event.ui_object_id == "overlay5_button":
+                #     active_overlay = 5
+                #     c1.generate_fg(overlays[4])
+                # if event.ui_object_id == "overlay6_button":
+                #     active_overlay = 6
+                #     c1.generate_fg(overlays[5])
+                # if event.ui_object_id == "overlay7_button":
+                #     active_overlay = 0
+                #     c1.clean_layer(c1.fg_layer)
+                #     c1.blit_to_canvas([l1, l2, l3])
+                ob.events(event)
+                if ob.get_active_overlay() != 0:
+                    c1.generate_fg(overlays[ob.get_active_overlay()-1])
+                else:
                     c1.clean_layer(c1.fg_layer)
                     c1.blit_to_canvas([l1, l2, l3])
+                
 
             if event.user_type == pgui.UI_HORIZONTAL_SLIDER_MOVED:
                 if event.ui_object_id == "size_slider":

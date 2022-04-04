@@ -18,6 +18,7 @@ from widget_storage import widgets
 from modules.color_palette import color_palette
 from modules.help import help
 from modules.layer import layer
+from modules.overlay import overlay
 import assets
 
 class ui_controller:
@@ -48,13 +49,13 @@ class ui_controller:
     ## Position of the color palette widget.
     palette_pos = (_ui_menus_right, 60)
     ## Position of the layer one widget.
-    layer_one_pos = (_ui_menus_left, 60)
+    layer_one_pos = (_ui_menus_left, 30)
     ## Position of the layer two widget.
-    layer_two_pos = (_ui_menus_left, layer_one_pos[1]+200)
+    layer_two_pos = (_ui_menus_left, layer_one_pos[1]+230)
     ## Position of the layer three widget.
-    layer_three_pos = (_ui_menus_left, layer_two_pos[1]+200)
+    layer_three_pos = (_ui_menus_left, layer_two_pos[1]+230)
     ## Position of the overlay widget.
-    overlay_pos = (0, palette_pos[1]+155)
+    overlay_pos = (SW-245, palette_pos[1]+155)
     ## Position of the help widget.
     help_pos = (284, 60)
 
@@ -80,7 +81,7 @@ class ui_controller:
                             self.canvas_display_size[0], self.canvas_display_size[1], self.window)
 
         self.__initialize_widgets()
-
+        
         ## A boolean that specifies if the program is running, program terminates if False.
         self.isrunning = True
 
@@ -95,11 +96,20 @@ class ui_controller:
 
 
     def __initialize_widgets(self):
+        self.overlays = [
+            pg.image.load("assets/overlay1.png").convert_alpha(),
+            pg.image.load("assets/overlay2.png").convert_alpha(),
+            pg.image.load("assets/overlay3.png").convert_alpha(),
+            pg.image.load("assets/overlay4.png").convert_alpha(),
+            pg.image.load("assets/overlay5.png").convert_alpha(),
+            pg.image.load("assets/overlay6.png").convert_alpha()
+        ]
         widgets.color_palette = color_palette(self.palette_pos[0], self.palette_pos[1], self.window, self.ui_manager)
         widgets.help = help(self.help_pos[0], self.help_pos[1], self.window, self.ui_manager)
         widgets.layer_one = layer(self.layer_one_pos[0], self.layer_one_pos[1], self.window, self.ui_manager, "ONE")
         widgets.layer_two = layer(self.layer_two_pos[0], self.layer_two_pos[1], self.window, self.ui_manager, "TWO")
         widgets.layer_three = layer(self.layer_three_pos[0], self.layer_three_pos[1], self.window, self.ui_manager, "THREE")
+        widgets.overlay = overlay(self.overlay_pos[0], self.overlay_pos[1], self.window, self.ui_manager, self.overlays)
 
 
     def process_events(self):
@@ -137,6 +147,13 @@ class ui_controller:
                     if event.ui_object_id == "export_art_button":
                         self.export_art()
 
+                    widgets.overlay.events(event)
+                    # if ob.get_active_overlay() != 0:
+                    #     c1.generate_fg(overlays[ob.get_active_overlay()-1])
+                    # else:
+                    #     c1.clean_layer(c1.fg_layer)
+                    #     c1.blit_to_canvas([l1, l2, l3])
+
                 widgets.color_palette.events(event)
                 widgets.help.events(event)
                 widgets.layer_one.events(event)
@@ -157,7 +174,7 @@ class ui_controller:
 
         assets.text_to_screen(window=self.window, text="ABSTRACT ART GENERATOR", color=assets.ui_h1_color, pos=(430, 35), font_size=40)
         assets.text_to_screen(window=self.window, text="LAYERS", color=assets.ui_h1_color, pos=(self.layer_one_pos[0] + 42,
-                            self.layer_one_pos[1]-25), font_size=24)
+                            self.layer_one_pos[1]-22.5), font_size=24)
         assets.text_to_screen(window=self.window, text="RESOLUTION", color=assets.ui_color, pos=(self.SW-240, 560+20), font_size=14)
 
         widgets.color_palette.draw_ui_dynamic()
@@ -165,6 +182,7 @@ class ui_controller:
         widgets.layer_one.draw_ui_dynamic()
         widgets.layer_two.draw_ui_dynamic()
         widgets.layer_three.draw_ui_dynamic()
+        widgets.overlay.draw_ui_dynamic()
 
 
     def draw_ui_static(self):
@@ -179,6 +197,7 @@ class ui_controller:
         widgets.layer_one.draw_ui_static()
         widgets.layer_two.draw_ui_static()
         widgets.layer_three.draw_ui_static()
+        widgets.overlay.draw_ui_static()
 
         resolution_dropdown = pgui.elements.UIDropDownMenu(options_list=self.resolutions_list,
                                                 starting_option=self.export_resolution,
