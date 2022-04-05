@@ -33,17 +33,17 @@ lock_enabled = pg.transform.scale(pg.image.load("assets/lock_enabled.png"), (20,
 lock_disabled = pg.transform.scale(pg.image.load("assets/lock_disabled.png"), (20, 20))
 
 ## Extra small font.
-xs_font = pg.freetype.Font("Basic-Regular.ttf", 12)
+xs_font = pg.freetype.Font("fonts/Basic.ttf", 12)
 ## Small font.
-small_font = pg.freetype.Font("Basic-Regular.ttf", 14)
+small_font = pg.freetype.Font("fonts/Basic.ttf", 14)
 ## Medium font.
-medium_font = pg.freetype.Font("Basic-Regular.ttf", 18)
+medium_font = pg.freetype.Font("fonts/Basic.ttf", 18)
 ## Large font.
-large_font = pg.freetype.Font("Basic-Regular.ttf", 24)
+large_font = pg.freetype.Font("fonts/Basic.ttf", 24)
 ## Extra large font.
-xl_font = pg.freetype.Font("Basic-Regular.ttf", 30)
+xl_font = pg.freetype.Font("fonts/Basic.ttf", 30)
 ## Extra extra large font.
-xxl_font = pg.freetype.Font("Basic-Regular.ttf", 40)
+xxl_font = pg.freetype.Font("fonts/Basic.ttf", 40)
 
 ## List of font sizes.
 fonts = [xs_font, small_font, medium_font, large_font, xl_font, xxl_font]
