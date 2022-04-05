@@ -34,7 +34,11 @@ class help(widget):
         self.__ui_manager = ui_manager
 
         self.__help_opt = 0
-        self.__help_left = False
+        # self.__help_left = False
+
+        self.__font_color = "#FFFFFF"
+        self.__font_color_emph = "#DFD6FF"
+        self.__bg_color = "#2B2834"
 
 
     def draw_ui_dynamic(self):
@@ -45,45 +49,49 @@ class help(widget):
         if self.__help_opt == 0:
             return
         
-        if self.__help_left:
-            pg.draw.rect(self.__window, pg.Color("#2B2834"), (self.__x - 510, self.__y, 510, 380))
-            p = [self.__x - 500, self.__y+10]
-        else:
-            pg.draw.rect(self.__window, pg.Color("#2B2834"), (self.__x+100, 90, 510, 380))
-            p = [self.__x + 110, self.__y+10]
-        c, s = [255, 255, 255], 12     # Color, Position, Font-size
+        # if self.__help_left:
+        #     pg.draw.rect(self.__window, pg.Color("#2B2834"), (self.__x - 510, self.__y, 510, 380))
+        #     p = [self.__x - 500, self.__y+10]
+        # else:
+        #     pg.draw.rect(self.__window, pg.Color("#2B2834"), (self.__x+100, 90, 510, 380))
+        #     p = [self.__x + 110, self.__y+10]
+
+        pg.draw.rect(self.__window, pg.Color(self.__bg_color), (self.__x+100, self.__y, 510, 420))
+        p = [self.__x + 110, self.__y+10] # Position
+        c = self.__font_color # Color
+        s = 12 # Font-size
         ri = 12     # Row interval
-        assets.text_to_screen(self.__window, "Thanks for trying out my program! Let me help you with how the program works.", c, p, s)
+        assets.text_to_screen(self.__window, "Thanks for trying out our program! Let us help you with how the program works.", c, p, s)
         p = [p[0], p[1]+ri+10]
-        assets.text_to_screen(self.__window, "Left side contains the art generation options, we have two layers that can be in different", c, p, s)
+        assets.text_to_screen(self.__window, "The left side contains the art generation options, we have three layers that can be in different", c, p, s)
         p = [p[0], p[1]+ri]
-        assets.text_to_screen(self.__window, "styles, different shapes, different complexities and different sizes. For example a layer", c, p, s)
+        assets.text_to_screen(self.__window, "styles, different shapes, different complexities, different sizes, and different transparencies. For", c, p, s)
         p = [p[0], p[1]+ri]
-        assets.text_to_screen(self.__window, "with 'Cornered' 'Circles' options, will generate circles that are roughly cornered.", c, p, s)
+        assets.text_to_screen(self.__window, "example, a layer with 'Cornered' 'Circles' options, will generate circles that are roughly cornered.", c, p, s)
         p = [p[0], p[1]+ri+10]
-        assets.text_to_screen(self.__window, "Random values have a big part in my program to make the possibilities endless", c, p, s)
+        assets.text_to_screen(self.__window, "Random values have a big part in our program by making the possibilities endless.", c, p, s)
         p = [p[0], p[1]+ri]
-        assets.text_to_screen(self.__window, "If you like a setting and want to keep it but randomize other settings, you can just click", c, p, s)
+        assets.text_to_screen(self.__window, "You can click on the small buttons next to an option to 'Lock' it. This allows you to keep certain", c, p, s)
         p = [p[0], p[1] + ri]
-        assets.text_to_screen(self.__window, "on the small buttons right next to the options to 'Lock' them for generating randomly.", c, p, s)
+        assets.text_to_screen(self.__window, "settings constant while allowing the rest of the settings to be randomly generated.", c, p, s)
         p = [p[0], p[1] + ri+10]
-        c = pg.Color("#DFD6FF")
+        c = self.__font_color_emph
         assets.text_to_screen(self.__window, "Generate Button: Generates art with the options specified in the options panel.", c, p, s)
         p = [p[0], p[1] + ri]
         assets.text_to_screen(self.__window, "Generate Randomly Button: Generates art by randomizing the options on the left.", c, p, s)
         p = [p[0], p[1] + ri]
-        assets.text_to_screen(self.__window, "Export Button: Opens a file dialog and let's you export a png of your art in 4k quality.", c, p, s)
-        p = [p[0], p[1] + ri+10]
-        c = [255, 255, 255]
-        assets.text_to_screen(self.__window, "Overlay options don't change by randomizing or generating new art with adjusting the options.", c, p, s)
+        assets.text_to_screen(self.__window, "Export Button: Opens a file dialog and let's you export a PNG of your art in 4k quality.", c, p, s)
         p = [p[0], p[1] + ri]
-        assets.text_to_screen(self.__window, "And you can try new overlays with existing art. ", c, p, s)
+        assets.text_to_screen(self.__window, "Theme Button: Changes the theme of the program from dark mode to light mode, and vice versa.", c, p, s)
         p = [p[0], p[1] + ri+10]
-        assets.text_to_screen(self.__window, "There are 20 unique color palettes, and there are seven style options with eight shape options.", c, p, s)
+        c = self.__font_color
+        assets.text_to_screen(self.__window, "Overlay options don't change by randomizing or generating new art.", c, p, s)
+        p = [p[0], p[1] + ri+10]
+        assets.text_to_screen(self.__window, "There are 32 unique color palettes. For each layer, there are seven style options with eight", c, p, s)
         p = [p[0], p[1] + ri]
-        assets.text_to_screen(self.__window, "Shapes are self explanatory but let's take a look at the styles:", c, p, s)
+        assets.text_to_screen(self.__window, "shape options. Shapes are self explanatory, but let's take a look at the styles:", c, p, s)
         p = [p[0], p[1] + ri+5]
-        c = pg.Color("#DFD6FF")
+        c = self.__font_color_emph
         assets.text_to_screen(self.__window, "Chaotic - The most randomized option.", c, p, s)
         p = [p[0], p[1] + ri]
         assets.text_to_screen(self.__window, "Striped Horizontal - Whatever the shape is, the shapes roughly line up in horizontal lines", c, p, s)
@@ -98,13 +106,17 @@ class help(widget):
         p = [p[0], p[1] + ri]
         assets.text_to_screen(self.__window, "Empty - Doesn't draw any shapes to the layer. Sometimes one shape is enough for the art.", c, p, s)
         p = [p[0], p[1] + ri+10]
-        c = [255, 255, 255]
-        assets.text_to_screen(self.__window, "Complexity adjusts how many shapes will be drawn, it's more absolute than the size option.", c, p, s)
+        c = self.__font_color
+        assets.text_to_screen(self.__window, "Complexity adjusts how many shapes will be drawn. Size adjusts how large the shapes can be.", c, p, s)
         p = [p[0], p[1] + ri]
-        assets.text_to_screen(self.__window, "Size option adjusts how large the shapes 'can' be. Size is still more randomized for variety.", c, p, s)
+        assets.text_to_screen(self.__window, "Transparency adjusts how translucent the shapes are.", c, p, s)
         p = [p[0], p[1] + ri+10]
-        c = pg.Color("#DFD6FF")
-        assets.text_to_screen(self.__window, "ENJOY!", c, p, s)
+        assets.text_to_screen(self.__window, "The Text Overlay feature allows you to put text on top of the generated art. The font size and", c, p, s)
+        p = [p[0], p[1] + ri]
+        assets.text_to_screen(self.__window, "text position can be adjusted using the appropriate sliders.", c, p, s)
+        p = [p[0], p[1] + ri+10]
+        c = self.__font_color_emph
+        assets.text_to_screen(self.__window, "ENJOY! :D", c, p, s)
 
 
     def draw_ui_static(self):
@@ -127,3 +139,9 @@ class help(widget):
             self.__help_opt = 1 if self.__help_opt == 0 else 0
 
         return 0
+
+    def change_colors(self):
+        self.__font_color = "#000000" if self.__font_color == "#FFFFFF" else "#FFFFFF"
+        self.__font_color_emph = "#2B2B2B" if self.__font_color_emph == "#DFD6FF" else "#DFD6FF"
+        self.__bg_color = "#AAB1B6" if self.__bg_color == "#2B2834" else "#2B2834"
+        #pink = f2b6b6, grey = 3d3d3d

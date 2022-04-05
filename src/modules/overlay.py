@@ -61,8 +61,10 @@ class overlay(widget):
         
         Draws the text and overlay thumbnails.
         """
-
+        
         pg.draw.rect(self.__window, pg.Color(self.color), (self.__x, self.__y, 210, 350))
+
+        assets.text_to_screen(window=self.__window, text="OVERLAY/BORDER", color=self.ui_h1_color, pos=(self.__x+15, self.__y+12), font_size=18)
 
         pg.draw.rect(self.__window, self.__active_color if self.__active_overlay == 1 else self.__inactive_color, (self.__x+13, self.__y+38, 84, 49), 1)
         pg.draw.rect(self.__window, self.__active_color if self.__active_overlay == 2 else self.__inactive_color, (self.__x+113, self.__y+38, 84, 49), 1)
@@ -82,7 +84,7 @@ class overlay(widget):
 
 
     def change_colors(self):
-        self.color = "#eeeeee" if self.color=="#2B2834" else "#2B2834"
+        self.color = "#AAB1B6" if self.color=="#2B2834" else "#2B2834"
         self.ui_h1_color = "#000000" if self.ui_h1_color=="#FFFFFF" else "#FFFFFF"
 
     def draw_ui_static(self):

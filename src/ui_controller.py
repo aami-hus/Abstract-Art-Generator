@@ -103,14 +103,14 @@ class ui_controller:
 
 
     def __initialize_widgets(self):
-        self.overlays = [
-            pg.image.load("assets/overlay1.png").convert_alpha(),
-            pg.image.load("assets/overlay2.png").convert_alpha(),
-            pg.image.load("assets/overlay3.png").convert_alpha(),
-            pg.image.load("assets/overlay4.png").convert_alpha(),
-            pg.image.load("assets/overlay5.png").convert_alpha(),
-            pg.image.load("assets/overlay6.png").convert_alpha()
-        ]
+        # self.overlays = [
+        #     pg.image.load("assets/overlay1.png").convert_alpha(),
+        #     pg.image.load("assets/overlay2.png").convert_alpha(),
+        #     pg.image.load("assets/overlay3.png").convert_alpha(),
+        #     pg.image.load("assets/overlay4.png").convert_alpha(),
+        #     pg.image.load("assets/overlay5.png").convert_alpha(),
+        #     pg.image.load("assets/overlay6.png").convert_alpha()
+        # ]
         widgets.color_palette = color_palette(self.palette_pos[0], self.palette_pos[1], self.window, self.ui_manager)
         widgets.help = help(self.help_pos[0], self.help_pos[1], self.window, self.ui_manager)
         widgets.switch_theme = switch_theme(self.switch_theme_pos[0], self.switch_theme_pos[1], self.window, self.ui_manager)
@@ -186,6 +186,7 @@ class ui_controller:
                     widgets.color_palette.change_colors()
                     widgets.text_overlay.change_colors()
                     widgets.overlay.change_colors()
+                    widgets.help.change_colors()
 
             self.ui_manager.process_events(event)
 
@@ -195,16 +196,29 @@ class ui_controller:
         
         Draws the background color and some text itself and calls canvas and widgets for all other drawing.
         """
-        self.window.fill(assets.background_color if widgets.switch_theme.getDarkMode() else pg.Color("#ffffff"))
+
+        if widgets.switch_theme.getDarkMode():
+            self.window.fill(assets.background_color)
+            assets.text_to_screen(window=self.window, text="ABSTRACT ART GENERATOR", color=assets.ui_h1_color, pos=(430, 35), font_size=40)
+            assets.text_to_screen(window=self.window, text="LAYERS", color=assets.ui_h1_color, pos=(self.layer_one_pos[0] + 42,
+                            self.layer_one_pos[1]-22.5), font_size=24)
+            assets.text_to_screen(window=self.window, text="RESOLUTION", color=assets.ui_h1_color, pos=(self.SW-240, 560+20), font_size=14)
+        else:
+            self.window.fill(pg.Color("#D1D6D9"))
+            assets.text_to_screen(window=self.window, text="ABSTRACT ART GENERATOR", color="#000000", pos=(430, 35), font_size=40)
+            assets.text_to_screen(window=self.window, text="LAYERS", color="#000000", pos=(self.layer_one_pos[0] + 42,
+                            self.layer_one_pos[1]-22.5), font_size=24)
+            assets.text_to_screen(window=self.window, text="RESOLUTION", color="#000000", pos=(self.SW-240, 560+20), font_size=14)
+        #self.window.fill(assets.background_color if widgets.switch_theme.getDarkMode() else pg.Color("#D1D6D9")) # og = ffffff (white), pink = #ffd6d6
         #self.window.fill(assets.background_color)
 
+        
+
+        # assets.text_to_screen(window=self.window, text="ABSTRACT ART GENERATOR", color=assets.ui_h1_color, pos=(430, 35), font_size=40)
+        # assets.text_to_screen(window=self.window, text="LAYERS", color=assets.ui_h1_color, pos=(self.layer_one_pos[0] + 42,
+        #                     self.layer_one_pos[1]-22.5), font_size=24)
+        # assets.text_to_screen(window=self.window, text="RESOLUTION", color=assets.ui_h1_color, pos=(self.SW-240, 560+20), font_size=14) #assets.ui_color, 
         self.canvas.draw()
-
-        assets.text_to_screen(window=self.window, text="ABSTRACT ART GENERATOR", color=assets.ui_h1_color, pos=(430, 35), font_size=40)
-        assets.text_to_screen(window=self.window, text="LAYERS", color=assets.ui_h1_color, pos=(self.layer_one_pos[0] + 42,
-                            self.layer_one_pos[1]-22.5), font_size=24)
-        assets.text_to_screen(window=self.window, text="RESOLUTION", color=assets.ui_color, pos=(self.SW-240, 560+20), font_size=14)
-
         widgets.color_palette.draw_ui_dynamic()
         widgets.help.draw_ui_dynamic()
         widgets.layer_one.draw_ui_dynamic()

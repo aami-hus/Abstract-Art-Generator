@@ -44,6 +44,7 @@ class text_overlay(widget):
 
         self.color = "#2B2834"
         self.ui_h1_color = "#FFFFFF"
+        self.ui_color = "#DFD6FF"
 
         #starting options for dropdown menus
         self.__font = choice(_fonts)
@@ -65,13 +66,14 @@ class text_overlay(widget):
         pg.draw.rect(self.__window, pg.Color(self.color), (self.__x, self.__y, 252, 190))
 
         assets.text_to_screen(window=self.__window, text="TEXT OVERLAY", color=self.ui_h1_color, pos=(interactables_margin, self.__y+15), font_size=18)
-        assets.text_to_screen(window=self.__window, text="TEXT SIZE", color=assets.ui_color, pos=(interactables_margin, self.__y+60), font_size=14)
-        assets.text_to_screen(window=self.__window, text="X", color=assets.ui_color, pos=(lock_margin, self.__y+105), font_size=14)
-        assets.text_to_screen(window=self.__window, text="Y", color=assets.ui_color, pos=(lock_margin, self.__y+130), font_size=14)
+        assets.text_to_screen(window=self.__window, text="TEXT SIZE", color=self.ui_color, pos=(interactables_margin, self.__y+60), font_size=14)
+        assets.text_to_screen(window=self.__window, text="X", color=self.ui_color, pos=(lock_margin, self.__y+105), font_size=14)
+        assets.text_to_screen(window=self.__window, text="Y", color=self.ui_color, pos=(lock_margin, self.__y+130), font_size=14)
 
     def change_colors(self):
-        self.color = "#eeeeee" if self.color=="#2B2834" else "#2B2834"
+        self.color = "#AAB1B6" if self.color=="#2B2834" else "#2B2834"
         self.ui_h1_color = "#000000" if self.ui_h1_color=="#FFFFFF" else "#FFFFFF"
+        self.ui_color = "#2B2B2B" if self.ui_color == "#DFD6FF" else "#DFD6FF"
 
     def draw_ui_static(self):
         """! Draws the static ui elements for the layer widget.

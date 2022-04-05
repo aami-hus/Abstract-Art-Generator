@@ -37,9 +37,9 @@ _color_palettes = {
     "Ocean" : ["#73f7dd", "#2cc4cb", "#1972a4", "#2e3a87"],
     "Royalty" : ["#fcf0c8", "#f7d098", "#911f27", "#630a10"],
     "Transit" : ["#5BCEFA", "#F5A9B8", "#FFFFFF"],
-    "Girls" : ["#d52d00", "#ef7627", "#ff9a56", "#ffffff",
+    "Lipstick" : ["#d52d00", "#ef7627", "#ff9a56", "#ffffff",
     "#D162A4", "#B55690", "#A30262"],
-    "Test" : ["#73f7dd", "#2cc4cb", "#1972a4", "#2e3a87",
+    "Beach" : ["#73f7dd", "#2cc4cb", "#1972a4", "#2e3a87",
     "#fcf0c8", "#f7d098", "#911f27", "#630a10"],
     "Rose" : ["#6f58c9", "#7e78d2", "#b6b8d6", "#bbdbd1", "#bdede0"],
     "Rainforest": ["#00241B", "#4e878c", "#65B891", "#93E5AB", "#B5FFE1"],
@@ -113,7 +113,7 @@ class color_palette(widget):
 
 
     def change_colors(self):
-        self.color = "#eeeeee" if self.color=="#2B2834" else "#2B2834"
+        self.color = "#AAB1B6" if self.color=="#2B2834" else "#2B2834"
         self.ui_h1_color = "#000000" if self.ui_h1_color=="#FFFFFF" else "#FFFFFF"
 
     def draw_ui_static(self):

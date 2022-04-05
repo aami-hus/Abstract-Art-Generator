@@ -78,7 +78,7 @@ class layer(widget):
 
 
     def change_colors(self):
-        self.color = "#eeeeee" if self.color=="#2B2834" else "#2B2834"
+        self.color = "#AAB1B6" if self.color=="#2B2834" else "#2B2834"
         self.u1_h1_color = "#000000" if self.u1_h1_color=="#FFFFFF" else "#FFFFFF"
 
 
