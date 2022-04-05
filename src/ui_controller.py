@@ -19,6 +19,9 @@ from modules.color_palette import color_palette
 from modules.help import help
 from modules.layer import layer
 from modules.overlay import overlay
+from modules.text_overlay import text_overlay
+from modules.switch_theme import switch_theme
+from modules.generators import generators
 import assets
 
 class ui_controller:
@@ -47,7 +50,7 @@ class ui_controller:
     _ui_menus_right = SW-270
 
     ## Position of the color palette widget.
-    palette_pos = (_ui_menus_right, 60)
+    palette_pos = (_ui_menus_right, 15)
     ## Position of the layer one widget.
     layer_one_pos = (_ui_menus_left, 30)
     ## Position of the layer two widget.
@@ -56,8 +59,12 @@ class ui_controller:
     layer_three_pos = (_ui_menus_left, layer_two_pos[1]+230)
     ## Position of the overlay widget.
     overlay_pos = (SW-245, palette_pos[1]+155)
+    ## Position of the text overlay widget
+    text_overlay_pos = (_ui_menus_right, overlay_pos[1]+360)
     ## Position of the help widget.
     help_pos = (284, 60)
+    ## Position of the switch theme widget
+    switch_theme_pos = (284, 90)
 
     ## Canvas internal size.
     canvas_size = (3840, 2160)
@@ -106,10 +113,14 @@ class ui_controller:
         ]
         widgets.color_palette = color_palette(self.palette_pos[0], self.palette_pos[1], self.window, self.ui_manager)
         widgets.help = help(self.help_pos[0], self.help_pos[1], self.window, self.ui_manager)
+        widgets.switch_theme = switch_theme(self.switch_theme_pos[0], self.switch_theme_pos[1], self.window, self.ui_manager)
         widgets.layer_one = layer(self.layer_one_pos[0], self.layer_one_pos[1], self.window, self.ui_manager, "ONE")
         widgets.layer_two = layer(self.layer_two_pos[0], self.layer_two_pos[1], self.window, self.ui_manager, "TWO")
         widgets.layer_three = layer(self.layer_three_pos[0], self.layer_three_pos[1], self.window, self.ui_manager, "THREE")
-        widgets.overlay = overlay(self.overlay_pos[0], self.overlay_pos[1], self.window, self.ui_manager, self.overlays)
+        widgets.text_overlay = text_overlay(self.text_overlay_pos[0], self.text_overlay_pos[1], self.window, self.ui_manager)
+        widgets.overlay = overlay(self.overlay_pos[0], self.overlay_pos[1], self.window, self.ui_manager)
+        
+        widgets.generators = generators(self.canvas_size[0], self.canvas_size[1])
 
 
     def process_events(self):
@@ -131,6 +142,7 @@ class ui_controller:
                 if event.user_type == pgui.UI_BUTTON_PRESSED:
                     if event.ui_object_id == "generate_button":
 
+                        self.canvas.draw_layers()
                         self.canvas.draw_to_canvas()
 
                     if event.ui_object_id == "random_generate_button":
@@ -141,8 +153,8 @@ class ui_controller:
 
                         self.draw_ui_static()
                         
+                        self.canvas.draw_layers()
                         self.canvas.draw_to_canvas()
-                        pass
                         
                     if event.ui_object_id == "export_art_button":
                         self.export_art()
@@ -154,11 +166,26 @@ class ui_controller:
                     #     c1.clean_layer(c1.fg_layer)
                     #     c1.blit_to_canvas([l1, l2, l3])
 
-                widgets.color_palette.events(event)
-                widgets.help.events(event)
-                widgets.layer_one.events(event)
-                widgets.layer_two.events(event)
-                widgets.layer_three.events(event)
+                redraw = 0
+
+                redraw += widgets.color_palette.events(event)
+                redraw += widgets.help.events(event)
+                redraw += widgets.layer_one.events(event)
+                redraw += widgets.layer_two.events(event)
+                redraw += widgets.layer_three.events(event)
+                redraw += widgets.overlay.events(event)
+                redraw += widgets.text_overlay.events(event)
+
+                if redraw > 0:
+                    self.canvas.draw_to_canvas()
+
+                if widgets.switch_theme.events(event):
+                    widgets.layer_one.change_colors()
+                    widgets.layer_two.change_colors()
+                    widgets.layer_three.change_colors()
+                    widgets.color_palette.change_colors()
+                    widgets.text_overlay.change_colors()
+                    widgets.overlay.change_colors()
 
             self.ui_manager.process_events(event)
 
@@ -168,7 +195,8 @@ class ui_controller:
         
         Draws the background color and some text itself and calls canvas and widgets for all other drawing.
         """
-        self.window.fill(assets.background_color)
+        self.window.fill(assets.background_color if widgets.switch_theme.getDarkMode() else pg.Color("#ffffff"))
+        #self.window.fill(assets.background_color)
 
         self.canvas.draw()
 
@@ -183,6 +211,7 @@ class ui_controller:
         widgets.layer_two.draw_ui_dynamic()
         widgets.layer_three.draw_ui_dynamic()
         widgets.overlay.draw_ui_dynamic()
+        widgets.text_overlay.draw_ui_dynamic()
 
 
     def draw_ui_static(self):
@@ -194,23 +223,25 @@ class ui_controller:
 
         widgets.color_palette.draw_ui_static()
         widgets.help.draw_ui_static()
+        widgets.switch_theme.draw_ui_static()
         widgets.layer_one.draw_ui_static()
         widgets.layer_two.draw_ui_static()
         widgets.layer_three.draw_ui_static()
         widgets.overlay.draw_ui_static()
+        widgets.text_overlay.draw_ui_static()
 
         resolution_dropdown = pgui.elements.UIDropDownMenu(options_list=self.resolutions_list,
                                                 starting_option=self.export_resolution,
-                                                relative_rect=pg.Rect(self.SW-240, 575+20, 200, 22), manager=self.ui_manager,
+                                                relative_rect=pg.Rect(self.SW // 2 + 100, 575+20, 200, 22), manager=self.ui_manager,
                                                 object_id = "resolution_dropdown")
 
-        export_art_button = pgui.elements.UIButton(relative_rect=pg.Rect(self.SW - 240, self.SH - 100, 200, 50),
+        export_art_button = pgui.elements.UIButton(relative_rect=pg.Rect(self.SW // 2 + 100, self.SH - 100, 200, 50),
                                                 text="Export", manager=self.ui_manager, object_id="export_art_button")
 
-        generate_button = pgui.elements.UIButton(relative_rect=pg.Rect(self.SW // 2 - 200, self.SH - 100, 200, 50),
+        generate_button = pgui.elements.UIButton(relative_rect=pg.Rect(self.SW // 2 - 200 - 100, self.SH - 100, 200, 50),
                                                 text="Generate", manager=self.ui_manager, object_id="generate_button")
 
-        random_generate_button = pgui.elements.UIButton(relative_rect=pg.Rect(self.SW // 2, self.SH - 100, 200, 50),
+        random_generate_button = pgui.elements.UIButton(relative_rect=pg.Rect(self.SW // 2 - 200 + 100, self.SH - 100, 200, 50),
                                                 text="Generate Randomly", manager=self.ui_manager,
                                                 object_id="random_generate_button")
 

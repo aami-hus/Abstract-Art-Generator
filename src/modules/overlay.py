@@ -15,6 +15,14 @@ from modules.widget import widget
 from widget_storage import widgets
 import assets
 
+_overlays = [
+    "assets/overlay1.png",
+    "assets/overlay2.png",
+    "assets/overlay3.png",
+    "assets/overlay4.png",
+    "assets/overlay5.png",
+    "assets/overlay6.png"
+]
 
 class overlay(widget):
     """! The overlay widget class.
@@ -22,7 +30,7 @@ class overlay(widget):
     Provides a ui and functionality to specify an overlay and draw to a pygame surface.
     """
     
-    def __init__(self, x, y, window, ui_manager, overlays):
+    def __init__(self, x, y, window, ui_manager):
         """! Initializes the overlay widget.
 
         @param x                Horizontal position to draw the widget at on the ui.
@@ -37,7 +45,6 @@ class overlay(widget):
         self.__y = y
         self.__window = window
         self.__ui_manager = ui_manager
-        self.__overlays = overlays
         
         self.color = "#2B2834"
         self.ui_h1_color = "#FFFFFF"
@@ -45,6 +52,8 @@ class overlay(widget):
         self.__active_overlay = 0
         self.__active_color = assets.active_color
         self.__inactive_color = assets.inactive_color
+
+        self.__overlays = [pg.image.load(o).convert_alpha() for o in _overlays]
 
 
     def draw_ui_dynamic(self):
@@ -105,39 +114,43 @@ class overlay(widget):
 
         @param event    The pygame event being processed.
         """
-        #if event.user_type == pgui.UI_BUTTON_PRESSED:
-        if event.ui_object_id == "overlay1_button":
-            self.__active_overlay = 1
-            #c1.generate_fg(assets.overlays[0])
-        if event.ui_object_id == "overlay2_button":
-            self.__active_overlay = 2
-            #c1.generate_fg(assets.overlays[1])
-        if event.ui_object_id == "overlay3_button":
-            self.__active_overlay = 3
-            #c1.generate_fg(assets.overlays[2])
-        if event.ui_object_id == "overlay4_button":
-            self.__active_overlay = 4
-            #c1.generate_fg(assets.overlays[3])
-        if event.ui_object_id == "overlay5_button":
-            self.__active_overlay = 5
-            #c1.generate_fg(assets.overlays[4])
-        if event.ui_object_id == "overlay6_button":
-            self.__active_overlay = 6
-            #c1.generate_fg(assets.overlays[5])
-        if event.ui_object_id == "overlay7_button":
-            self.__active_overlay = 0
-        # c1.clean_layer(c1.fg_layer)
-            #c1.blit_to_canvas([l1, l2, l3])
+        if event.user_type == pgui.UI_BUTTON_PRESSED:
+            if event.ui_object_id == "overlay1_button":
+                self.__active_overlay = 1
+                self.draw_canvas()
+            if event.ui_object_id == "overlay2_button":
+                self.__active_overlay = 2
+                self.draw_canvas()
+            if event.ui_object_id == "overlay3_button":
+                self.__active_overlay = 3
+                self.draw_canvas()
+            if event.ui_object_id == "overlay4_button":
+                self.__active_overlay = 4
+                self.draw_canvas()
+            if event.ui_object_id == "overlay5_button":
+                self.__active_overlay = 5
+                self.draw_canvas()
+            if event.ui_object_id == "overlay6_button":
+                self.__active_overlay = 6
+                self.draw_canvas()
+            if event.ui_object_id == "overlay7_button":
+                self.__active_overlay = 0
+                self.clean_layer()
+
+            return 1
+
+        return 0
 
 
     def draw_canvas(self):
         """! Draw the currently selected overlay image to self.overlay_layer. """
-        pass
+        self.clean_layer()
+        self.overlay_layer.blit(self.__overlays[self.__active_overlay-1], (0, 0))
 
 
     def clean_layer(self):
         """! Clean the overlay by setting it to be blank and see-through. """
-        self.layer.fill((0, 0, 0, 0))
+        self.overlay_layer.fill((0, 0, 0, 0))
     
     def get_active_overlay(self):
         return self.__active_overlay

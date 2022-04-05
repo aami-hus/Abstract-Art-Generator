@@ -52,22 +52,34 @@ class canvas:
         self.__bg_layer.fill(pg.Color(color))
 
 
-    def draw_to_canvas(self):
-        """! Draws layers to the canvas.
+    def draw_layers(self):
+        """! Calls various widgets to draw to their layers.
 
-        Calls any drawing widgets to draw to the canvas.
+        Calls any drawing widgets to draw to their layers.
         """
         self.generate_bg(widgets.color_palette.get_background_color())
-        self.__canvas.blit(self.__bg_layer, (0, 0))
 
         widgets.layer_one.draw_canvas()
-        self.__canvas.blit(widgets.layer_one.layer, (0, 0))
-
         widgets.layer_two.draw_canvas()
-        self.__canvas.blit(widgets.layer_two.layer, (0, 0))
-
         widgets.layer_three.draw_canvas()
+
+        widgets.text_overlay.draw_canvas()
+
+
+    def draw_to_canvas(self):
+        """! Blits layers to the canvas.
+
+        Combines the currently drawn layers into the canvas.
+        """
+        self.__canvas.blit(self.__bg_layer, (0, 0))
+
+        self.__canvas.blit(widgets.layer_one.layer, (0, 0))
+        self.__canvas.blit(widgets.layer_two.layer, (0, 0))
         self.__canvas.blit(widgets.layer_three.layer, (0, 0))
+
+        self.__canvas.blit(widgets.text_overlay.layer, (0, 0))
+
+        self.__canvas.blit(widgets.overlay.overlay_layer, (0, 0))
 
         self.__canvas.convert()
         self.__display_canvas = pg.transform.smoothscale(self.__canvas, (self.__display_width, self.__display_height))

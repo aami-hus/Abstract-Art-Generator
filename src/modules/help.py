@@ -125,3 +125,5 @@ class help(widget):
         """
         if event.user_type == pgui.UI_BUTTON_PRESSED and event.ui_object_id == "help_opt_button":
             self.__help_opt = 1 if self.__help_opt == 0 else 0
+
+        return 0

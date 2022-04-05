@@ -18,10 +18,12 @@ class widget_storage:
     Allows all other modules to access program widgets.
     """
     def __init__(self):
-        ## The color palette widget.
+        ## The color palette widget
         self.color_palette = None
-        ## The help button widget.
+        ## The help button widget
         self.help = None
+        ## The theme switch widget
+        self.switch_theme = None
         ## The layer one widget
         self.layer_one = None
         ## The layer two widget
@@ -30,6 +32,9 @@ class widget_storage:
         self.layer_three = None
         ## The text overlay widget
         self.text_overlay = None
+        ## The overlay widget
         self.overlay = None
+        ## The generators utility
+        self.generators = None
 
 widgets = widget_storage()

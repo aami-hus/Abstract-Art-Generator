@@ -112,21 +112,27 @@ class text_overlay(widget):
         @param event    The pygame event being processed.
         """
 
+        r = 0
+
         if event.user_type == pgui.UI_DROP_DOWN_MENU_CHANGED:
             if event.ui_object_id == "font_dropdown":
                 self.__font = event.text
                 self.text_to_canvas()
+                r = 1
 
         if event.user_type == pgui.UI_HORIZONTAL_SLIDER_MOVED:
             if event.ui_object_id == "size_slider":
                 self.__size = event.value
                 self.text_to_canvas()
+                r = 1
             if event.ui_object_id == "x_slider":
                 self.__pos[0] = event.value
                 self.text_to_canvas()
+                r = 1
             if event.ui_object_id == "y_slider":
                 self.__pos[1] = event.value
                 self.text_to_canvas()
+                r = 1
 
         if event.user_type == pgui.UI_TEXT_ENTRY_CHANGED:
             if event.ui_object_id == "text_entry":
@@ -134,7 +140,10 @@ class text_overlay(widget):
 
         if event.user_type == pgui.UI_TEXT_ENTRY_FINISHED:
             if event.ui_object_id == "text_entry":
-                self.text_to_canvas()
+                self.draw_canvas()
+                r = 1
+
+        return r
 
 
     def draw_canvas(self):

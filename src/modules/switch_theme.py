@@ -1,9 +1,9 @@
 ##
-# @file help.py
+# @file switch_theme.py
 #
 # @brief Defines the switch theme class.
 #
-# @section author_sensors Author(s)
+# @section author_theme Author(s)
 # - Created by Fady Morcos on 04/04/2022.
 
 # Imports

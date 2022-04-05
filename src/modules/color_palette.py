@@ -226,6 +226,8 @@ class color_palette(widget):
                     self.__background_index = randint(0, len(self.__palette_colors)-1)
                 self.refresh_ui_static()
 
+        return 0
+
 
     def get_name_of_palette(self):
         """! Get the name of the current palette. 

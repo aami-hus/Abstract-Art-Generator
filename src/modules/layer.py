@@ -14,16 +14,6 @@ from random import randint, choice
 from modules.widget import widget
 from widget_storage import widgets
 import assets
-from modules.switch_theme import switch_theme
-
-from generators.circle_generator import circle_generator
-from generators.square_generator import square_generator
-from generators.line_generator import line_generator
-from generators.ring_generator import ring_generator
-from generators.dots_generator import dots_generator
-from generators.curves_generator import curves_generator
-from generators.hpolygons_generator import hpolygons_generator
-from generators.fpolygons_generator import fpolygons_generator
 
 _art_styles_list = [
     "Chaotic",
@@ -76,7 +66,7 @@ class layer(widget):
         self.__style = choice(_art_styles_list)
         self.__shape = choice(_art_shapes_list)
         self.__complexity = randint(10,30)#15
-        self.__size = randint(51, 400) #400
+        self.__size = [51, randint(51,400)] #400
         self.__transparency = randint(0, 255)
 
         #locks
@@ -161,7 +151,7 @@ class layer(widget):
                                                                     object_id="layer_"+num_of_layer+"_complexity_slider")
 
         size_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(interactables_margin, self.__y+145, 200, 22),
-                                                                start_value=self.__size, value_range=(50, 400),
+                                                                start_value=self.__size[1], value_range=(50, 400),
                                                                 manager=self.__ui_manager, object_id="layer_"+num_of_layer+"_size_slider")
         
         transparency_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(interactables_margin, self.__y+190, 200, 22),
@@ -193,7 +183,7 @@ class layer(widget):
         if self.__complexity_lock == 0:
             self.__complexity = randint(10,30)
         if self.__size_lock == 0:
-            self.__size = randint(51, 400)
+            self.__size[1] = randint(51, 400)
         if self.__transparency_lock == 0:
             self.__transparency = randint(0, 255)
 
@@ -230,9 +220,11 @@ class layer(widget):
             if event.ui_object_id == "layer_"+num_of_layer+"_complexity_slider":
                 self.__complexity = event.value
             if event.ui_object_id == "layer_"+num_of_layer+"_size_slider":
-                self.__size = event.value
+                self.__size[1] = event.value
             if event.ui_object_id == "layer_"+num_of_layer+"_transparency_slider":
                 self.__transparency = event.value
+
+        return 0
 
 
     def draw_canvas(self):
@@ -244,28 +236,30 @@ class layer(widget):
         color_palette = widgets.color_palette.get_foreground_colors()
 
         if _art_shapes_list[0] == self.__shape:
-            line_generator.draw(self.layer, self.__complexity, color_palette, self.__style, self.__size)
+            widgets.generators.draw_lines(self.layer, self.__complexity, color_palette, self.__style, self.__size)
 
         if _art_shapes_list[1] == self.__shape:
-            circle_generator.draw(self.layer, self.__complexity, color_palette, self.__style, self.__size)
+            widgets.generators.draw_circles(self.layer, self.__complexity, color_palette, self.__style, self.__size)
 
         if _art_shapes_list[2] == self.__shape:
-            square_generator.draw(self.layer, self.__complexity, color_palette, self.__style, self.__size)
+            widgets.generators.draw_squares(self.layer, self.__complexity, color_palette, self.__style, self.__size)
 
         if _art_shapes_list[3] == self.__shape:
-            hpolygons_generator.draw(self.layer, self.__complexity, color_palette, self.__style, self.__size)
+            widgets.generators.draw_hpolygons(self.layer, self.__complexity, color_palette, self.__style, self.__size)
 
         if _art_shapes_list[4] == self.__shape:
-            fpolygons_generator.draw(self.layer, self.__complexity, color_palette, self.__style, self.__size)
+            widgets.generators.draw_fpolygons(self.layer, self.__complexity, color_palette, self.__style, self.__size)
 
         if _art_shapes_list[5] == self.__shape:
-            dots_generator.draw(self.layer, self.__complexity, color_palette, self.__style, self.__size)
+            widgets.generators.draw_dots(self.layer, self.__complexity, color_palette, self.__style, self.__size)
 
         if _art_shapes_list[6] == self.__shape:
-            curves_generator.draw(self.layer, self.__complexity, color_palette, self.__style, self.__size)
+            widgets.generators.draw_curves(self.layer, self.__complexity, color_palette, self.__style, self.__size)
 
         if _art_shapes_list[7] == self.__shape:
-            ring_generator.draw(self.layer, self.__complexity, color_palette, self.__style, self.__size)
+            widgets.generators.draw_rings(self.layer, self.__complexity, color_palette, self.__style, self.__size)
+
+        self.layer.set_alpha(self.__transparency)
 
 
     def clean_layer(self):
