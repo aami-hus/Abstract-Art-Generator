@@ -16,7 +16,12 @@ from widget_storage import widgets
 import assets
 
 _fonts = [
-    "Basic-Regular"
+    "Basic",
+    "Bauhaus",
+    "Dearlove",
+    "LemonMilk",
+    "Blanka",
+    "Balloon"
 ]
 
 
@@ -158,7 +163,7 @@ class text_overlay(widget):
     def text_to_canvas(self):
         self.clean_layer()
         
-        font_used = pg.freetype.Font(self.__font + ".ttf", self.__size)
+        font_used = pg.freetype.Font("fonts/" + self.__font + ".ttf", self.__size)
         font_used.render_to(self.layer, self.__pos, self.__text, self.__color)
 
 
