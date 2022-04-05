@@ -62,7 +62,7 @@ class overlay(widget):
         Draws the text and overlay thumbnails.
         """
         
-        pg.draw.rect(self.__window, pg.Color(self.color), (self.__x, self.__y, 210, 350))
+        pg.draw.rect(self.__window, pg.Color(self.color), (self.__x, self.__y, 252, 350))
 
         assets.text_to_screen(window=self.__window, text="OVERLAY/BORDER", color=self.ui_h1_color, pos=(self.__x+15, self.__y+12), font_size=18)
 

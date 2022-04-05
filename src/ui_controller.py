@@ -58,7 +58,7 @@ class ui_controller:
     ## Position of the layer three widget.
     layer_three_pos = (_ui_menus_left, layer_two_pos[1]+230)
     ## Position of the overlay widget.
-    overlay_pos = (SW-245, palette_pos[1]+155)
+    overlay_pos = (palette_pos[0], palette_pos[1]+145) #SW-245, 145 instead of 155
     ## Position of the text overlay widget
     text_overlay_pos = (_ui_menus_right, overlay_pos[1]+360)
     ## Position of the help widget.
