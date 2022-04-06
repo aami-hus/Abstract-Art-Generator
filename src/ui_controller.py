@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 ##
 # @file ui_controller.py
 #
@@ -270,12 +271,12 @@ class ui_controller:
 
         if filename:
             path = filename[:]
-            if self.__export_resolution == self.resolutions_list[0]:
-                pg.image.save(self.canvas.get_canvas(), path + ".png")
-            elif self.__export_resolution == self.resolutions_list[1]:
-                pg.image.save(pg.transform.smoothscale(self.canvas.get_canvas(), (1920, 1080)), path + ".png")
-            elif self.__export_resolution == self.resolutions_list[2]:
-                pg.image.save(pg.transform.smoothscale(self.canvas.get_canvas(), (1280, 720)), path + ".png")
+            if self.export_resolution == self.resolutions_list[0]:
+                pg.image.save(self.canvas.get_canvas(), path)
+            elif self.export_resolution == self.resolutions_list[1]:
+                pg.image.save(pg.transform.smoothscale(self.canvas.get_canvas(), (1920, 1080)), path)
+            elif self.export_resolution == self.resolutions_list[2]:
+                pg.image.save(pg.transform.smoothscale(self.canvas.get_canvas(), (1280, 720)), path)
         else:
             pass
 
