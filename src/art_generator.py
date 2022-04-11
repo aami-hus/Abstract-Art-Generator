@@ -1,9 +1,10 @@
 # ABSTRACT ART GENERATOR
 # By Burak U. - github.com/Burakcoli
 
-from turtle import color
-from color_palettes import Palette
 from random import randint
+from time import sleep
+
+from turtle import color
 import pygame as pg
 import pygame.gfxdraw
 import pygame.freetype
@@ -11,9 +12,17 @@ import pygame_gui as pgui
 from tkinter import *
 from tkinter.filedialog import asksaveasfilename
 
+from modules.color_palette import color_palette
+from modules.help import help
+from modules.switch_theme import switch_theme
+from modules.layer import layer
+from modules.text_overlay import text_overlay
+from modules.overlay import overlay
+
+from widget_storage import widgets
+
 #-----------------Define UI-----------------
 pg.init()
-pg.freetype.init()
 
 SW, SH = 1280, 720
 window = pg.display.set_mode((SW, SH))
@@ -91,9 +100,9 @@ class Canvas:
 
         self.bg_layer = pg.Surface((self.width, self.height))
         self.bg_layer.fill((255, 255, 255))
-        self.layer_one = pg.Surface((self.width, self.height), pg.SRCALPHA)
-        self.layer_two = pg.Surface((self.width, self.height), pg.SRCALPHA)
-        self.layer_three = pg.Surface((self.width, self.height), pg.SRCALPHA) #AH
+        # self.layer_one = pg.Surface((self.width, self.height), pg.SRCALPHA)
+        # self.layer_two = pg.Surface((self.width, self.height), pg.SRCALPHA)
+        # self.layer_three = pg.Surface((self.width, self.height), pg.SRCALPHA) #AH
         self.fg_layer = pg.Surface((self.width, self.height), pg.SRCALPHA)
 
     def export_art(self):
@@ -890,51 +899,57 @@ class Canvas:
     def generate_fg(self, overlay):
         self.clean_layer(self.fg_layer)
         self.fg_layer.blit(overlay, (0, 0))
-        self.blit_to_canvas()
-
-    def generate_layer_one(self, art_style, art_shape, color_palette, complexity, magnitude):
-        self.generate_art(self.layer_one, art_style, art_shape, color_palette, complexity, magnitude)
-
-    def generate_layer_two(self, art_style, art_shape, color_palette, complexity, magnitude):
-        self.generate_art(self.layer_two, art_style, art_shape, color_palette, complexity, magnitude)
-
-    def generate_layer_three(self, art_style, art_shape, color_palette, complexity, magnitude):
-        self.generate_art(self.layer_three, art_style, art_shape, color_palette, complexity, magnitude) #AH
+        self.blit_to_canvas([l1,l2,l3])
 
 
-    def generate_art(self, layer, art_style, art_shape, color_palette, complexity, magnitude):
-        self.clean_layer(layer)
-        layer.set_colorkey((0, 0, 0))
 
-        if art_shapes_list[0] == art_shape:
-            self.generate_lines(complexity, color_palette, art_style, layer, magnitude)
+    def generate_layer(self, layer, color_palette):
+        self.generate_art(layer, color_palette)
 
-        if art_shapes_list[1] == art_shape:
-            self.generate_circles(complexity, color_palette, art_style, layer, magnitude, 0)
+    def generate_art(self, layer, color_palette):
+        layer.clean_layer()
+        layer.layer.set_colorkey((0, 0, 0))
 
-        if art_shapes_list[2] == art_shape:
-            self.generate_squares(complexity, color_palette, art_style, layer, magnitude)
+        if art_shapes_list[0] == layer.get_layer_shape():
+            self.generate_lines(layer.get_layer_complexity(), color_palette, layer.get_layer_style(), layer.layer, [50, 400])
 
-        if art_shapes_list[3] == art_shape:
-            self.generate_polygons(complexity, color_palette, art_style, layer, magnitude, 1)
+        if art_shapes_list[1] == layer.get_layer_shape():
+            self.generate_circles(layer.get_layer_complexity(), color_palette, layer.get_layer_style(), layer.layer, [50, 400], 0)
 
-        if art_shapes_list[4] == art_shape:
-            self.generate_polygons(complexity, color_palette, art_style, layer, magnitude, 0)
+        if art_shapes_list[2] == layer.get_layer_shape():
+            self.generate_squares(layer.get_layer_complexity(), color_palette, layer.get_layer_style(), layer.layer, [50, 400])
 
-        if art_shapes_list[5] == art_shape:
-            self.generate_dots(complexity, color_palette, art_style, layer, magnitude)
+        if art_shapes_list[3] == layer.get_layer_shape():
+            self.generate_polygons(layer.get_layer_complexity(), color_palette, layer.get_layer_style(), layer.layer, [50, 400], 1)
 
-        if art_shapes_list[6] == art_shape:
-            self.generate_curves(complexity, color_palette, art_style, layer, magnitude[1])
+        if art_shapes_list[4] == layer.get_layer_shape():
+            self.generate_polygons(layer.get_layer_complexity(), color_palette, layer.get_layer_style(), layer.layer, [50, 400], 0)
 
-        if art_shapes_list[7] == art_shape:
-            self.generate_circles(complexity, color_palette, art_style, layer, magnitude, 1)
+        if art_shapes_list[5] == layer.get_layer_shape():
+            self.generate_dots(layer.get_layer_complexity(), color_palette, layer.get_layer_style(), layer.layer, [50, 400])
 
-    def blit_to_canvas(self):
+        if art_shapes_list[6] == layer.get_layer_shape():
+            self.generate_curves(layer.get_layer_complexity(), color_palette, layer.get_layer_style(), layer.layer, 400) #400 from [50, 400]
+
+        if art_shapes_list[7] == layer.get_layer_shape():
+            self.generate_circles(layer.get_layer_complexity(), color_palette, layer.get_layer_style(), layer.layer, [50, 400], 1)
+
+    def blit_to_canvas(self, layers):
         self.canvas.blit(self.bg_layer, (0, 0))
-        self.canvas.blit(self.layer_one, (0, 0))
-        self.canvas.blit(self.layer_two, (0, 0))
-        self.canvas.blit(self.layer_three, (0, 0)) #AH
+        # self.canvas.blit(self.layer_one, (0, 0))
+        # self.canvas.blit(self.layer_two, (0, 0))
+        # self.canvas.blit(self.layer_three, (0, 0)) #AH
+
+        #below added to allow surfaces (layers) to change transparency
+        #layers[0].layer.convert_alpha()
+        layers[0].layer.set_alpha(layers[0].get_layer_transparency())
+        #layers[1].layer.convert_alpha()
+        layers[1].layer.set_alpha(layers[1].get_layer_transparency())
+        #layers[2].layer.convert_alpha()
+        layers[2].layer.set_alpha(layers[2].get_layer_transparency())
+        for i in layers:
+            self.canvas.blit(i.layer, (0, 0)) #AH2
+        self.canvas.blit(to.layer, (0, 0))
         self.canvas.blit(self.fg_layer, (0, 0))
         self.canvas.convert()
         self.display_canvas = pg.transform.smoothscale(self.canvas, self.display_size)
@@ -942,18 +957,61 @@ class Canvas:
     def draw(self, window):
         window.blit(self.display_canvas, self.dsPos)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# -------------------------------------------------------------------------------------------------------------
+
 #general menu locations
 ui_menus_left = 18
 ui_menus_right = SW-270
 
 #positions of dialogs
-palette_pos = (ui_menus_right, 60)
-layer_one_pos = (ui_menus_left, 60)
-layer_two_pos = (ui_menus_left, layer_one_pos[1]+200)
-layer_three_pos = (ui_menus_left, layer_two_pos[1]+200)
-overlay_pos = (0, palette_pos[1]+155)
+palette_pos = (ui_menus_right, 15)
+layer_one_pos = (ui_menus_left, 30) #changed from 60 to 30
+layer_two_pos = (ui_menus_left, layer_one_pos[1]+230) #200 to 250
+layer_three_pos = (ui_menus_left, layer_two_pos[1]+230)
+overlay_pos = (0, palette_pos[1]+145)
+text_overlay_pos = (ui_menus_right, overlay_pos[1]+360)
 help_pos = (284, 60)
-help_left = 0
+switch_theme_pos = (284, 90)
+# help_left = 0
 
 #margins for where to place text/interactables in the dialogs
 cpm = palette_pos[0] + 42
@@ -962,136 +1020,73 @@ l2m = layer_two_pos[0] + 42
 l3m = layer_three_pos[0] + 42
 
 #draws the ui
-def draw_menu(window, color_palette, option_locks, help_opt):
+def draw_menu(window, option_locks):
     ui_h1_color = (250, 250, 250)
     ui_color = pg.Color("#DFD6FF")
 
     lock_enabled = pg.transform.scale(pg.image.load("assets/lock_enabled.png"), (20, 20))
     lock_disabled = pg.transform.scale(pg.image.load("assets/lock_disabled.png"), (20, 20))
 
-    pg.draw.rect(window, pg.Color("#2B2834"), (palette_pos[0], palette_pos[1], 252, 135))           # Color Palette BG
-    pg.draw.rect(window, pg.Color("#2B2834"), (layer_one_pos[0], layer_one_pos[1], 252, 190))      # Layer One BG
-    pg.draw.rect(window, pg.Color("#2B2834"), (layer_two_pos[0], layer_two_pos[1], 252, 190))      # Layer Two BG
-    pg.draw.rect(window, pg.Color("#2B2834"), (layer_three_pos[0], layer_three_pos[1], 252, 190))  # Layer Three BG
-    pg.draw.rect(window, pg.Color("#2B2834"), (SW-245, overlay_pos[1], 210, 350))                  # Overlay BG
+    # pg.draw.rect(window, pg.Color("#2B2834"), (palette_pos[0], palette_pos[1], 252, 135))           # Color Palette BG
+    # pg.draw.rect(window, pg.Color("#2B2834"), (layer_one_pos[0], layer_one_pos[1], 252, 190))      # Layer One BG
+    # pg.draw.rect(window, pg.Color("#2B2834"), (layer_two_pos[0], layer_two_pos[1], 252, 190))      # Layer Two BG
+    # pg.draw.rect(window, pg.Color("#2B2834"), (layer_three_pos[0], layer_three_pos[1], 252, 190))  # Layer Three BG
+    # pg.draw.rect(window, pg.Color("#2B2834"), (SW-245, overlay_pos[1], 210, 350))                  # Overlay BG
+
+    p1.draw_ui_dynamic()
+    l1.draw_ui_dynamic()
+    l2.draw_ui_dynamic()
+    l3.draw_ui_dynamic()
+    to.draw_ui_dynamic()
+    ob.draw_ui_dynamic()
 
     cp_lock = palette_pos[0] + 17
     l1_lock = layer_one_pos[0] + 17
     l2_lock = layer_two_pos[0] + 17
     l3_lock = layer_three_pos[0] + 17
 
-    if option_locks[0] == 0:
-        window.blit(lock_disabled, (cp_lock, palette_pos[1]+35))
-    else:
-        window.blit(lock_enabled, (cp_lock, palette_pos[1]+35))
-
-    if option_locks[1] == 0:
-        window.blit(lock_disabled, (cp_lock, palette_pos[1]+68))
-    else:
-        window.blit(lock_enabled, (cp_lock, palette_pos[1]+68))
-
-    if option_locks[2] == 0:
-        window.blit(lock_disabled, (l1_lock, layer_one_pos[1]+30))
-    else:
-        window.blit(lock_enabled, (l1_lock, layer_one_pos[1]+30))
-
-    if option_locks[3] == 0:
-        window.blit(lock_disabled, (l1_lock, layer_one_pos[1]+60))
-    else:
-        window.blit(lock_enabled, (l1_lock, layer_one_pos[1]+60))
-
-    if option_locks[4] == 0:
-        window.blit(lock_disabled, (l1_lock, layer_one_pos[1]+110))
-    else:
-        window.blit(lock_enabled, (l1_lock, layer_one_pos[1]+110))
-
-    if option_locks[5] == 0:
-        window.blit(lock_disabled, (l1_lock, layer_one_pos[1]+160))
-    else:
-        window.blit(lock_enabled, (l1_lock, layer_one_pos[1]+160))
-
-    if option_locks[6] == 0:
-        window.blit(lock_disabled, (l2_lock, layer_two_pos[1]+30))
-    else:
-        window.blit(lock_enabled, (l2_lock, layer_two_pos[1]+30))
-
-    if option_locks[7] == 0:
-        window.blit(lock_disabled, (l2_lock, layer_two_pos[1]+60))
-    else:
-        window.blit(lock_enabled, (l2_lock, layer_two_pos[1]+60))
-
-    if option_locks[8] == 0:
-        window.blit(lock_disabled, (l2_lock, layer_two_pos[1]+110))
-    else:
-        window.blit(lock_enabled, (l2_lock, layer_two_pos[1]+110))
-
-    if option_locks[9] == 0:
-        window.blit(lock_disabled, (l2_lock, layer_two_pos[1]+160))
-    else:
-        window.blit(lock_enabled, (l2_lock, layer_two_pos[1]+160))
-
-    if option_locks[10] == 0:
-        window.blit(lock_disabled, (l3_lock, layer_three_pos[1]+30))
-    else:
-        window.blit(lock_enabled, (l3_lock, layer_three_pos[1]+30))
-
-    if option_locks[11] == 0:
-        window.blit(lock_disabled, (l3_lock, layer_three_pos[1]+60))
-    else:
-        window.blit(lock_enabled, (l3_lock, layer_three_pos[1]+60))
-
-    if option_locks[12] == 0:
-        window.blit(lock_disabled, (l3_lock, layer_three_pos[1]+110))
-    else:
-        window.blit(lock_enabled, (l3_lock, layer_three_pos[1]+110))
-
-    if option_locks[13] == 0:
-        window.blit(lock_disabled, (l3_lock, layer_three_pos[1]+160))
-    else:
-        window.blit(lock_enabled, (l3_lock, layer_three_pos[1]+160))
 
     active_color = (90, 90, 90)
     inactive_color = (20, 20, 20)
 
-    text_to_screen(window=window, text="ABSTRACT ART GENERATOR", color=ui_h1_color, pos=(430, 35), font_size=40)
-    text_to_screen(window=window, text="LAYERS", color=ui_h1_color, pos=(l1m, layer_one_pos[1]-25), font_size=24)
-    text_to_screen(window=window, text="COLOR PALETTE", color=ui_h1_color, pos=(cpm, palette_pos[1]+15), font_size=18)
-    for i, color in enumerate(color_palette):
-        pg.draw.rect(window, active_color if bg_color_index == i else inactive_color, (cpm+((i%4)*50), palette_pos[1]+65+(36*(i//4)), 26, 26))
-        pg.draw.rect(window, pg.Color(color), (cpm+3+((i%4)*50), palette_pos[1]+68+(36*(i//4)), 20, 20))
-    text_to_screen(window=window, text="LAYER ONE STYLE", color=ui_h1_color, pos=(l1m, layer_one_pos[1]+10), font_size=18)
-    text_to_screen(window=window, text="LAYER ONE COMPLEXITY", color=ui_color, pos=(l1m, layer_one_pos[1]+95), font_size=14)
-    text_to_screen(window=window, text="LAYER ONE SHAPE SIZE", color=ui_color, pos=(l1m, layer_one_pos[1]+145), font_size=14)
-    text_to_screen(window=window, text="LAYER TWO STYLE", color=ui_h1_color, pos=(l2m, layer_two_pos[1]+10), font_size=18)
-    text_to_screen(window=window, text="LAYER TWO COMPLEXITY", color=ui_color, pos=(l2m, layer_two_pos[1]+95), font_size=14)
-    text_to_screen(window=window, text="LAYER TWO SHAPE SIZE", color=ui_color, pos=(l2m, layer_two_pos[1]+145), font_size=14)
-    text_to_screen(window=window, text="LAYER THREE STYLE", color=ui_h1_color, pos=(l3m, layer_three_pos[1]+10), font_size=18)
-    text_to_screen(window=window, text="LAYER THREE COMPLEXITY", color=ui_color, pos=(l3m, layer_three_pos[1]+95), font_size=14)
-    text_to_screen(window=window, text="LAYER THREE SHAPE SIZE", color=ui_color, pos=(l3m, layer_three_pos[1]+145), font_size=14)
+    text_to_screen(window=window, text="ABSTRACT ART GENERATOR", color=ui_h1_color if switch_theme_module.getDarkMode() else pg.Color("#000000"), pos=(430, 35), font_size=40)
+    text_to_screen(window=window, text="LAYERS", color=ui_h1_color if switch_theme_module.getDarkMode() else pg.Color("#000000"), pos=(l1m, layer_one_pos[1]-22.5), font_size=24)
 
-    text_to_screen(window=window, text="OVERLAY", color=ui_h1_color, pos=(SW-174, overlay_pos[1]+12), font_size=18)
+    text_to_screen(window=window, text="OVERLAY", color=ui_h1_color if switch_theme_module.getDarkMode() else pg.Color("#000000"), pos=(SW-174, overlay_pos[1]+12), font_size=18)
 
-    text_to_screen(window=window, text="RESOLUTION", color=ui_color, pos=(SW-240, 560+20), font_size=14)
+    text_to_screen(window=window, text="RESOLUTION", color=ui_color if switch_theme_module.getDarkMode() else pg.Color("#000000"), pos=(SW // 2 + 100, 560+20), font_size=14)
 
-    pg.draw.rect(window, active_color if active_overlay == 1 else inactive_color, (SW-232, overlay_pos[1]+38, 84, 49), 1)
-    pg.draw.rect(window, active_color if active_overlay == 2 else inactive_color, (SW-132, overlay_pos[1]+38, 84, 49), 1)
-    pg.draw.rect(window, active_color if active_overlay == 3 else inactive_color, (SW-232, overlay_pos[1]+118, 84, 49), 1)
-    pg.draw.rect(window, active_color if active_overlay == 4 else inactive_color, (SW-132, overlay_pos[1]+118, 84, 49), 1)
-    pg.draw.rect(window, active_color if active_overlay == 5 else inactive_color, (SW-232, overlay_pos[1]+198, 84, 49), 1)
-    pg.draw.rect(window, active_color if active_overlay == 6 else inactive_color, (SW-132, overlay_pos[1]+198, 84, 49), 1)
-    pg.draw.rect(window, active_color if active_overlay == 0 else inactive_color, (SW-182, overlay_pos[1]+278, 84, 49), 1)
+    # pg.draw.rect(window, active_color if active_overlay == 1 else inactive_color, (SW-232, overlay_pos[1]+38, 84, 49), 1)
+    # pg.draw.rect(window, active_color if active_overlay == 2 else inactive_color, (SW-132, overlay_pos[1]+38, 84, 49), 1)
+    # pg.draw.rect(window, active_color if active_overlay == 3 else inactive_color, (SW-232, overlay_pos[1]+118, 84, 49), 1)
+    # pg.draw.rect(window, active_color if active_overlay == 4 else inactive_color, (SW-132, overlay_pos[1]+118, 84, 49), 1)
+    # pg.draw.rect(window, active_color if active_overlay == 5 else inactive_color, (SW-232, overlay_pos[1]+198, 84, 49), 1)
+    # pg.draw.rect(window, active_color if active_overlay == 6 else inactive_color, (SW-132, overlay_pos[1]+198, 84, 49), 1)
+    # pg.draw.rect(window, active_color if active_overlay == 0 else inactive_color, (SW-182, overlay_pos[1]+278, 84, 49), 1)
 
-    window.blit(pg.transform.scale(overlays[0], (80, 45)), (SW-230, overlay_pos[1]+40))
-    window.blit(pg.transform.scale(overlays[1], (80, 45)), (SW-130, overlay_pos[1]+40))
-    window.blit(pg.transform.scale(overlays[2], (80, 45)), (SW-230, overlay_pos[1]+120))
-    window.blit(pg.transform.scale(overlays[3], (80, 45)), (SW-130, overlay_pos[1]+120))
-    window.blit(pg.transform.scale(overlays[4], (80, 45)), (SW-230, overlay_pos[1]+200))
-    window.blit(pg.transform.scale(overlays[5], (80, 45)), (SW-130, overlay_pos[1]+200))
+    # window.blit(pg.transform.scale(overlays[0], (80, 45)), (SW-230, overlay_pos[1]+40))
+    # window.blit(pg.transform.scale(overlays[1], (80, 45)), (SW-130, overlay_pos[1]+40))
+    # window.blit(pg.transform.scale(overlays[2], (80, 45)), (SW-230, overlay_pos[1]+120))
+    # window.blit(pg.transform.scale(overlays[3], (80, 45)), (SW-130, overlay_pos[1]+120))
+    # window.blit(pg.transform.scale(overlays[4], (80, 45)), (SW-230, overlay_pos[1]+200))
+    # window.blit(pg.transform.scale(overlays[5], (80, 45)), (SW-130, overlay_pos[1]+200))
+
+    help_module.draw_ui_dynamic()
+    switch_theme_module.draw_ui_dynamic()
 
 
 #generates the ui interactables
-def generate_ui(cp_len):
+def generate_ui():
     ui_manager.clear_and_reset()
+
+    p1.draw_ui_static()
+    help_module.draw_ui_static()
+    switch_theme_module.draw_ui_static()
+    l1.draw_ui_static()
+    l2.draw_ui_static()
+    l3.draw_ui_static()
+    to.draw_ui_static()
+    ob.draw_ui_static()
 
     #locations for lock buttons
     cp_lock = palette_pos[0] + 6
@@ -1099,221 +1094,62 @@ def generate_ui(cp_len):
     l2_lock = layer_two_pos[0] + 6
     l3_lock = layer_three_pos[0] + 6
 
-    current_palette_dropdown = pgui.elements.UIDropDownMenu(options_list=p1.get_all_names(),
-                                                            starting_option=current_palette_name,
-                                                            relative_rect=pg.Rect(cpm, palette_pos[1]+35, 200, 22), manager=ui_manager,
-                                                            object_id="current_palette_dropdown")
-
-    layer_one_style_dropdown = pgui.elements.UIDropDownMenu(options_list=art_styles_list,
-                                                            starting_option=layer_one_style,
-                                                            relative_rect=pg.Rect(l1m, layer_one_pos[1]+30, 200, 22), manager=ui_manager,
-                                                            object_id="layer_one_style_dropdown")
-
-    layer_one_shape_dropdown = pgui.elements.UIDropDownMenu(options_list=art_shapes_list,
-                                                            starting_option=layer_one_shape,
-                                                            relative_rect=pg.Rect(l1m, layer_one_pos[1]+60, 200, 22), manager=ui_manager,
-                                                            object_id="layer_one_shape_dropdown")
-
-    layer_one_complexity_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(l1m, layer_one_pos[1]+110, 200, 22),
-                                                                   start_value=layer_one_complexity,
-                                                                   value_range=(10, 30), manager=ui_manager,
-                                                                   object_id="layer_one_complexity_slider")
-
-    layer_one_size_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(l1m, layer_one_pos[1]+160, 200, 22),
-                                                             start_value=layer_one_magnitude[1], value_range=(50, 400),
-                                                             manager=ui_manager, object_id="layer_one_size_slider")
-
-    layer_two_style_dropdown = pgui.elements.UIDropDownMenu(options_list=art_styles_list,
-                                                            starting_option=layer_two_style,
-                                                            relative_rect=pg.Rect(l2m, layer_two_pos[1]+30, 200, 22), manager=ui_manager,
-                                                            object_id="layer_two_style_dropdown")
-
-    layer_two_shape_dropdown = pgui.elements.UIDropDownMenu(options_list=art_shapes_list,
-                                                            starting_option=layer_two_shape,
-                                                            relative_rect=pg.Rect(l2m, layer_two_pos[1]+60, 200, 22), manager=ui_manager,
-                                                            object_id="layer_two_shape_dropdown")
-
-    layer_two_complexity_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(l2m, layer_two_pos[1]+110, 200, 22),
-                                                                   start_value=layer_two_complexity,
-                                                                   value_range=(10, 30), manager=ui_manager,
-                                                                   object_id="layer_two_complexity_slider")
-
-    layer_two_size_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(l2m, layer_two_pos[1]+160, 200, 22),
-                                                             start_value=layer_two_magnitude[1], value_range=(50, 400),
-                                                             manager=ui_manager, object_id="layer_two_size_slider")
-
-    layer_three_style_dropdown = pgui.elements.UIDropDownMenu(options_list=art_styles_list,
-                                                            starting_option=layer_three_style,
-                                                            relative_rect=pg.Rect(l3m, layer_three_pos[1]+30, 200, 22), manager=ui_manager,
-                                                            object_id="layer_three_style_dropdown")
-
-    layer_three_shape_dropdown = pgui.elements.UIDropDownMenu(options_list=art_shapes_list,
-                                                            starting_option=layer_three_shape,
-                                                            relative_rect=pg.Rect(l3m, layer_three_pos[1]+60, 200, 22), manager=ui_manager,
-                                                            object_id="layer_three_shape_dropdown")
-
-    layer_three_complexity_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(l3m, layer_three_pos[1]+110, 200, 22),
-                                                                   start_value=layer_three_complexity,
-                                                                   value_range=(10, 30), manager=ui_manager,
-                                                                   object_id="layer_three_complexity_slider")
-
-    layer_three_size_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(l3m, layer_three_pos[1]+160, 200, 22),
-                                                             start_value=layer_three_magnitude[1], value_range=(50, 400),
-                                                             manager=ui_manager, object_id="layer_three_size_slider")
 
     resolution_dropdown = pgui.elements.UIDropDownMenu(options_list=resolutions_list,
                                                        starting_option=export_resolution,
-                                                       relative_rect=pg.Rect(SW-240, 575+20, 200, 22), manager=ui_manager,
+                                                       relative_rect=pg.Rect(SW // 2 + 100, 575+20, 200, 22), manager=ui_manager,
                                                        object_id = "resolution_dropdown")
 
-    export_art_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW - 240, SH - 100, 200, 50),
+    export_art_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW // 2 + 100, SH - 100, 200, 50), #SW - 240
                                                text="Export", manager=ui_manager, object_id="export_art_button")
 
-    generate_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW // 2 - 200, SH - 100, 200, 50),
+    generate_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW // 2 - 200 - 100, SH - 100, 200, 50),
                                              text="Generate", manager=ui_manager, object_id="generate_button")
 
-    random_generate_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW // 2, SH - 100, 200, 50),
+    random_generate_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW // 2 - 200 + 100, SH - 100, 200, 50),
                                                     text="Generate Randomly", manager=ui_manager,
                                                     object_id="random_generate_button")
 
-    lock_button_one = pgui.elements.UIButton(relative_rect=pg.Rect(cp_lock, palette_pos[1]+42, 12, 12), text="", manager=ui_manager,
-                                             object_id="lock_button_one")
-    lock_button_two = pgui.elements.UIButton(relative_rect=pg.Rect(cp_lock, palette_pos[1]+72, 12, 12), text="", manager=ui_manager,
-                                             object_id="lock_button_two")
-    lock_button_three = pgui.elements.UIButton(relative_rect=pg.Rect(l1_lock, layer_one_pos[1]+37, 12, 12), text="", manager=ui_manager,
-                                             object_id="lock_button_three")
-    lock_button_four = pgui.elements.UIButton(relative_rect=pg.Rect(l1_lock, layer_one_pos[1]+67, 12, 12), text="", manager=ui_manager,
-                                               object_id="lock_button_four")
-    lock_button_five = pgui.elements.UIButton(relative_rect=pg.Rect(l1_lock, layer_one_pos[1]+117, 12, 12), text="", manager=ui_manager,
-                                              object_id="lock_button_five")
-    lock_button_six = pgui.elements.UIButton(relative_rect=pg.Rect(l1_lock, layer_one_pos[1]+167, 12, 12), text="", manager=ui_manager,
-                                              object_id="lock_button_six")
-    lock_button_seven = pgui.elements.UIButton(relative_rect=pg.Rect(l2_lock, layer_two_pos[1]+37, 12, 12), text="", manager=ui_manager,
-                                             object_id="lock_button_seven")
-    lock_button_eight = pgui.elements.UIButton(relative_rect=pg.Rect(l2_lock, layer_two_pos[1]+67, 12, 12), text="", manager=ui_manager,
-                                               object_id="lock_button_eight")
-    lock_button_nine = pgui.elements.UIButton(relative_rect=pg.Rect(l2_lock, layer_two_pos[1]+117, 12, 12), text="", manager=ui_manager,
-                                               object_id="lock_button_nine")
-    lock_button_ten = pgui.elements.UIButton(relative_rect=pg.Rect(l2_lock, layer_two_pos[1]+167, 12, 12), text="", manager=ui_manager,
-                                              object_id="lock_button_ten")
-    lock_button_eleven = pgui.elements.UIButton(relative_rect=pg.Rect(l3_lock, layer_three_pos[1]+37, 12, 12), text="", manager=ui_manager,
-                                             object_id="lock_button_eleven")
-    lock_button_twelve = pgui.elements.UIButton(relative_rect=pg.Rect(l3_lock, layer_three_pos[1]+67, 12, 12), text="", manager=ui_manager,
-                                               object_id="lock_button_twelve")
-    lock_button_thirteen = pgui.elements.UIButton(relative_rect=pg.Rect(l3_lock, layer_three_pos[1]+117, 12, 12), text="", manager=ui_manager,
-                                               object_id="lock_button_thirteen")
-    lock_button_fourteen = pgui.elements.UIButton(relative_rect=pg.Rect(l3_lock, layer_three_pos[1]+167, 12, 12), text="", manager=ui_manager,
-                                              object_id="lock_button_fourteen")
 
-    overlay1_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-197, overlay_pos[1]+90, 14, 14), text="", manager=ui_manager,
-                                             object_id="overlay1_button")
-    overlay2_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-97, overlay_pos[1]+90, 14, 14), text="", manager=ui_manager,
-                                             object_id="overlay2_button")
-    overlay3_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-197, overlay_pos[1]+170, 14, 14), text="", manager=ui_manager,
-                                             object_id="overlay3_button")
-    overlay4_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-97, overlay_pos[1]+170, 14, 14), text="", manager=ui_manager,
-                                             object_id="overlay4_button")
-    overlay5_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-197, overlay_pos[1]+250, 14, 14), text="", manager=ui_manager,
-                                             object_id="overlay5_button")
-    overlay6_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-97, overlay_pos[1]+250, 14, 14), text="", manager=ui_manager,
-                                             object_id="overlay6_button")
-    overlay7_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-147, overlay_pos[1]+330, 14, 14), text="", manager=ui_manager,
-                                             object_id="overlay7_button")
-
-    bg_color_button_one = pgui.elements.UIButton(relative_rect=pg.Rect(cpm+12, palette_pos[1]+65+12, 14, 14), text="", manager=ui_manager,
-                                             object_id="bg_color_button_one", visible=cp_len>0)
-    bg_color_button_two = pgui.elements.UIButton(relative_rect=pg.Rect(cpm+50+12, palette_pos[1]+65+12, 14, 14), text="", manager=ui_manager,
-                                             object_id="bg_color_button_two", visible=cp_len>1)
-    bg_color_button_three = pgui.elements.UIButton(relative_rect=pg.Rect(cpm+100+12, palette_pos[1]+65+12, 14, 14), text="", manager=ui_manager,
-                                             object_id="bg_color_button_three", visible=cp_len>2)
-    bg_color_button_four = pgui.elements.UIButton(relative_rect=pg.Rect(cpm+150+12, palette_pos[1]+65+12, 14, 14), text="", manager=ui_manager,
-                                             object_id="bg_color_button_four", visible=cp_len>3)
-    bg_color_button_five = pgui.elements.UIButton(relative_rect=pg.Rect(cpm+12, palette_pos[1]+65+12+36, 14, 14), text="", manager=ui_manager,
-                                             object_id="bg_color_button_five", visible=cp_len>4)
-    bg_color_button_six = pgui.elements.UIButton(relative_rect=pg.Rect(cpm+50+12, palette_pos[1]+65+12+36, 14, 14), text="", manager=ui_manager,
-                                             object_id="bg_color_button_six", visible=cp_len>5)
-    bg_color_button_seven = pgui.elements.UIButton(relative_rect=pg.Rect(cpm+100+12, palette_pos[1]+65+12+36, 14, 14), text="", manager=ui_manager,
-                                             object_id="bg_color_button_seven", visible=cp_len>6)
-    bg_color_button_eight = pgui.elements.UIButton(relative_rect=pg.Rect(cpm+150+12, palette_pos[1]+65+12+36, 14, 14), text="", manager=ui_manager,
-                                             object_id="bg_color_button_eight", visible=cp_len>7)
-
-    bg_color_buttons = [bg_color_button_one, bg_color_button_two, bg_color_button_three, bg_color_button_four, bg_color_button_five,
-                        bg_color_button_six, bg_color_button_seven, bg_color_button_eight]
-
-    help_opt_button = pgui.elements.UIButton(relative_rect=pg.Rect(help_pos[0], help_pos[1], 100, 30), text="HELP", manager=ui_manager,
-                                             object_id="help_opt_button")
-
-    return bg_color_buttons
+    # overlay1_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-197, overlay_pos[1]+90, 14, 14), text="", manager=ui_manager,
+    #                                          object_id="overlay1_button")
+    # overlay2_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-97, overlay_pos[1]+90, 14, 14), text="", manager=ui_manager,
+    #                                          object_id="overlay2_button")
+    # overlay3_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-197, overlay_pos[1]+170, 14, 14), text="", manager=ui_manager,
+    #                                          object_id="overlay3_button")
+    # overlay4_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-97, overlay_pos[1]+170, 14, 14), text="", manager=ui_manager,
+    #                                          object_id="overlay4_button")
+    # overlay5_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-197, overlay_pos[1]+250, 14, 14), text="", manager=ui_manager,
+    #                                          object_id="overlay5_button")
+    # overlay6_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-97, overlay_pos[1]+250, 14, 14), text="", manager=ui_manager,
+    #                                          object_id="overlay6_button")
+    # overlay7_button = pgui.elements.UIButton(relative_rect=pg.Rect(SW-147, overlay_pos[1]+330, 14, 14), text="", manager=ui_manager,
+    #                                          object_id="overlay7_button")
 
 
-def draw_help():
-    if help_left:
-        pg.draw.rect(window, pg.Color("#2B2834"), (help_pos[0] - 510, help_pos[1], 510, 380))
-        p = [help_pos[0] - 500, help_pos[1]+10]
-    else:
-        pg.draw.rect(window, pg.Color("#2B2834"), (help_pos[0]+100, 90, 510, 380))
-        p = [help_pos[0] + 110, help_pos[1]+10]
-    c, s = [255, 255, 255], 12     # Color, Position, Font-size
-    ri = 12     # Row interval
-    text_to_screen(window, "Thanks for trying out my program! Let me help you with how the program works.", c, p, s)
-    p = [p[0], p[1]+ri+10]
-    text_to_screen(window, "Left side contains the art generation options, we have two layers that can be in different", c, p, s)
-    p = [p[0], p[1]+ri]
-    text_to_screen(window, "styles, different shapes, different complexities and different sizes. For example a layer", c, p, s)
-    p = [p[0], p[1]+ri]
-    text_to_screen(window, "with 'Cornered' 'Circles' options, will generate circles that are roughly cornered.", c, p, s)
-    p = [p[0], p[1]+ri+10]
-    text_to_screen(window, "Random values have a big part in my program to make the possibilities endless", c, p, s)
-    p = [p[0], p[1]+ri]
-    text_to_screen(window, "If you like a setting and want to keep it but randomize other settings, you can just click", c, p, s)
-    p = [p[0], p[1] + ri]
-    text_to_screen(window, "on the small buttons right next to the options to 'Lock' them for generating randomly.", c, p, s)
-    p = [p[0], p[1] + ri+10]
-    c = pg.Color("#DFD6FF")
-    text_to_screen(window, "Generate Button: Generates art with the options specified in the options panel.", c, p, s)
-    p = [p[0], p[1] + ri]
-    text_to_screen(window, "Generate Randomly Button: Generates art by randomizing the options on the left.", c, p, s)
-    p = [p[0], p[1] + ri]
-    text_to_screen(window, "Export Button: Opens a file dialog and let's you export a png of your art in 4k quality.", c, p, s)
-    p = [p[0], p[1] + ri+10]
-    c = [255, 255, 255]
-    text_to_screen(window, "Overlay options don't change by randomizing or generating new art with adjusting the options.", c, p, s)
-    p = [p[0], p[1] + ri]
-    text_to_screen(window, "And you can try new overlays with existing art. ", c, p, s)
-    p = [p[0], p[1] + ri+10]
-    text_to_screen(window, "There are 20 unique color palettes, and there are seven style options with eight shape options.", c, p, s)
-    p = [p[0], p[1] + ri]
-    text_to_screen(window, "Shapes are self explanatory but let's take a look at the styles:", c, p, s)
-    p = [p[0], p[1] + ri+5]
-    c = pg.Color("#DFD6FF")
-    text_to_screen(window, "Chaotic - The most randomized option.", c, p, s)
-    p = [p[0], p[1] + ri]
-    text_to_screen(window, "Striped Horizontal - Whatever the shape is, the shapes roughly line up in horizontal lines", c, p, s)
-    p = [p[0], p[1] + ri]
-    text_to_screen(window, "Striped Vertical - Same with striped horizontal but it's vertical.", c, p, s)
-    p = [p[0], p[1] + ri]
-    text_to_screen(window, "Mosaic - The selected shape will cover the canvas with equal amount of spacing between them.", c, p, s)
-    p = [p[0], p[1] + ri]
-    text_to_screen(window, "Cornered - Forces the randomizer to make the shapes appear roughly on the corners.", c, p, s)
-    p = [p[0], p[1] + ri]
-    text_to_screen(window, "Centered - Forces the randomizer to make the shapes appear roughlt on the center.", c, p, s)
-    p = [p[0], p[1] + ri]
-    text_to_screen(window, "Empty - Doesn't draw any shapes to the layer. Sometimes one shape is enough for the art.", c, p, s)
-    p = [p[0], p[1] + ri+10]
-    c = [255, 255, 255]
-    text_to_screen(window, "Complexity adjusts how many shapes will be drawn, it's more absolute than the size option.", c, p, s)
-    p = [p[0], p[1] + ri]
-    text_to_screen(window, "Size option adjusts how large the shapes 'can' be. Size is still more randomized for variety.", c, p, s)
-    p = [p[0], p[1] + ri+10]
-    c = pg.Color("#DFD6FF")
-    text_to_screen(window, "ENJOY!", c, p, s)
-
-
-p1 = Palette()
 c1 = Canvas((3840, 2160), (int(SW//1.8), int(SH//1.8)))
 
-current_color_palette = p1.get_random_palette()
-current_palette_name = p1.get_name_of_palette(current_color_palette)
+widgets.color_palette = color_palette(palette_pos[0], palette_pos[1], window, ui_manager)
+widgets.help = help(help_pos[0], help_pos[1], window, ui_manager)
+widgets.switch_theme = switch_theme(switch_theme_pos[0], switch_theme_pos[1], window, ui_manager)
+
+widgets.layer_one = layer(layer_one_pos[0], layer_one_pos[1], window, ui_manager, "ONE")
+widgets.layer_two = layer(layer_two_pos[0], layer_two_pos[1], window, ui_manager, "TWO")
+widgets.layer_three = layer(layer_three_pos[0], layer_three_pos[1], window, ui_manager, "THREE")
+widgets.text_overlay = text_overlay(text_overlay_pos[0], text_overlay_pos[1], window, ui_manager)
+widgets.overlay = overlay(SW-245, overlay_pos[1], window, ui_manager, overlays) #SW = 1280 therefore self.__x = 1035
+
+p1 = widgets.color_palette
+help_module = widgets.help
+switch_theme_module = widgets.switch_theme
+
+l1 = widgets.layer_one
+l2 = widgets.layer_two
+l3 = widgets.layer_three
+to = widgets.text_overlay
+ob = widgets.overlay
+
+
 layer_one_style = "Striped Vertical"
 layer_one_shape = "Lines"
 layer_two_style = "Cornered"
@@ -1327,128 +1163,92 @@ layer_one_magnitude = [50, 400]
 layer_two_magnitude = [50, 400]
 layer_three_magnitude = [50, 400]
 
-# lock indexes to relevent function
-# 0: color palette
-# 1: background color
-# 2-5: layer one
-# 6-9: layer two
-# 10-13: layer three
-#              [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13]
+
 option_locks = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-
-
-bg_color_index = 0
-
-help_opt = 0
 
 export_resolution = resolutions_list[0]
 
-bg_color_buttons = generate_ui(len(current_color_palette))
+generate_ui()
 
 run = True
+clock = pg.time.Clock()
 while run:
-    delta_time = pg.time.Clock().tick(60)/1000.0
+    delta_time = clock.tick(60)/1000.0
     for event in pg.event.get():
         if event.type == pg.QUIT:
             run = False
             break
 
         if event.type == pg.KEYDOWN:
-            if event.key == pg.K_1:
-                c1.generate_fg(overlays[0])
-            if event.key == pg.K_2:
-                c1.generate_fg(overlays[1])
-            if event.key == pg.K_3:
-                c1.generate_fg(overlays[2])
-            if event.key == pg.K_4:
-                c1.generate_fg(overlays[3])
-            if event.key == pg.K_5:
-                c1.generate_fg(overlays[4])
-            if event.key == pg.K_6:
-                c1.generate_fg(overlays[5])
-            if event.key == pg.K_7:
-                c1.clean_layer(c1.fg_layer)
-                c1.blit_to_canvas()
+
             if event.key == pg.K_ESCAPE:
                 run = False
                 break
 
         if event.type == pg.USEREVENT:
+            p1.events(event)
+            help_module.events(event)
+            if switch_theme_module.events(event):
+                l1.change_colors()
+                l2.change_colors()
+                l3.change_colors()
+                p1.change_colors()
+                to.change_colors()
+                ob.change_colors()
+                l1.draw_ui_dynamic()
+                l2.draw_ui_dynamic()
+                l3.draw_ui_dynamic()
+                p1.draw_ui_dynamic()
+                to.draw_ui_dynamic()
+                ob.draw_ui_dynamic()
+
+            l1.events(event)
+            l2.events(event)
+            l3.events(event)
+            to.events(event)
+            # ob.events(event) #AH3
+            
+
+
             if event.user_type == pgui.UI_BUTTON_PRESSED:
                 if event.ui_object_id == "generate_button":
 
-                    cp = current_color_palette.copy()
-                    bg_color = cp[bg_color_index]
+                    bg_color = p1.get_background_color()
                     c1.generate_bg(bg_color)
-                    cp.remove(bg_color)
+                    cp = p1.get_foreground_colors()
 
-                    c1.generate_layer_one(art_style=layer_one_style, art_shape=layer_one_shape,
-                                          color_palette=cp, complexity=layer_one_complexity,
-                                          magnitude=layer_one_magnitude)
-                    c1.generate_layer_two(art_style=layer_two_style, art_shape=layer_two_shape,
-                                          color_palette=cp, complexity=layer_two_complexity,
-                                          magnitude=layer_two_magnitude)
-                    c1.generate_layer_three(art_style=layer_three_style, art_shape=layer_three_shape,
-                                          color_palette=cp, complexity=layer_three_complexity,
-                                          magnitude=layer_three_magnitude) #AH
 
-                    c1.blit_to_canvas()
+
+                    c1.generate_layer(l1, cp)
+                    c1.generate_layer(l2, cp)
+                    c1.generate_layer(l3, cp)
+                    to.draw_canvas()
+                    c1.blit_to_canvas([l1, l2, l3])
 
                 if event.ui_object_id == "random_generate_button":
-                    if option_locks[0] == 0:
-                        current_color_palette = p1.get_random_palette()
-                        current_palette_name = p1.get_name_of_palette(current_color_palette)
-                        if bg_color_index >= len(current_color_palette):
-                            bg_color_index = randint(0, len(current_color_palette)-1)
-                    if option_locks[1] == 0:
-                        bg_color_index = randint(0, len(current_color_palette) - 1)
-                    if option_locks[2] == 0:
-                        layer_one_style = art_styles_list[randint(0, len(art_styles_list)-1)]
-                    if option_locks[3] == 0:
-                        layer_one_shape = art_shapes_list[randint(0, len(art_shapes_list)-1)]
-                    if option_locks[4] == 0:
-                        layer_one_complexity = randint(10, 30)
-                    if option_locks[5] == 0:
-                        layer_one_magnitude[1] = randint(51, 400)
-                    if option_locks[6] == 0:
-                        layer_two_style = art_styles_list[randint(0, len(art_styles_list)-1)]
-                    if option_locks[7] == 0:
-                        layer_two_shape = art_shapes_list[randint(0, len(art_shapes_list)-1)]
-                    if option_locks[8] == 0:
-                        layer_two_complexity = randint(10, 30)
-                    if option_locks[9] == 0:
-                        layer_two_magnitude[1] = randint(51, 400)
-                    if option_locks[10] == 0:
-                        layer_three_style = art_styles_list[randint(0, len(art_styles_list)-1)] #AH
-                    if option_locks[11] == 0:
-                        layer_three_shape = art_shapes_list[randint(0, len(art_shapes_list)-1)] #AH
-                    if option_locks[12] == 0:
-                        layer_three_complexity = randint(10, 30) #AH
-                    if option_locks[13] == 0:
-                        layer_three_magnitude[1] = randint(51, 400) #AH
+ 
+                    p1.randomize()
 
-                    generate_ui(len(current_color_palette))
+
+
+                    l1.randomize()
+                    l2.randomize()
+                    l3.randomize()
+
+                    generate_ui()
                     
-                    cp = current_color_palette.copy()
-                    bg_color = cp[bg_color_index]
+                    bg_color = p1.get_background_color()
                     c1.generate_bg(bg_color)
-                    cp.remove(bg_color)
+                    cp = p1.get_foreground_colors()
 
-                    c1.generate_layer_one(art_style=layer_one_style, art_shape=layer_one_shape,
-                                          color_palette=cp, complexity=layer_one_complexity,
-                                          magnitude=layer_one_magnitude)
-                    c1.generate_layer_two(art_style=layer_two_style, art_shape=layer_two_shape,
-                                          color_palette=cp, complexity=layer_two_complexity,
-                                          magnitude=layer_two_magnitude)
-                    c1.generate_layer_three(art_style=layer_three_style, art_shape=layer_three_shape,
-                                          color_palette=cp, complexity=layer_three_complexity,
-                                          magnitude=layer_three_magnitude) #AH
+                    c1.generate_layer(l1, cp)
+                    c1.generate_layer(l2, cp)
+                    c1.generate_layer(l3, cp)
+                    to.draw_canvas()
 
-                    c1.blit_to_canvas()
+                    c1.blit_to_canvas([l1, l2, l3])
 
-                if event.ui_object_id == "help_opt_button":
-                    help_opt = 1 if help_opt == 0 else 0
+
 
                 if event.ui_object_id == "export_art_button":
                     path = c1.export_art()
@@ -1463,120 +1263,107 @@ while run:
                         pass
                     
 
-                if event.ui_object_id == "lock_button_one":
-                    option_locks[0] = 1 if option_locks[0] == 0 else 0
-                if event.ui_object_id == "lock_button_two":
-                    option_locks[1] = 1 if option_locks[1] == 0 else 0
-                if event.ui_object_id == "lock_button_three":
-                    option_locks[2] = 1 if option_locks[2] == 0 else 0
-                if event.ui_object_id == "lock_button_four":
-                    option_locks[3] = 1 if option_locks[3] == 0 else 0
-                if event.ui_object_id == "lock_button_five":
-                    option_locks[4] = 1 if option_locks[4] == 0 else 0
-                if event.ui_object_id == "lock_button_six":
-                    option_locks[5] = 1 if option_locks[5] == 0 else 0
-                if event.ui_object_id == "lock_button_seven":
-                    option_locks[6] = 1 if option_locks[6] == 0 else 0
-                if event.ui_object_id == "lock_button_eight":
-                    option_locks[7] = 1 if option_locks[7] == 0 else 0
-                if event.ui_object_id == "lock_button_nine":
-                    option_locks[8] = 1 if option_locks[8] == 0 else 0
-                if event.ui_object_id == "lock_button_ten":
-                    option_locks[9] = 1 if option_locks[9] == 0 else 0 #AH
-                if event.ui_object_id == "lock_button_eleven":
-                    option_locks[10] = 1 if option_locks[10] == 0 else 0 #AH
-                if event.ui_object_id == "lock_button_twelve":
-                    option_locks[11] = 1 if option_locks[11] == 0 else 0 #AH
-                if event.ui_object_id == "lock_button_thirteen":
-                    option_locks[12] = 1 if option_locks[12] == 0 else 0 #AH
-                if event.ui_object_id == "lock_button_fourteen":
-                    option_locks[13] = 1 if option_locks[13] == 0 else 0 #AH
+                # if event.ui_object_id == "lock_button_one":
+                #     option_locks[0] = 1 if option_locks[0] == 0 else 0
+                # if event.ui_object_id == "lock_button_two":
+                #     option_locks[1] = 1 if option_locks[1] == 0 else 0
+                # if event.ui_object_id == "lock_button_three":
+                #     option_locks[2] = 1 if option_locks[2] == 0 else 0
+                # if event.ui_object_id == "lock_button_four":
+                #     option_locks[3] = 1 if option_locks[3] == 0 else 0
+                # if event.ui_object_id == "lock_button_five":
+                #     option_locks[4] = 1 if option_locks[4] == 0 else 0
+                # if event.ui_object_id == "lock_button_six":
+                #     option_locks[5] = 1 if option_locks[5] == 0 else 0
+                # if event.ui_object_id == "lock_button_seven":
+                #     option_locks[6] = 1 if option_locks[6] == 0 else 0
+                # if event.ui_object_id == "lock_button_eight":
+                #     option_locks[7] = 1 if option_locks[7] == 0 else 0
+                # if event.ui_object_id == "lock_button_nine":
+                #     option_locks[8] = 1 if option_locks[8] == 0 else 0
+                # if event.ui_object_id == "lock_button_ten":
+                #     option_locks[9] = 1 if option_locks[9] == 0 else 0 #AH
+                # if event.ui_object_id == "lock_button_eleven":
+                #     option_locks[10] = 1 if option_locks[10] == 0 else 0 #AH
+                # if event.ui_object_id == "lock_button_twelve":
+                #     option_locks[11] = 1 if option_locks[11] == 0 else 0 #AH
+                # if event.ui_object_id == "lock_button_thirteen":
+                #     option_locks[12] = 1 if option_locks[12] == 0 else 0 #AH
+                # if event.ui_object_id == "lock_button_fourteen":
+                #     option_locks[13] = 1 if option_locks[13] == 0 else 0 #AH
 
-                if event.ui_object_id == "bg_color_button_one":
-                    bg_color_index = 0
-                if event.ui_object_id == "bg_color_button_two":
-                    bg_color_index = 1
-                if event.ui_object_id == "bg_color_button_three":
-                    bg_color_index = 2
-                if event.ui_object_id == "bg_color_button_four":
-                    bg_color_index = 3
-                if event.ui_object_id == "bg_color_button_five":
-                    bg_color_index = 4
-                if event.ui_object_id == "bg_color_button_six":
-                    bg_color_index = 5
-                if event.ui_object_id == "bg_color_button_seven":
-                    bg_color_index = 6
-                if event.ui_object_id == "bg_color_button_eight":
-                    bg_color_index = 7
+                # if event.ui_object_id == "bg_color_button_one":
+                #     bg_color_index = 0
+                # if event.ui_object_id == "bg_color_button_two":
+                #     bg_color_index = 1
+                # if event.ui_object_id == "bg_color_button_three":
+                #     bg_color_index = 2
+                # if event.ui_object_id == "bg_color_button_four":
+                #     bg_color_index = 3
+                # if event.ui_object_id == "bg_color_button_five":
+                #     bg_color_index = 4
+                # if event.ui_object_id == "bg_color_button_six":
+                #     bg_color_index = 5
+                # if event.ui_object_id == "bg_color_button_seven":
+                #     bg_color_index = 6
+                # if event.ui_object_id == "bg_color_button_eight":
+                #     bg_color_index = 7
 
-                if event.ui_object_id == "overlay1_button":
-                    active_overlay = 1
-                    c1.generate_fg(overlays[0])
-                if event.ui_object_id == "overlay2_button":
-                    active_overlay = 2
-                    c1.generate_fg(overlays[1])
-                if event.ui_object_id == "overlay3_button":
-                    active_overlay = 3
-                    c1.generate_fg(overlays[2])
-                if event.ui_object_id == "overlay4_button":
-                    active_overlay = 4
-                    c1.generate_fg(overlays[3])
-                if event.ui_object_id == "overlay5_button":
-                    active_overlay = 5
-                    c1.generate_fg(overlays[4])
-                if event.ui_object_id == "overlay6_button":
-                    active_overlay = 6
-                    c1.generate_fg(overlays[5])
-                if event.ui_object_id == "overlay7_button":
-                    active_overlay = 0
+                # if event.ui_object_id == "overlay1_button":
+                #     active_overlay = 1
+                #     c1.generate_fg(overlays[0])
+                # if event.ui_object_id == "overlay2_button":
+                #     active_overlay = 2
+                #     c1.generate_fg(overlays[1])
+                # if event.ui_object_id == "overlay3_button":
+                #     active_overlay = 3
+                #     c1.generate_fg(overlays[2])
+                # if event.ui_object_id == "overlay4_button":
+                #     active_overlay = 4
+                #     c1.generate_fg(overlays[3])
+                # if event.ui_object_id == "overlay5_button":
+                #     active_overlay = 5
+                #     c1.generate_fg(overlays[4])
+                # if event.ui_object_id == "overlay6_button":
+                #     active_overlay = 6
+                #     c1.generate_fg(overlays[5])
+                # if event.ui_object_id == "overlay7_button":
+                #     active_overlay = 0
+                #     c1.clean_layer(c1.fg_layer)
+                #     c1.blit_to_canvas([l1, l2, l3])
+                ob.events(event)
+                if ob.get_active_overlay() != 0:
+                    c1.generate_fg(overlays[ob.get_active_overlay()-1])
+                else:
                     c1.clean_layer(c1.fg_layer)
-                    c1.blit_to_canvas()
+                    c1.blit_to_canvas([l1, l2, l3])
+                
+
+            if event.user_type == pgui.UI_HORIZONTAL_SLIDER_MOVED:
+                if event.ui_object_id == "size_slider":
+                    c1.blit_to_canvas([l1,l2,l3])
+                if event.ui_object_id == "x_slider":
+                    c1.blit_to_canvas([l1,l2,l3])
+                if event.ui_object_id == "y_slider":
+                    c1.blit_to_canvas([l1,l2,l3])
+
+            if event.user_type == pgui.UI_TEXT_ENTRY_FINISHED:
+                if event.ui_object_id == "text_entry":
+                    c1.blit_to_canvas([l1,l2,l3])
 
             if event.user_type == pgui.UI_DROP_DOWN_MENU_CHANGED:
                 if event.ui_object_id == "resolution_dropdown":
                     export_resolution = event.text
-                if event.ui_object_id == "current_palette_dropdown":
-                    current_color_palette = p1.get_colors_from_palette(event.text)
-                    current_palette_name = p1.get_name_of_palette(current_color_palette)
-                    generate_ui(len(current_color_palette))
-                    if bg_color_index >= len(current_color_palette):
-                        bg_color_index = randint(0, len(current_color_palette)-1)
-                if event.ui_object_id == "layer_one_style_dropdown":
-                    layer_one_style = event.text
-                if event.ui_object_id == "layer_one_shape_dropdown":
-                    layer_one_shape = event.text
-                if event.ui_object_id == "layer_two_style_dropdown":
-                    layer_two_style = event.text
-                if event.ui_object_id == "layer_two_shape_dropdown":
-                    layer_two_shape = event.text
-                if event.ui_object_id == "layer_three_style_dropdown":
-                    layer_three_style = event.text #AH
-                if event.ui_object_id == "layer_three_shape_dropdown":
-                    layer_three_shape = event.text #AH
-
-            if event.user_type == pgui.UI_HORIZONTAL_SLIDER_MOVED:
-                if event.ui_object_id == "layer_one_complexity_slider":
-                    layer_one_complexity = event.value
-                if event.ui_object_id == "layer_one_size_slider":
-                    layer_one_magnitude[1] = event.value
-                if event.ui_object_id == "layer_two_complexity_slider":
-                    layer_two_complexity = event.value
-                if event.ui_object_id == "layer_two_size_slider":
-                    layer_two_magnitude[1] = event.value
-                if event.ui_object_id == "layer_three_complexity_slider":
-                    layer_three_complexity = event.value #AH
-                if event.ui_object_id == "layer_three_size_slider":
-                    layer_three_magnitude[1] = event.value #AH
+                if event.ui_object_id == "font_dropdown":
+                    c1.blit_to_canvas([l1,l2,l3])
 
         ui_manager.process_events(event)
 
     ui_manager.update(delta_time)
-    window.fill(background_color)
+    window.fill(background_color if switch_theme_module.getDarkMode() else pg.Color("#ffffff"))
     c1.draw(window)
-    draw_menu(window, current_color_palette, option_locks, help_opt)
+    draw_menu(window, option_locks)
     ui_manager.draw_ui(window)
-    if help_opt == 1:
-        draw_help()
     pg.display.update()
 
 pg.quit()

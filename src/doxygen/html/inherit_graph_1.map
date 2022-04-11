@@ -1,0 +1,11 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" title=" " alt="" coords="5,242,91,269"/>
+<area shape="rect" id="node2" href="$classcircle__generator_1_1circle__generator.html" title="Class to draw circles." alt="" coords="171,5,337,47"/>
+<area shape="rect" id="node3" href="$classcurves__generator_1_1curves__generator.html" title="Class to draw curves." alt="" coords="163,71,345,112"/>
+<area shape="rect" id="node4" href="$classdots__generator_1_1dots__generator.html" title="Class to draw dots." alt="" coords="178,136,330,177"/>
+<area shape="rect" id="node5" href="$classfpolygons__generator_1_1fpolygons__generator.html" title="Class to draw filled polygons." alt="" coords="142,201,366,243"/>
+<area shape="rect" id="node6" href="$classhpolygons__generator_1_1hpolygons__generator.html" title="Class to draw hollow polygons." alt="" coords="139,267,369,308"/>
+<area shape="rect" id="node7" href="$classline__generator_1_1line__generator.html" title="Class to draw lines." alt="" coords="182,332,326,373"/>
+<area shape="rect" id="node8" href="$classring__generator_1_1ring__generator.html" title="Class to draw rings." alt="" coords="181,397,327,439"/>
+<area shape="rect" id="node9" href="$classsquare__generator_1_1square__generator.html" title="Class to draw squares." alt="" coords="162,463,346,504"/>
+</map>

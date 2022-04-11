@@ -1,0 +1,160 @@
+\hypertarget{classlayer_1_1layer}{}\doxysection{layer.\+layer Class Reference}
+\label{classlayer_1_1layer}\index{layer.layer@{layer.layer}}
+
+
+The layer widget class.  
+
+
+
+
+Inheritance diagram for layer.\+layer\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=149pt]{classlayer_1_1layer__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classlayer_1_1layer_adea5e204d24ce2eb2cd58a74ba2171d2}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, x, y, window, ui\+\_\+manager, layer\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Initializes the layer widget. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classlayer_1_1layer_a82f493f4b803f34c65dcec355fdaedda}\label{classlayer_1_1layer_a82f493f4b803f34c65dcec355fdaedda}} 
+def \mbox{\hyperlink{classlayer_1_1layer_a82f493f4b803f34c65dcec355fdaedda}{clean\+\_\+layer}} (self)
+\begin{DoxyCompactList}\small\item\em Clean the layer by setting it to be blank and see-\/through. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classlayer_1_1layer_a6ecc1cd7f22ce10a8125360d0b882948}\label{classlayer_1_1layer_a6ecc1cd7f22ce10a8125360d0b882948}} 
+def \mbox{\hyperlink{classlayer_1_1layer_a6ecc1cd7f22ce10a8125360d0b882948}{draw\+\_\+canvas}} (self)
+\begin{DoxyCompactList}\small\item\em Draw the layer to self.\+layer based on the current widget settings. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classlayer_1_1layer_a0e362227caff0d7405ad849173da521e}{draw\+\_\+ui\+\_\+dynamic}} (self)
+\begin{DoxyCompactList}\small\item\em Draws the dynamic ui elements for the layer widget. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classlayer_1_1layer_a527b2c2f4e58531c35e1feeb23c181e5}{draw\+\_\+ui\+\_\+static}} (self)
+\begin{DoxyCompactList}\small\item\em Draws the static ui elements for the layer widget. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classlayer_1_1layer_a43a6068d0e178219d8ba56afe0268fd0}{events}} (self, event)
+\begin{DoxyCompactList}\small\item\em Processes pygame events for the layer widget. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classlayer_1_1layer_ab2e9620d6f2cfb9fed5292b1604931bb}{get\+\_\+layer\+\_\+complexity}} (self)
+\item 
+def \mbox{\hyperlink{classlayer_1_1layer_a2438f996dbdd206554475d62025894b5}{get\+\_\+layer\+\_\+shape}} (self)
+\item 
+def \mbox{\hyperlink{classlayer_1_1layer_a3bbcfe015fb78ae38a9e172c57bd5ba0}{get\+\_\+layer\+\_\+size}} (self)
+\item 
+def \mbox{\hyperlink{classlayer_1_1layer_ad9ce97395204cb9532f333b0b012a3fc}{get\+\_\+layer\+\_\+style}} (self)
+\item 
+\mbox{\Hypertarget{classlayer_1_1layer_abf8f668a76932e7a69e4b64e9de2e79e}\label{classlayer_1_1layer_abf8f668a76932e7a69e4b64e9de2e79e}} 
+def \mbox{\hyperlink{classlayer_1_1layer_abf8f668a76932e7a69e4b64e9de2e79e}{randomize}} (self)
+\begin{DoxyCompactList}\small\item\em Randomize the shape, style, complexity, and size of the layer drawing algorithm. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classlayer_1_1layer_ac399456f1ba8286d6e52de0a0a062143}\label{classlayer_1_1layer_ac399456f1ba8286d6e52de0a0a062143}} 
+\mbox{\hyperlink{classlayer_1_1layer_ac399456f1ba8286d6e52de0a0a062143}{layer}}
+\begin{DoxyCompactList}\small\item\em The pygame surface the layer draws to. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The layer widget class. 
+
+Provides a ui and functionality to specify a drawing algorithm and draw to a pygame surface. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classlayer_1_1layer_adea5e204d24ce2eb2cd58a74ba2171d2}\label{classlayer_1_1layer_adea5e204d24ce2eb2cd58a74ba2171d2}} 
+\index{layer.layer@{layer.layer}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!layer.layer@{layer.layer}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def layer.\+layer.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{}]{y,  }\item[{}]{window,  }\item[{}]{ui\+\_\+manager,  }\item[{}]{layer\+\_\+num }\end{DoxyParamCaption})}
+
+
+
+Initializes the layer widget. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Horizontal position to draw the widget at on the ui. \\
+\hline
+{\em y} & Vertical position to draw the widget at on the ui. \\
+\hline
+{\em window} & Ui window to draw the widget to. \\
+\hline
+{\em ui\+\_\+manager} & Pygame\+\_\+gui element manager to tie pygame\+\_\+gui elements to. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classlayer_1_1layer_a0e362227caff0d7405ad849173da521e}\label{classlayer_1_1layer_a0e362227caff0d7405ad849173da521e}} 
+\index{layer.layer@{layer.layer}!draw\_ui\_dynamic@{draw\_ui\_dynamic}}
+\index{draw\_ui\_dynamic@{draw\_ui\_dynamic}!layer.layer@{layer.layer}}
+\doxysubsubsection{\texorpdfstring{draw\_ui\_dynamic()}{draw\_ui\_dynamic()}}
+{\footnotesize\ttfamily def layer.\+layer.\+draw\+\_\+ui\+\_\+dynamic (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Draws the dynamic ui elements for the layer widget. 
+
+Draws the text and lock icons. \mbox{\Hypertarget{classlayer_1_1layer_a527b2c2f4e58531c35e1feeb23c181e5}\label{classlayer_1_1layer_a527b2c2f4e58531c35e1feeb23c181e5}} 
+\index{layer.layer@{layer.layer}!draw\_ui\_static@{draw\_ui\_static}}
+\index{draw\_ui\_static@{draw\_ui\_static}!layer.layer@{layer.layer}}
+\doxysubsubsection{\texorpdfstring{draw\_ui\_static()}{draw\_ui\_static()}}
+{\footnotesize\ttfamily def layer.\+layer.\+draw\+\_\+ui\+\_\+static (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Draws the static ui elements for the layer widget. 
+
+Draws the shape and style dropdowns, the complexity and size sliders, and lock button. \mbox{\Hypertarget{classlayer_1_1layer_a43a6068d0e178219d8ba56afe0268fd0}\label{classlayer_1_1layer_a43a6068d0e178219d8ba56afe0268fd0}} 
+\index{layer.layer@{layer.layer}!events@{events}}
+\index{events@{events}!layer.layer@{layer.layer}}
+\doxysubsubsection{\texorpdfstring{events()}{events()}}
+{\footnotesize\ttfamily def layer.\+layer.\+events (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{event }\end{DoxyParamCaption})}
+
+
+
+Processes pygame events for the layer widget. 
+
+Handles the shape and style dropdowns, the complexity and size sliders, and lock button.
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & The pygame event being processed. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classlayer_1_1layer_ab2e9620d6f2cfb9fed5292b1604931bb}\label{classlayer_1_1layer_ab2e9620d6f2cfb9fed5292b1604931bb}} 
+\index{layer.layer@{layer.layer}!get\_layer\_complexity@{get\_layer\_complexity}}
+\index{get\_layer\_complexity@{get\_layer\_complexity}!layer.layer@{layer.layer}}
+\doxysubsubsection{\texorpdfstring{get\_layer\_complexity()}{get\_layer\_complexity()}}
+{\footnotesize\ttfamily def layer.\+layer.\+get\+\_\+layer\+\_\+complexity (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+The layer complexity. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classlayer_1_1layer_a2438f996dbdd206554475d62025894b5}\label{classlayer_1_1layer_a2438f996dbdd206554475d62025894b5}} 
+\index{layer.layer@{layer.layer}!get\_layer\_shape@{get\_layer\_shape}}
+\index{get\_layer\_shape@{get\_layer\_shape}!layer.layer@{layer.layer}}
+\doxysubsubsection{\texorpdfstring{get\_layer\_shape()}{get\_layer\_shape()}}
+{\footnotesize\ttfamily def layer.\+layer.\+get\+\_\+layer\+\_\+shape (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+The layer shape. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classlayer_1_1layer_a3bbcfe015fb78ae38a9e172c57bd5ba0}\label{classlayer_1_1layer_a3bbcfe015fb78ae38a9e172c57bd5ba0}} 
+\index{layer.layer@{layer.layer}!get\_layer\_size@{get\_layer\_size}}
+\index{get\_layer\_size@{get\_layer\_size}!layer.layer@{layer.layer}}
+\doxysubsubsection{\texorpdfstring{get\_layer\_size()}{get\_layer\_size()}}
+{\footnotesize\ttfamily def layer.\+layer.\+get\+\_\+layer\+\_\+size (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+The layer size. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classlayer_1_1layer_ad9ce97395204cb9532f333b0b012a3fc}\label{classlayer_1_1layer_ad9ce97395204cb9532f333b0b012a3fc}} 
+\index{layer.layer@{layer.layer}!get\_layer\_style@{get\_layer\_style}}
+\index{get\_layer\_style@{get\_layer\_style}!layer.layer@{layer.layer}}
+\doxysubsubsection{\texorpdfstring{get\_layer\_style()}{get\_layer\_style()}}
+{\footnotesize\ttfamily def layer.\+layer.\+get\+\_\+layer\+\_\+style (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+The layer style. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{layer_8py}{layer.\+py}}\end{DoxyCompactItemize}

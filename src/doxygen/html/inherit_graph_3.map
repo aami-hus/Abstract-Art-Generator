@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" title=" " alt="" coords="5,31,55,57"/>
+<area shape="rect" id="node2" href="$classgenerator_1_1generator.html" title="Abstract class for generators to extend." alt="" coords="103,5,255,32"/>
+<area shape="rect" id="node3" href="$classwidget_1_1widget.html" title="An abstract class for widgets to extend." alt="" coords="121,56,236,83"/>
+</map>
