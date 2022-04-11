@@ -132,41 +132,52 @@ class overlay(widget):
 
         @param event    The pygame event being processed.
         """
+
+        r = 0
+
         if event.user_type == pgui.UI_BUTTON_PRESSED:
             if event.ui_object_id == "overlay1_button":
                 self.__active_overlay = 1
                 self.draw_canvas()
+                r = 1
             if event.ui_object_id == "overlay2_button":
                 self.__active_overlay = 2
                 self.draw_canvas()
+                r = 1
             if event.ui_object_id == "overlay3_button":
                 self.__active_overlay = 3
                 self.draw_canvas()
+                r = 1
             if event.ui_object_id == "overlay4_button":
                 self.__active_overlay = 4
                 self.draw_canvas()
+                r = 1
             if event.ui_object_id == "overlay5_button":
                 self.__active_overlay = 5
                 self.draw_canvas()
+                r = 1
             if event.ui_object_id == "overlay6_button":
                 self.__active_overlay = 6
                 self.draw_canvas()
+                r = 1
             if event.ui_object_id == "border7_button":
                 self.__active_overlay = 7
                 self.draw_canvas()
+                r = 1
             if event.ui_object_id == "border8_button":
                 self.__active_overlay = 8
                 self.draw_canvas()
+                r = 1
             if event.ui_object_id == "border9_button":
                 self.__active_overlay = 9
                 self.draw_canvas()
+                r = 1
             if event.ui_object_id == "no_overlay_button":
                 self.__active_overlay = 0
                 self.clean_layer()
+                r = 1
 
-            return 1
-
-        return 0
+        return r
 
 
     def draw_canvas(self):
