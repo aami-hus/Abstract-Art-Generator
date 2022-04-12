@@ -1,1 +1,4 @@
 *.aux
+*.pyc
+*/__pycache__
+/src/doxygen
