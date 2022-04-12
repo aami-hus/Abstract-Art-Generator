@@ -17,4 +17,4 @@ Doc - Documentation for the project
 
 ProjectSchedule - Schedules and notes for meetings
 
-src - Implementation
+src - Python source code
