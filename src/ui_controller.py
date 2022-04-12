@@ -149,6 +149,10 @@ class ui_controller:
                     break
 
             if event.type == pg.USEREVENT:
+                if event.user_type == pgui.UI_DROP_DOWN_MENU_CHANGED:
+                    if event.ui_object_id == "resolution_dropdown":
+                        self.export_resolution = event.text
+
                 if event.user_type == pgui.UI_BUTTON_PRESSED:
                     if event.ui_object_id == "generate_button":
 
@@ -168,13 +172,6 @@ class ui_controller:
                         
                     if event.ui_object_id == "export_art_button":
                         self.export_art()
-
-                    widgets.overlay.events(event)
-                    # if ob.get_active_overlay() != 0:
-                    #     c1.generate_fg(overlays[ob.get_active_overlay()-1])
-                    # else:
-                    #     c1.clean_layer(c1.fg_layer)
-                    #     c1.blit_to_canvas([l1, l2, l3])
 
                 redraw = 0
 
