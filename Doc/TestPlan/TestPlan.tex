@@ -3,17 +3,18 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{float}
+\usepackage{soul}
 \usepackage{hyperref}
 \hypersetup{
     colorlinks,
     citecolor=black,
     filecolor=black,
-    linkcolor=red,
+    linkcolor=blue,
     urlcolor=blue
 }
 \usepackage[round]{natbib}
 
-\title{SE 3XA3: Abstract Art Generator Test Plan}
+\title{SE 3XA3: Test Plan}
 
 \author{Group \#10
         \\Lab: L03
@@ -43,6 +44,7 @@
 March 7, 2022 & 0.0 & Initial Document\\
 March 9, 2022 & 0.1 & Added Sections 2, 4\\
 March 11, 2022 & 0.2 & Added Sections 1, 3, 5, 6, 7\\
+\color{red}April 11, 2022 & \color{red}1.0 & \color{red}Updated Functional Tests Section 3.1\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -95,7 +97,7 @@ This software will allow users to generate abstract art, which can then be expor
 The test team consists of Aamina Hussain, Jessica Dawson, and Fady Morcos. They are all equally responsible for testing the software.
 %\subsection{Automated Testing Approach}
 \subsection{Testing Tools}
-The tool we will be using to test the software is PyTest. This tool will allow us to automate the unit testing.
+The tool we will be using to test the software is Pylint. This tool will allow us to perform some static tests, help us with debugging, and ensure we are following the correct coding guidelines and style.
 \subsection{Testing Schedule}
 Please refer to the Gantt Chart at
 \href{https://gitlab.cas.mcmaster.ca/3xa3-l3-g10/3xa3-l3-g10/-/tree/main/ProjectSchedule}{this link}.
@@ -279,9 +281,9 @@ Input: User clicks on \texttt{Add Text} button and types desired text.
 
 Output: Program displays the text the user types on top of the previously generated art using the default text size and text font.
 
-How test will be performed: A tester will type a message in the text box. The the program will run and a tester will check the program window to see if the message typed is displayed on top of the generated art.
-
-\item{FT-AT-2}\\
+How test will be performed: A tester will type a message in the text box. The the program will run and a tester will check the program window to see if the message typed is displayed on top of the generated art.\\
+\\
+\st{FT-AT-2\\
 Type: Functional, Dynamic, Manual
 
 Initial State: Main program window has a generated art piece with text and is waiting for input. %information from mouse.
@@ -290,9 +292,9 @@ Input: User clicks on a text color option.
 
 Output: Program changes the text color to the color chosen by the user.
 
-How test will be performed: The program will run and a tester will check the program window to see if the text color matches the color chosen.
+How test will be performed: The program will run and a tester will check the program window to see if the text color matches the color chosen.}
 
-\item{FT-AT-3}\\
+\item{FT-AT-2}\\
 Type: Functional, Dynamic, Manual
 
 Initial State: Main program window has a generated art piece with text and is waiting for input. %information from mouse.
@@ -303,7 +305,7 @@ Output: Program changes the text size to the size chosen by the user.
 
 How test will be performed: The program will run and a tester will check the program window to see if the text size matches the size chosen.
 
-\item{FT-AT-4}\\
+\item{FT-AT-3}\\
 Type: Functional, Dynamic, Manual
 
 Initial State: Main program window has a generated art piece with text and is waiting for input. %information from mouse.
@@ -352,24 +354,24 @@ Type: Functional, Dynamic, Manual
 
 Initial State: Main program window is currently in dark mode and is waiting for input. %information from mouse.
 
-Input: User clicks on \texttt{Light Mode} button.
+Input: User clicks on \texttt{THEME} button.
 
 Output: Program switches to light mode.
 
-How test will be performed: The program will run and a tester will check to see if the program window switches to light mode. The tester will check if the background color of the main program window is white and the UI text is black.
+How test will be performed: The program will run and a tester will check to see if the program window switches to light mode. The tester will check if the background color of the main program window is a light color and the UI text is a dark color.
 
 \item{FT-DS-2}\\
 Type: Functional, Dynamic, Manual
 
 Initial State: Main program window is currently in light mode and is waiting for input. %information from mouse.
 
-Input: User clicks on \texttt{Dark Mode} button.
+Input: User clicks on \texttt{THEME} button.
 
 Output: Program switches to dark mode.
 
-How test will be performed: The program will run and a tester will check to see if the program window switches to dark mode. The tester will check if the background color of the main program window is black and the UI text is white.
-
-\item{FT-DS-3}\\
+How test will be performed: The program will run and a tester will check to see if the program window switches to dark mode. The tester will check if the background color of the main program window is a dark color and the UI text is a light color.\\
+\\
+\st{FT-DS-3\\
 Type: Functional, Dynamic, Manual
 
 Initial State: Main program window is currently in dark mode and is waiting for input. %information from mouse.
@@ -378,9 +380,9 @@ Input: User clicks on \texttt{Dark Mode} button.
 
 Output: Program stays in dark mode.
 
-How test will be performed: The program will run and a tester will check to see if the program window remains in dark mode. The tester will check if the background color of the main program window is black and the UI text is white.
-
-\item{FT-DS-4}\\
+How test will be performed: The program will run and a tester will check to see if the program window remains in dark mode. The tester will check if the background color of the main program window is black and the UI text is white.\\
+\\
+FT-DS-4\\
 Type: Functional, Dynamic, Manual
 
 Initial State: Main program window is currently in light mode and is waiting for input. %information from mouse.
@@ -389,58 +391,58 @@ Input: User clicks on \texttt{Light Mode} button.
 
 Output: Program stays in light mode.
 
-How test will be performed: The program will run and a tester will check to see if the program window remains in light mode. The tester will check if the background color of the main program window is white and the UI text is black.
+How test will be performed: The program will run and a tester will check to see if the program window remains in light mode. The tester will check if the background color of the main program window is white and the UI text is black.}
 
-\item{FT-DS-5}\\
-Type: Functional, Dynamic, Manual
+% \item{FT-DS-5}\\
+% Type: Functional, Dynamic, Manual
 
-Initial State: Main program window text size is currently normal and the program is waiting for input. %information from mouse.
+% Initial State: Main program window text size is currently normal and the program is waiting for input. %information from mouse.
 
-Input: User clicks on \texttt{Large Text} button.
+% Input: User clicks on \texttt{Large Text} button.
 
-Output: Program text size becomes large.
+% Output: Program text size becomes large.
 
-How test will be performed: The program will run and a tester will check to see if the program text size changes to large text.
+% How test will be performed: The program will run and a tester will check to see if the program text size changes to large text.
 
-\item{FT-DS-6}\\
-Type: Functional, Dynamic, Manual
+% \item{FT-DS-6}\\
+% Type: Functional, Dynamic, Manual
 
-Initial State: Main program window text size is currently large and the program is waiting for input. %information from mouse.
+% Initial State: Main program window text size is currently large and the program is waiting for input. %information from mouse.
 
-Input: User clicks on \texttt{Normal Text} button.
+% Input: User clicks on \texttt{Normal Text} button.
 
-Output: Program text size becomes normal.
+% Output: Program text size becomes normal.
 
-How test will be performed: The program will run and a tester will check to see if the program text size changes to normal text.
+% How test will be performed: The program will run and a tester will check to see if the program text size changes to normal text.
 
-\item{FT-DS-7}\\
-Type: Functional, Dynamic, Manual
+% \item{FT-DS-7}\\
+% Type: Functional, Dynamic, Manual
 
-Initial State: Main program window text size is currently normal and the program is waiting for input. %information from mouse.
+% Initial State: Main program window text size is currently normal and the program is waiting for input. %information from mouse.
 
-Input: User clicks on \texttt{Normal Text} button.
+% Input: User clicks on \texttt{Normal Text} button.
 
-Output: Program text size stays normal.
+% Output: Program text size stays normal.
 
-How test will be performed: The program will run and a tester will check to see if the program text size is still normal text.
+% How test will be performed: The program will run and a tester will check to see if the program text size is still normal text.
 
-\item{FT-DS-8}\\
-Type: Functional, Dynamic, Manual
+% \item{FT-DS-8}\\
+% Type: Functional, Dynamic, Manual
 
-Initial State: Main program window text size is currently large and the program is waiting for input. %information from mouse.
+% Initial State: Main program window text size is currently large and the program is waiting for input. %information from mouse.
 
-Input: User clicks on \texttt{Large Text} button.
+% Input: User clicks on \texttt{Large Text} button.
 
-Output: Program text size stays large.
+% Output: Program text size stays large.
 
-How test will be performed: The program will run and a tester will check to see if the program text size is still large text.
+% How test will be performed: The program will run and a tester will check to see if the program text size is still large text.
 
-\item{FT-DS-9}\\
+\item{FT-DS-3}\\
 Type: Functional, Dynamic, Manual
 
 Initial State: Main program window is waiting for input. %information from mouse.
 
-Input: User clicks on \texttt{Help} button.
+Input: User clicks on \texttt{HELP} button.
 
 Output: Program displays the instructions.
 
@@ -625,8 +627,9 @@ N/A
 \section{Unit Testing Plan}
 
 \subsection{Unit testing of internal functions}
-
-We will be conducting unit tests on certain internal functions that have return values. We will give the program methods different inputs, and test whether the actual output is equal to the expected output using PyTest.
+N/A\\
+\color{red}\#\#COMMENT: Due to the nature of the program, its randomization, and its output being a randomized image, we decided to not perform automated testing. Unit tests are not extensive enough to thoroughly test the changes made to the UI display as a result of some user input. All of the functionality of the program can be tested using manual testing, which is what we will use.\color{black}
+% We will be conducting unit tests on certain internal functions that have return values. We will give the program methods different inputs, and test whether the actual output is equal to the expected output using PyTest.
 
 \subsection{Unit testing of output files}
 N/A
