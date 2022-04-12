@@ -7,7 +7,8 @@
 \usepackage{hyperref}
 \usepackage{float}
 \usepackage{graphicx}
-\graphicspath{{./images/}}
+\usepackage{color}
+\usepackage{soul}
 \hypersetup{
     colorlinks=true,
     urlcolor=cyan
@@ -17,9 +18,9 @@
 
 \author{Group \#10
         \\Lab: L03
-		\\ Fady Morcos, morcof2
 		\\ Aamina Hussain, hussaa54
 		\\ Jessica Dawson, dawsor1
+		\\ Fady Morcos, morcof2
 }
 
 \date{}
@@ -27,14 +28,18 @@
 %\input{../Comments}
 
 \begin{document}
+\newpage
+\maketitle
+\newpage
 
-\begin{table}[hp]
+\begin{table}[h!]
 \caption{Revision History} \label{TblRevisionHistory}
 \begin{tabularx}{\textwidth}{llX}
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Feb 4th & Jessica Dawson, Aamina Hussain, and Fady Morcos & First version\\
+Feb 4, 2022 & Jessica Dawson, Aamina Hussain, and Fady Morcos & First version\\
+\color{red} Apr 11, 2022 & \color{red} Aamina Hussain & \color{red}Updated Section 6, Added Section 9 Project Review\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -122,7 +127,9 @@ None of the required python library are difficult to install for this project. A
 
 \section{Technology}
 
-The program will be written using the Python programming language. One of the main Python libraries we will be using is Pygame. The code will be written using an IDE called PyCharm. The team will use the testing framework Pytest to test our program. For document generation, the team will use Doxygen.
+The program will be written using the Python programming language. One of the main Python libraries we will be using is Pygame. The code will be written using an IDE called PyCharm. \st{The team will use the testing framework Pytest to test our program.} \color{red} Latex will be used for generating most of the documentation. The MIS document will be generated using Doxygen.\\
+
+\noindent \#\#COMMENT: We realized that it would not be logical to test our code using an automated or unit testing framework due to the nature of the program. This program can only be tested by actually viewing the generated output, so for this reason we decided to forgo automated testing and use a manual testing approach to test our program.\color{black}
 
 \section{Coding Style}
 
@@ -134,6 +141,10 @@ Please refer to
 \href{https://gitlab.cas.mcmaster.ca/3xa3-l3-g10/3xa3-l3-g10/-/tree/main/ProjectSchedule}{this link}.
 
 \section{Project Review}
-To be completed at a later date.
+\color{red} After the Revision 1 Demonstration, we are considering this project to be successfully completed. Despite the short period of time we had for this project, we completed all the objectives we had set at the start. This includes all objectives we had pertaining to the project's documentation, as well as objectives for the program code.\\
+
+\noindent The success of the project can be attributed to the planning and constant communication of the team members. This allowed each member to be aware of their exact tasks and when those tasks had to be completed. We planned for lengthy tasks to be completed ahead of time in case those tasks ended up taking longer to complete than planned. We were also fully open to meeting outside of our usual meet-up times if necessary.\\
+
+\noindent An area of improvement for our team is using git to its full extent. There was a bit of a learning curve for us when it came to using git, and instead of each working on separate branches, we usually messaged and let everyone know when we were pushing an update to the main branch. The workflow would have been smoother if we had full knowledge of the functionalities of git and actually used them.
 
 \end{document}
