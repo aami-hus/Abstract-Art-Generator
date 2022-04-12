@@ -73,15 +73,23 @@ class color_palette(widget):
         self.__y = y
         self.__window = window
         self.__ui_manager = ui_manager
+
+        ## Theme color for background
         self.color = "#2B2834"
+        ## Theme color for text
         self.ui_h1_color = "#FFFFFF"
 
-        self.__palette_name = choice(list(_color_palettes.keys()))
-        self.__palette_colors = _color_palettes[self.__palette_name]
-        self.__background_index = 0
+        ## Name of currently selected palette
+        self.palette_name = choice(list(_color_palettes.keys()))
+        ## Colors of currently selected palette
+        self.palette_colors = _color_palettes[self.palette_name]
+        ## The palette color selected as the background
+        self.background_index = 0
 
-        self.__palette_lock = 0
-        self.__background_lock = 0
+        ## 1 if radomization of the palette is locked, 0 otherwise
+        self.palette_lock = 0
+        ## 1 if radomization of the background color is locked, 0 otherwise
+        self.background_lock = 0
 
 
     def draw_ui_dynamic(self):
@@ -95,24 +103,25 @@ class color_palette(widget):
 
         pg.draw.rect(self.__window, pg.Color(self.color), (self.__x, self.__y, 252, 135))
 
-        if self.__palette_lock == 0:
+        if self.palette_lock == 0:
             self.__window.blit(assets.lock_disabled, (lock_margin, self.__y+35))
         else:
             self.__window.blit(assets.lock_enabled, (lock_margin, self.__y+35))
 
-        if self.__background_lock == 0:
+        if self.background_lock == 0:
             self.__window.blit(assets.lock_disabled, (lock_margin, self.__y+68))
         else:
             self.__window.blit(assets.lock_enabled, (lock_margin, self.__y+68))
 
         assets.text_to_screen(window=self.__window, text="COLOR PALETTE", color=self.ui_h1_color, pos=(interactables_margin, self.__y+15), font_size=18)
-        for i, color in enumerate(self.__palette_colors):
-            pg.draw.rect(self.__window, assets.active_color if self.__background_index == i else assets.inactive_color,
+        for i, color in enumerate(self.palette_colors):
+            pg.draw.rect(self.__window, assets.active_color if self.background_index == i else assets.inactive_color,
                         (interactables_margin+((i%4)*50), self.__y+65+(36*(i//4)), 26, 26))
             pg.draw.rect(self.__window, pg.Color(color), (interactables_margin+3+((i%4)*50), self.__y+68+(36*(i//4)), 20, 20))
 
 
     def change_colors(self):
+        """! Change the theme colors. """
         self.color = "#AAB1B6" if self.color=="#2B2834" else "#2B2834"
         self.ui_h1_color = "#000000" if self.ui_h1_color=="#FFFFFF" else "#FFFFFF"
 
@@ -125,10 +134,10 @@ class color_palette(widget):
         interactables_margin = self.__x + 42
         lock_margin = self.__x + 6
 
-        cp_len = len(self.__palette_colors)
+        cp_len = len(self.palette_colors)
 
         current_palette_dropdown = pgui.elements.UIDropDownMenu(options_list=_color_palettes.keys(),
-                                                            starting_option=self.__palette_name,
+                                                            starting_option=self.palette_name,
                                                             relative_rect=pg.Rect(interactables_margin, self.__y+35, 200, 22), manager=self.__ui_manager,
                                                             object_id="current_palette_dropdown")
 
@@ -164,7 +173,7 @@ class color_palette(widget):
         Changes how many color swatch buttons display based on the length of the color palette.
         """
 
-        cp_len = len(self.__palette_colors)
+        cp_len = len(self.palette_colors)
 
         for i in range(8):
             if i < cp_len:
@@ -176,15 +185,15 @@ class color_palette(widget):
     def randomize(self):
         """! Randomize the current color palette and background color. """
 
-        if self.__palette_lock == 0:
-            self.__palette_name = choice(list(_color_palettes.keys()))
-            self.__palette_colors = _color_palettes[self.__palette_name]
-            if self.__background_index >= len(self.__palette_colors):
-                    self.__background_index = randint(0, len(self.__palette_colors)-1)
+        if self.palette_lock == 0:
+            self.palette_name = choice(list(_color_palettes.keys()))
+            self.palette_colors = _color_palettes[self.palette_name]
+            if self.background_index >= len(self.palette_colors):
+                    self.background_index = randint(0, len(self.palette_colors)-1)
             self.refresh_ui_static()
         
-        if self.__background_lock == 0:
-            self.__background_index = randint(0, len(self.__palette_colors)-1)
+        if self.background_lock == 0:
+            self.background_index = randint(0, len(self.palette_colors)-1)
 
 
     def events(self, event):
@@ -197,33 +206,33 @@ class color_palette(widget):
 
         if event.user_type == pgui.UI_BUTTON_PRESSED:
             if event.ui_object_id == "palette_lock_button":
-                self.__palette_lock = 1 if self.__palette_lock == 0 else 0
+                self.palette_lock = 1 if self.palette_lock == 0 else 0
             if event.ui_object_id == "background_lock_button":
-                self.__background_lock = 1 if self.__background_lock == 0 else 0
+                self.background_lock = 1 if self.background_lock == 0 else 0
 
             if event.ui_object_id == "background_index_button_one":
-                self.__background_index = 0
+                self.background_index = 0
             if event.ui_object_id == "background_index_button_two":
-                self.__background_index = 1
+                self.background_index = 1
             if event.ui_object_id == "background_index_button_three":
-                self.__background_index = 2
+                self.background_index = 2
             if event.ui_object_id == "background_index_button_four":
-                self.__background_index = 3
+                self.background_index = 3
             if event.ui_object_id == "background_index_button_five":
-                self.__background_index = 4
+                self.background_index = 4
             if event.ui_object_id == "background_index_button_six":
-                self.__background_index = 5
+                self.background_index = 5
             if event.ui_object_id == "background_index_button_seven":
-                self.__background_index = 6
+                self.background_index = 6
             if event.ui_object_id == "background_index_button_eight":
-                self.__background_index = 7
+                self.background_index = 7
 
         if event.user_type == pgui.UI_DROP_DOWN_MENU_CHANGED:
             if event.ui_object_id == "current_palette_dropdown":
-                self.__palette_name = event.text
-                self.__palette_colors = _color_palettes[self.__palette_name]
-                if self.__background_index >= len(self.__palette_colors):
-                    self.__background_index = randint(0, len(self.__palette_colors)-1)
+                self.palette_name = event.text
+                self.palette_colors = _color_palettes[self.palette_name]
+                if self.background_index >= len(self.palette_colors):
+                    self.background_index = randint(0, len(self.palette_colors)-1)
                 self.refresh_ui_static()
 
         return 0
@@ -234,7 +243,7 @@ class color_palette(widget):
         
         @return The palette name.
         """
-        return self.__palette_name
+        return self.palette_name
 
 
     def get_colors_from_palette(self):
@@ -242,7 +251,7 @@ class color_palette(widget):
         
         @return A list of the palette colors.
         """
-        return self.__palette_colors
+        return self.palette_colors
 
 
     def get_background_color(self):
@@ -250,7 +259,7 @@ class color_palette(widget):
         
         @return The background color.
         """
-        return self.__palette_colors[self.__background_index]
+        return self.palette_colors[self.background_index]
 
 
     def get_foreground_colors(self):
@@ -258,4 +267,4 @@ class color_palette(widget):
         
         @return A list of the palette colors excluding the background color.
         """
-        return [c for c in self.__palette_colors if c != self.__palette_colors[self.__background_index]]
+        return [c for c in self.palette_colors if c != self.palette_colors[self.background_index]]

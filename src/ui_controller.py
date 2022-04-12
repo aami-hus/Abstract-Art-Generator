@@ -38,8 +38,6 @@ class ui_controller:
         "Full HD: 1920x1080",
         "HD: 1280x720"
     ]
-    ## Current canvas export resolution.
-    export_resolution = resolutions_list[0]
 
     ## Application window width.
     SW = 1280
@@ -89,13 +87,20 @@ class ui_controller:
                             self.canvas_display_size[0], self.canvas_display_size[1], self.window)
 
         self.__initialize_widgets()
+
+        ## Current canvas export resolution.
+        self.export_resolution = ui_controller.resolutions_list[0]
         
         ## A boolean that specifies if the program is running, program terminates if False.
         self.isrunning = True
 
 
     def __create_window(self):
-        ## Program window.
+        """! Create the program window.
+        
+        Called by init, should not be used on it's own.
+        """
+        ## The program window.
         self.window = pg.display.set_mode((self.SW, self.SH))
         pg.display.set_caption("Abstract Art Generator")
         pg.display.set_icon(assets.logo)
@@ -104,6 +109,10 @@ class ui_controller:
 
 
     def __initialize_widgets(self):
+        """! Initializes the program widgets.
+        
+        Called by init, should not be used on it's own.
+        """
         # self.overlays = [
         #     pg.image.load("assets/overlay1.png").convert_alpha(),
         #     pg.image.load("assets/overlay2.png").convert_alpha(),
@@ -271,12 +280,12 @@ class ui_controller:
 
         if filename:
             path = filename[:]
-            if self.export_resolution == self.resolutions_list[0]:
-                pg.image.save(self.canvas.get_canvas(), path)
-            elif self.export_resolution == self.resolutions_list[1]:
-                pg.image.save(pg.transform.smoothscale(self.canvas.get_canvas(), (1920, 1080)), path)
-            elif self.export_resolution == self.resolutions_list[2]:
-                pg.image.save(pg.transform.smoothscale(self.canvas.get_canvas(), (1280, 720)), path)
+            if self.export_resolution == ui_controller.resolutions_list[0]:
+                pg.image.save(self.canvas.get_canvas(), path + ".png")
+            elif self.export_resolution == ui_controller.resolutions_list[1]:
+                pg.image.save(pg.transform.smoothscale(self.canvas.get_canvas(), (1920, 1080)), path + ".png")
+            elif self.export_resolution == ui_controller.resolutions_list[2]:
+                pg.image.save(pg.transform.smoothscale(self.canvas.get_canvas(), (1280, 720)), path + ".png")
         else:
             pass
 
@@ -303,5 +312,6 @@ class ui_controller:
 
         pg.quit()
 
+##The ui_controller instance that initializes the program
 controller = ui_controller()
 controller.run()

@@ -36,12 +36,16 @@ class canvas:
         self.__display_height = display_height
         self.__window = window
 
-        self.__canvas = pg.Surface((self.__width, self.__height))
-        self.__canvas.fill((255, 255, 255))
-        self.__display_canvas = pg.Surface((self.__display_width, self.__display_height))
+        ## The surface the art is drawn to
+        self.canvas = pg.Surface((self.__width, self.__height))
+        self.canvas.fill((255, 255, 255))
 
-        self.__bg_layer = pg.Surface((self.__width, self.__height))
-        self.__bg_layer.fill((255, 255, 255))
+        ## The surface that is drawn to the ui as a display port
+        self.display_canvas = pg.Surface((self.__display_width, self.__display_height))
+
+        ## The single color, background layer of the canvas
+        self.bg_layer = pg.Surface((self.__width, self.__height))
+        self.bg_layer.fill((255, 255, 255))
 
 
     def generate_bg(self, color):
@@ -49,13 +53,13 @@ class canvas:
         
         @param color    Color to fill the background with.
         """
-        self.__bg_layer.fill(pg.Color(color))
+        self.bg_layer.fill(pg.Color(color))
 
 
     def draw_layers(self):
         """! Calls various widgets to draw to their layers.
 
-        Calls any drawing widgets to draw to their layers.
+        Calls draw_canvas in all the drawing widgets.
         """
         self.generate_bg(widgets.color_palette.get_background_color())
 
@@ -71,24 +75,24 @@ class canvas:
 
         Combines the currently drawn layers into the canvas.
         """
-        self.__canvas.blit(self.__bg_layer, (0, 0))
+        self.canvas.blit(self.bg_layer, (0, 0))
 
-        self.__canvas.blit(widgets.layer_one.layer, (0, 0))
-        self.__canvas.blit(widgets.layer_two.layer, (0, 0))
-        self.__canvas.blit(widgets.layer_three.layer, (0, 0))
+        self.canvas.blit(widgets.layer_one.layer, (0, 0))
+        self.canvas.blit(widgets.layer_two.layer, (0, 0))
+        self.canvas.blit(widgets.layer_three.layer, (0, 0))
 
-        self.__canvas.blit(widgets.text_overlay.layer, (0, 0))
+        self.canvas.blit(widgets.text_overlay.layer, (0, 0))
 
-        self.__canvas.blit(widgets.overlay.overlay_layer, (0, 0))
+        self.canvas.blit(widgets.overlay.overlay_layer, (0, 0))
 
-        self.__canvas.convert()
-        self.__display_canvas = pg.transform.smoothscale(self.__canvas, (self.__display_width, self.__display_height))
+        self.canvas.convert()
+        self.display_canvas = pg.transform.smoothscale(self.canvas, (self.__display_width, self.__display_height))
 
 
     def draw(self):
         """! Draws the canvas to the ui.
         """
-        self.__window.blit(self.__display_canvas, (self.__x, self.__y))
+        self.__window.blit(self.display_canvas, (self.__x, self.__y))
 
 
     def get_canvas(self):
@@ -96,9 +100,11 @@ class canvas:
 
         @return The pygame surface the canvas draws on.
         """
-        return self.__canvas
+        return self.canvas
 
     def get_width(self):
+        """! Gets the width of the canvas"""
         return self.__width
     def get_height(self):
+        """! Gets the height of the canvas"""
         return self.__height

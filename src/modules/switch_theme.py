@@ -14,13 +14,13 @@ from modules.widget import widget
 import assets
 
 class switch_theme(widget):
-    """! The help widget class.
+    """! The theme switch widget class.
 
     Displays a ui switch theme button that changes the interface theme when clicked.
     """
 
     def __init__(self, x, y, window, ui_manager):
-        """! Initializes the help widget.
+        """! Initializes the theme widget.
 
         @param x                Horizontal position to draw the widget at on the ui.
         @param y                Vertical position to draw the widget at on the ui.
@@ -33,31 +33,33 @@ class switch_theme(widget):
         self.__window = window
         self.__ui_manager = ui_manager
 
-        self.__switch_theme_dark = True
+        ## True if in dark mode, False if in light
+        self.switch_theme_dark = True
 
 
         
 
     def getDarkMode(self):
-        return self.__switch_theme_dark
+        """! @return True if in dark mode, False if in light mode. """
+        return self.switch_theme_dark
 
     def draw_ui_static(self):
-        """! Draws the static ui elements for the help widget.
+        """! Draws the static ui elements for the theme widget.
         
-        Draws a button with "help" written on it.
+        Draws a button with "theme" written on it.
         """
         __switch_theme_opt_button = pgui.elements.UIButton(relative_rect=pg.Rect(self.__x, self.__y, 100, 30), text="THEME", manager=self.__ui_manager,
                                             object_id="switch_theme_opt_button")
 
 
     def events(self, event):
-        """! Processes pygame events for the help widget.
+        """! Processes pygame events for the theme widget.
         
-        If event in the switch theme button being pressed change the interface theme.
+        If event is the switch theme button being pressed change the interface theme.
 
         @param event    The pygame event being processed.
         """
         if event.user_type == pgui.UI_BUTTON_PRESSED and event.ui_object_id == "switch_theme_opt_button":
-            self.__switch_theme_dark = (self.__switch_theme_dark != True)
+            self.switch_theme_dark = (self.switch_theme_dark != True)
             return True
             

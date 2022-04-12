@@ -5,6 +5,7 @@
 #
 # @section author_overlay Author(s)
 # - Created by Jessica Dawson on 03/17/2022.
+# - Modified by Aamina Hussain on 04/05/2022.
 
 # Imports
 import pygame_gui as pgui
@@ -48,11 +49,15 @@ class overlay(widget):
         self.__y = y
         self.__window = window
         self.__ui_manager = ui_manager
-        
+
+        ## Theme color for background
         self.color = "#2B2834"
+        ## Theme color for text
         self.ui_h1_color = "#FFFFFF"
 
-        self.__active_overlay = 0
+        ## The currently selected overlay
+        self.active_overlay = 0
+
         self.__active_color = assets.active_color
         self.__inactive_color = assets.inactive_color
 
@@ -69,16 +74,16 @@ class overlay(widget):
 
         assets.text_to_screen(window=self.__window, text="OVERLAY/BORDER", color=self.ui_h1_color, pos=(self.__x+15, self.__y+12), font_size=18)
 
-        pg.draw.rect(self.__window, self.__active_color if self.__active_overlay == 1 else self.__inactive_color, (self.__x+13+20, self.__y+33, 84, 49), 1)
-        pg.draw.rect(self.__window, self.__active_color if self.__active_overlay == 2 else self.__inactive_color, (self.__x+113+40, self.__y+33, 84, 49), 1)
-        pg.draw.rect(self.__window, self.__active_color if self.__active_overlay == 3 else self.__inactive_color, (self.__x+13+20, self.__y+98, 84, 49), 1)
-        pg.draw.rect(self.__window, self.__active_color if self.__active_overlay == 4 else self.__inactive_color, (self.__x+113+40, self.__y+98, 84, 49), 1)
-        pg.draw.rect(self.__window, self.__active_color if self.__active_overlay == 5 else self.__inactive_color, (self.__x+13+20, self.__y+163, 84, 49), 1)
-        pg.draw.rect(self.__window, self.__active_color if self.__active_overlay == 6 else self.__inactive_color, (self.__x+113+40, self.__y+163, 84, 49), 1)
-        pg.draw.rect(self.__window, self.__active_color if self.__active_overlay == 7 else self.__inactive_color, (self.__x+13+20, self.__y+228, 84, 49), 1)
-        pg.draw.rect(self.__window, self.__active_color if self.__active_overlay == 8 else self.__inactive_color, (self.__x+113+40, self.__y+228, 84, 49), 1)
-        pg.draw.rect(self.__window, self.__active_color if self.__active_overlay == 9 else self.__inactive_color, (self.__x+13+20, self.__y+293, 84, 49), 1)
-        pg.draw.rect(self.__window, self.__active_color if self.__active_overlay == 0 else self.__inactive_color, (self.__x+113+40, self.__y+293, 84, 49), 1)
+        pg.draw.rect(self.__window, self.__active_color if self.active_overlay == 1 else self.__inactive_color, (self.__x+13+20, self.__y+33, 84, 49), 1)
+        pg.draw.rect(self.__window, self.__active_color if self.active_overlay == 2 else self.__inactive_color, (self.__x+113+40, self.__y+33, 84, 49), 1)
+        pg.draw.rect(self.__window, self.__active_color if self.active_overlay == 3 else self.__inactive_color, (self.__x+13+20, self.__y+98, 84, 49), 1)
+        pg.draw.rect(self.__window, self.__active_color if self.active_overlay == 4 else self.__inactive_color, (self.__x+113+40, self.__y+98, 84, 49), 1)
+        pg.draw.rect(self.__window, self.__active_color if self.active_overlay == 5 else self.__inactive_color, (self.__x+13+20, self.__y+163, 84, 49), 1)
+        pg.draw.rect(self.__window, self.__active_color if self.active_overlay == 6 else self.__inactive_color, (self.__x+113+40, self.__y+163, 84, 49), 1)
+        pg.draw.rect(self.__window, self.__active_color if self.active_overlay == 7 else self.__inactive_color, (self.__x+13+20, self.__y+228, 84, 49), 1)
+        pg.draw.rect(self.__window, self.__active_color if self.active_overlay == 8 else self.__inactive_color, (self.__x+113+40, self.__y+228, 84, 49), 1)
+        pg.draw.rect(self.__window, self.__active_color if self.active_overlay == 9 else self.__inactive_color, (self.__x+13+20, self.__y+293, 84, 49), 1)
+        pg.draw.rect(self.__window, self.__active_color if self.active_overlay == 0 else self.__inactive_color, (self.__x+113+40, self.__y+293, 84, 49), 1)
         #pg.draw.rect(self.__window, self.__active_color, (self.__x+63, self.__y+293, 84, 49), 1)
 
         self.__window.blit(pg.transform.scale(self.__overlays[0], (80, 45)), (self.__x+15+20, self.__y+35))
@@ -94,6 +99,7 @@ class overlay(widget):
 
 
     def change_colors(self):
+        """! Change the theme colors. """
         self.color = "#AAB1B6" if self.color=="#2B2834" else "#2B2834"
         self.ui_h1_color = "#000000" if self.ui_h1_color=="#FFFFFF" else "#FFFFFF"
 
@@ -137,43 +143,43 @@ class overlay(widget):
 
         if event.user_type == pgui.UI_BUTTON_PRESSED:
             if event.ui_object_id == "overlay1_button":
-                self.__active_overlay = 1
+                self.active_overlay = 1
                 self.draw_canvas()
                 r = 1
             if event.ui_object_id == "overlay2_button":
-                self.__active_overlay = 2
+                self.active_overlay = 2
                 self.draw_canvas()
                 r = 1
             if event.ui_object_id == "overlay3_button":
-                self.__active_overlay = 3
+                self.active_overlay = 3
                 self.draw_canvas()
                 r = 1
             if event.ui_object_id == "overlay4_button":
-                self.__active_overlay = 4
+                self.active_overlay = 4
                 self.draw_canvas()
                 r = 1
             if event.ui_object_id == "overlay5_button":
-                self.__active_overlay = 5
+                self.active_overlay = 5
                 self.draw_canvas()
                 r = 1
             if event.ui_object_id == "overlay6_button":
-                self.__active_overlay = 6
+                self.active_overlay = 6
                 self.draw_canvas()
                 r = 1
             if event.ui_object_id == "border7_button":
-                self.__active_overlay = 7
+                self.active_overlay = 7
                 self.draw_canvas()
                 r = 1
             if event.ui_object_id == "border8_button":
-                self.__active_overlay = 8
+                self.active_overlay = 8
                 self.draw_canvas()
                 r = 1
             if event.ui_object_id == "border9_button":
-                self.__active_overlay = 9
+                self.active_overlay = 9
                 self.draw_canvas()
                 r = 1
             if event.ui_object_id == "no_overlay_button":
-                self.__active_overlay = 0
+                self.active_overlay = 0
                 self.clean_layer()
                 r = 1
 
@@ -183,7 +189,7 @@ class overlay(widget):
     def draw_canvas(self):
         """! Draw the currently selected overlay image to self.overlay_layer. """
         self.clean_layer()
-        self.overlay_layer.blit(self.__overlays[self.__active_overlay-1], (0, 0))
+        self.overlay_layer.blit(self.__overlays[self.active_overlay-1], (0, 0))
 
 
     def clean_layer(self):
@@ -191,7 +197,8 @@ class overlay(widget):
         self.overlay_layer.fill((0, 0, 0, 0))
     
     def get_active_overlay(self):
-        return self.__active_overlay
+        """! @return The active overlay. """
+        return self.active_overlay
 
     # def generate_overlay_fg(self, overlay):
     #     self.clean_layer(self.overlay_layer)

@@ -59,25 +59,39 @@ class layer(widget):
         self.__window = window
         self.__ui_manager = ui_manager
         self.__layer_num = layer_num
+
+        ## Theme color for background
         self.color = "#2B2834"
+        ## Theme color for text
         self.u1_h1_color = "#FFFFFF"
 
         #starting options for dropdown menus
-        self.__style = choice(_art_styles_list)
-        self.__shape = choice(_art_shapes_list)
-        self.__complexity = randint(10,30)#15
-        self.__size = [51, randint(51,400)] #400
-        self.__transparency = randint(0, 255)
+        ## The style or pattern the layer draws in
+        self.style = choice(_art_styles_list)
+        ## The shape the layer draws
+        self.shape = choice(_art_shapes_list)
+        ## The complexity of the layer's drawing
+        self.complexity = randint(10,30)#15
+        ## The size of the drawn shapes
+        self.size = [51, randint(51,400)] #400
+        ## The transparency of the layer
+        self.transparency = randint(0, 255)
 
         #locks
-        self.__style_lock = 0
-        self.__shape_lock = 0
-        self.__complexity_lock = 0
-        self.__size_lock = 0
-        self.__transparency_lock = 0
+        ## 1 if radomization of the style is locked, 0 otherwise
+        self.style_lock = 0
+        ## 1 if radomization of the shape is locked, 0 otherwise
+        self.shape_lock = 0
+        ## 1 if radomization of the complexity is locked, 0 otherwise
+        self.complexity_lock = 0
+        ## 1 if radomization of the size is locked, 0 otherwise
+        self.size_lock = 0
+        ## 1 if radomization of the transparency is locked, 0 otherwise
+        self.transparency_lock = 0
 
 
     def change_colors(self):
+        """! Change the theme colors. """
         self.color = "#AAB1B6" if self.color=="#2B2834" else "#2B2834"
         self.u1_h1_color = "#000000" if self.u1_h1_color=="#FFFFFF" else "#FFFFFF"
 
@@ -94,27 +108,27 @@ class layer(widget):
         # pg.draw.rect(self.__window, pg.Color("#2B2834"), (self.__x, self.__y, 252, 220))
         pg.draw.rect(self.__window, pg.Color(self.color), (self.__x, self.__y, 252, 220))
         
-        if self.__style_lock == 0:
+        if self.style_lock == 0:
             self.__window.blit(assets.lock_disabled, (lock_margin, self.__y+30))
         else:
             self.__window.blit(assets.lock_enabled, (lock_margin, self.__y+30))
 
-        if self.__shape_lock == 0:
+        if self.shape_lock == 0:
             self.__window.blit(assets.lock_disabled, (lock_margin, self.__y+55))
         else:
             self.__window.blit(assets.lock_enabled, (lock_margin, self.__y+55))
 
-        if self.__complexity_lock == 0:
+        if self.complexity_lock == 0:
             self.__window.blit(assets.lock_disabled, (lock_margin, self.__y+100))
         else:
             self.__window.blit(assets.lock_enabled, (lock_margin, self.__y+100))
 
-        if self.__size_lock == 0:
+        if self.size_lock == 0:
             self.__window.blit(assets.lock_disabled, (lock_margin, self.__y+145))
         else:
             self.__window.blit(assets.lock_enabled, (lock_margin, self.__y+145))
         
-        if self.__transparency_lock == 0:
+        if self.transparency_lock == 0:
             self.__window.blit(assets.lock_disabled, (lock_margin, self.__y+190))
         else:
             self.__window.blit(assets.lock_enabled, (lock_margin, self.__y+190))
@@ -136,26 +150,26 @@ class layer(widget):
         num_of_layer = self.__layer_num.lower()
 
         style_dropdown = pgui.elements.UIDropDownMenu(options_list=_art_styles_list,
-                                                                starting_option=self.__style,
+                                                                starting_option=self.style,
                                                                 relative_rect=pg.Rect(interactables_margin, self.__y+30, 200, 22), manager=self.__ui_manager,
                                                                 object_id="layer_"+num_of_layer+"_style_dropdown")
 
         shape_dropdown = pgui.elements.UIDropDownMenu(options_list=_art_shapes_list,
-                                                                starting_option=self.__shape,
+                                                                starting_option=self.shape,
                                                                 relative_rect=pg.Rect(interactables_margin, self.__y+55, 200, 22), manager=self.__ui_manager,
                                                                 object_id="layer_"+num_of_layer+"_shape_dropdown")
 
         complexity_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(interactables_margin, self.__y+100, 200, 22),
-                                                                    start_value=self.__complexity,
+                                                                    start_value=self.complexity,
                                                                     value_range=(10, 30), manager=self.__ui_manager,
                                                                     object_id="layer_"+num_of_layer+"_complexity_slider")
 
         size_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(interactables_margin, self.__y+145, 200, 22),
-                                                                start_value=self.__size[1], value_range=(50, 400),
+                                                                start_value=self.size[1], value_range=(50, 400),
                                                                 manager=self.__ui_manager, object_id="layer_"+num_of_layer+"_size_slider")
         
         transparency_slider = pgui.elements.UIHorizontalSlider(relative_rect=pg.Rect(interactables_margin, self.__y+190, 200, 22),
-                                                                start_value=self.__transparency, value_range=(0, 255),
+                                                                start_value=self.transparency, value_range=(0, 255),
                                                                 manager=self.__ui_manager, object_id="layer_"+num_of_layer+"_transparency_slider")
 
         # "lock_button_three" changed to "layer_one_lock_butter"
@@ -176,16 +190,16 @@ class layer(widget):
     def randomize(self):
         """! Randomize the shape, style, complexity, and size of the layer drawing algorithm. """
 
-        if self.__style_lock == 0:
-            self.__style = choice(_art_styles_list)
-        if self.__shape_lock == 0:
-            self.__shape = choice(_art_shapes_list)
-        if self.__complexity_lock == 0:
-            self.__complexity = randint(10,30)
-        if self.__size_lock == 0:
-            self.__size[1] = randint(51, 400)
-        if self.__transparency_lock == 0:
-            self.__transparency = randint(0, 255)
+        if self.style_lock == 0:
+            self.style = choice(_art_styles_list)
+        if self.shape_lock == 0:
+            self.shape = choice(_art_shapes_list)
+        if self.complexity_lock == 0:
+            self.complexity = randint(10,30)
+        if self.size_lock == 0:
+            self.size[1] = randint(51, 400)
+        if self.transparency_lock == 0:
+            self.transparency = randint(0, 255)
 
 
     def events(self, event):
@@ -200,29 +214,29 @@ class layer(widget):
 
         if event.user_type == pgui.UI_BUTTON_PRESSED:
             if event.ui_object_id == "layer_"+num_of_layer+"_style_lock_button":
-                self.__style_lock = 1 if self.__style_lock == 0 else 0
+                self.style_lock = 1 if self.style_lock == 0 else 0
             if event.ui_object_id == "layer_"+num_of_layer+"_shape_lock_button":
-                self.__shape_lock = 1 if self.__shape_lock == 0 else 0
+                self.shape_lock = 1 if self.shape_lock == 0 else 0
             if event.ui_object_id == "layer_"+num_of_layer+"_complexity_lock_button":
-                self.__complexity_lock = 1 if self.__complexity_lock == 0 else 0
+                self.complexity_lock = 1 if self.complexity_lock == 0 else 0
             if event.ui_object_id == "layer_"+num_of_layer+"_size_lock_button":
-                self.__size_lock = 1 if self.__size_lock == 0 else 0
+                self.size_lock = 1 if self.size_lock == 0 else 0
             if event.ui_object_id == "layer_"+num_of_layer+"_transparency_lock_button":
-                self.__transparency_lock = 1 if self.__transparency_lock == 0 else 0
+                self.transparency_lock = 1 if self.transparency_lock == 0 else 0
 
         if event.user_type == pgui.UI_DROP_DOWN_MENU_CHANGED:
             if event.ui_object_id == "layer_"+num_of_layer+"_style_dropdown":
-                self.__style = event.text
+                self.style = event.text
             if event.ui_object_id == "layer_"+num_of_layer+"_shape_dropdown":
-                self.__shape = event.text
+                self.shape = event.text
 
         if event.user_type == pgui.UI_HORIZONTAL_SLIDER_MOVED:
             if event.ui_object_id == "layer_"+num_of_layer+"_complexity_slider":
-                self.__complexity = event.value
+                self.complexity = event.value
             if event.ui_object_id == "layer_"+num_of_layer+"_size_slider":
-                self.__size[1] = event.value
+                self.size[1] = event.value
             if event.ui_object_id == "layer_"+num_of_layer+"_transparency_slider":
-                self.__transparency = event.value
+                self.transparency = event.value
 
         return 0
 
@@ -235,31 +249,31 @@ class layer(widget):
 
         color_palette = widgets.color_palette.get_foreground_colors()
 
-        if _art_shapes_list[0] == self.__shape:
-            widgets.generators.draw_lines(self.layer, self.__complexity, color_palette, self.__style, self.__size)
+        if _art_shapes_list[0] == self.shape:
+            widgets.generators.draw_lines(self.layer, self.complexity, color_palette, self.style, self.size)
 
-        if _art_shapes_list[1] == self.__shape:
-            widgets.generators.draw_circles(self.layer, self.__complexity, color_palette, self.__style, self.__size)
+        if _art_shapes_list[1] == self.shape:
+            widgets.generators.draw_circles(self.layer, self.complexity, color_palette, self.style, self.size)
 
-        if _art_shapes_list[2] == self.__shape:
-            widgets.generators.draw_squares(self.layer, self.__complexity, color_palette, self.__style, self.__size)
+        if _art_shapes_list[2] == self.shape:
+            widgets.generators.draw_squares(self.layer, self.complexity, color_palette, self.style, self.size)
 
-        if _art_shapes_list[3] == self.__shape:
-            widgets.generators.draw_hpolygons(self.layer, self.__complexity, color_palette, self.__style, self.__size)
+        if _art_shapes_list[3] == self.shape:
+            widgets.generators.draw_hpolygons(self.layer, self.complexity, color_palette, self.style, self.size)
 
-        if _art_shapes_list[4] == self.__shape:
-            widgets.generators.draw_fpolygons(self.layer, self.__complexity, color_palette, self.__style, self.__size)
+        if _art_shapes_list[4] == self.shape:
+            widgets.generators.draw_fpolygons(self.layer, self.complexity, color_palette, self.style, self.size)
 
-        if _art_shapes_list[5] == self.__shape:
-            widgets.generators.draw_dots(self.layer, self.__complexity, color_palette, self.__style, self.__size)
+        if _art_shapes_list[5] == self.shape:
+            widgets.generators.draw_dots(self.layer, self.complexity, color_palette, self.style, self.size)
 
-        if _art_shapes_list[6] == self.__shape:
-            widgets.generators.draw_curves(self.layer, self.__complexity, color_palette, self.__style, self.__size)
+        if _art_shapes_list[6] == self.shape:
+            widgets.generators.draw_curves(self.layer, self.complexity, color_palette, self.style, self.size)
 
-        if _art_shapes_list[7] == self.__shape:
-            widgets.generators.draw_rings(self.layer, self.__complexity, color_palette, self.__style, self.__size)
+        if _art_shapes_list[7] == self.shape:
+            widgets.generators.draw_rings(self.layer, self.complexity, color_palette, self.style, self.size)
 
-        self.layer.set_alpha(self.__transparency)
+        self.layer.set_alpha(self.transparency)
 
 
     def clean_layer(self):
@@ -268,15 +282,16 @@ class layer(widget):
 
     def get_layer_style(self):
         """! @return The layer style. """
-        return self.__style
+        return self.style
     def get_layer_shape(self):
         """! @return The layer shape. """
-        return self.__shape
+        return self.shape
     def get_layer_complexity(self):
         """! @return The layer complexity. """
-        return self.__complexity
+        return self.complexity
     def get_layer_size(self):
         """! @return The layer size. """
-        return self.__size
+        return self.size
     def get_layer_transparency(self):
-        return self.__transparency
+        """! @return The layer transparency"""
+        return self.transparency

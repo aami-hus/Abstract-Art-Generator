@@ -33,12 +33,16 @@ class help(widget):
         self.__window = window
         self.__ui_manager = ui_manager
 
-        self.__help_opt = 0
+        ## Whether the help dialogue should be displayed or not
+        self.help_opt = 0
         # self.__help_left = False
 
-        self.__font_color = "#FFFFFF"
-        self.__font_color_emph = "#DFD6FF"
-        self.__bg_color = "#2B2834"
+        ## Theme color for normal font
+        self.font_color = "#FFFFFF"
+        ## Theme color for emphasized font
+        self.font_color_emph = "#DFD6FF"
+        ## Theme color for background
+        self.bg_color = "#2B2834"
 
 
     def draw_ui_dynamic(self):
@@ -46,7 +50,7 @@ class help(widget):
         
         Draws a dialog with the instructions for using the program.
         """
-        if self.__help_opt == 0:
+        if self.help_opt == 0:
             return
         
         # if self.__help_left:
@@ -56,9 +60,9 @@ class help(widget):
         #     pg.draw.rect(self.__window, pg.Color("#2B2834"), (self.__x+100, 90, 510, 380))
         #     p = [self.__x + 110, self.__y+10]
 
-        pg.draw.rect(self.__window, pg.Color(self.__bg_color), (self.__x+100, self.__y, 510, 420))
+        pg.draw.rect(self.__window, pg.Color(self.bg_color), (self.__x+100, self.__y, 510, 420))
         p = [self.__x + 110, self.__y+10] # Position
-        c = self.__font_color # Color
+        c = self.font_color # Color
         s = 12 # Font-size
         ri = 12     # Row interval
         assets.text_to_screen(self.__window, "Thanks for trying out our program! Let us help you with how the program works.", c, p, s)
@@ -75,7 +79,7 @@ class help(widget):
         p = [p[0], p[1] + ri]
         assets.text_to_screen(self.__window, "settings constant while allowing the rest of the settings to be randomly generated.", c, p, s)
         p = [p[0], p[1] + ri+10]
-        c = self.__font_color_emph
+        c = self.font_color_emph
         assets.text_to_screen(self.__window, "Generate Button: Generates art with the options specified in the options panel.", c, p, s)
         p = [p[0], p[1] + ri]
         assets.text_to_screen(self.__window, "Generate Randomly Button: Generates art by randomizing the options on the left.", c, p, s)
@@ -84,14 +88,14 @@ class help(widget):
         p = [p[0], p[1] + ri]
         assets.text_to_screen(self.__window, "Theme Button: Changes the theme of the program from dark mode to light mode, and vice versa.", c, p, s)
         p = [p[0], p[1] + ri+10]
-        c = self.__font_color
+        c = self.font_color
         assets.text_to_screen(self.__window, "Overlay options don't change by randomizing or generating new art.", c, p, s)
         p = [p[0], p[1] + ri+10]
         assets.text_to_screen(self.__window, "There are 32 unique color palettes. For each layer, there are seven style options with eight", c, p, s)
         p = [p[0], p[1] + ri]
         assets.text_to_screen(self.__window, "shape options. Shapes are self explanatory, but let's take a look at the styles:", c, p, s)
         p = [p[0], p[1] + ri+5]
-        c = self.__font_color_emph
+        c = self.font_color_emph
         assets.text_to_screen(self.__window, "Chaotic - The most randomized option.", c, p, s)
         p = [p[0], p[1] + ri]
         assets.text_to_screen(self.__window, "Striped Horizontal - Whatever the shape is, the shapes roughly line up in horizontal lines", c, p, s)
@@ -106,7 +110,7 @@ class help(widget):
         p = [p[0], p[1] + ri]
         assets.text_to_screen(self.__window, "Empty - Doesn't draw any shapes to the layer. Sometimes one shape is enough for the art.", c, p, s)
         p = [p[0], p[1] + ri+10]
-        c = self.__font_color
+        c = self.font_color
         assets.text_to_screen(self.__window, "Complexity adjusts how many shapes will be drawn. Size adjusts how large the shapes can be.", c, p, s)
         p = [p[0], p[1] + ri]
         assets.text_to_screen(self.__window, "Transparency adjusts how translucent the shapes are.", c, p, s)
@@ -115,7 +119,7 @@ class help(widget):
         p = [p[0], p[1] + ri]
         assets.text_to_screen(self.__window, "text position can be adjusted using the appropriate sliders.", c, p, s)
         p = [p[0], p[1] + ri+10]
-        c = self.__font_color_emph
+        c = self.font_color_emph
         assets.text_to_screen(self.__window, "ENJOY! :D", c, p, s)
 
 
@@ -136,12 +140,13 @@ class help(widget):
         @param event    The pygame event being processed.
         """
         if event.user_type == pgui.UI_BUTTON_PRESSED and event.ui_object_id == "help_opt_button":
-            self.__help_opt = 1 if self.__help_opt == 0 else 0
+            self.help_opt = 1 if self.help_opt == 0 else 0
 
         return 0
 
     def change_colors(self):
-        self.__font_color = "#000000" if self.__font_color == "#FFFFFF" else "#FFFFFF"
-        self.__font_color_emph = "#2B2B2B" if self.__font_color_emph == "#DFD6FF" else "#DFD6FF"
-        self.__bg_color = "#AAB1B6" if self.__bg_color == "#2B2834" else "#2B2834"
+        """! Change the theme colors. """
+        self.font_color = "#000000" if self.font_color == "#FFFFFF" else "#FFFFFF"
+        self.font_color_emph = "#2B2B2B" if self.font_color_emph == "#DFD6FF" else "#DFD6FF"
+        self.bg_color = "#AAB1B6" if self.bg_color == "#2B2834" else "#2B2834"
         #pink = f2b6b6, grey = 3d3d3d
