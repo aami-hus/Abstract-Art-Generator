@@ -5,25 +5,28 @@
 \usepackage{hyperref}
 \usepackage{float}
 \usepackage{graphicx}
+\usepackage{color}
+\usepackage{soul}
 \usepackage[shortlabels]{enumitem}
 \hypersetup{
     colorlinks,
     citecolor=black,
     filecolor=black,
-    linkcolor=black,
+    linkcolor=blue,
     urlcolor=blue
 }
 \usepackage[round]{natbib}
 
-\title{SE 3XA3: Software Requirements Specification\\Title of Project}
+\title{SE 3XA3: Software Requirements Specification}
 
-\author{Team L3 G10, The Python Painters
+\author{Group \#10
+        \\Lab: L03
 		\\ Aamina Hussain, hussaa54
-		\\ Jessica Dawson, dawosr1
+		\\ Jessica Dawson, dawsor1
 		\\ Fady Morcos, morcof2
 }
 
-\date{\today}
+\date{}
 
 %\input{../Comments}
 
@@ -36,13 +39,14 @@
 \listoftables
 \listoffigures
 
-\begin{table}[htp]
+\begin{table}[h!]
 \caption{\bf Revision History}
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-February 9, 2022 & 1.0 & Initial Document; Completed Section 1, 2.1.1, 3.1, 3.2\\
-February 11, 2022 & 1.1 & Completed Section 2.1.2, 2.1.3, 2.2, 3.3-3.9, 4, 5\\
+Feb 9, 2022 & 0.0 & Initial Document; Completed Section 1, 2.1.1, 3.1, 3.2\\
+Feb 11, 2022 & 0.1 & Completed Section 2.1.2, 2.1.3, 2.2, 3.3-3.9, 4, 5\\
+\color{red}Apr 11, 2022 & \color{red}1.0 & \color{red}Updated FRs, Added Fit Criterion for NFRs\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -69,7 +73,7 @@ The project's clients will be Dr. Asghar Bokhari as the instructor of SFWRENG 3X
 
 \subsubsection{The Customers}
 
-The customers of the project are anyone interested in generating abstract art. 
+The customers of the project are all those who are interested in generating abstract art. 
 
 \subsubsection{Other Stakeholders}
 
@@ -85,7 +89,7 @@ The developers of the project are also stakeholders as they will be applying the
 \subsection{Naming Conventions and Terminology}
 
 \begin{itemize}
-    \item \textbf{Color Palette}: Four different colors that complement each other that the generated abstract art is made up of.
+    \item \textbf{Color Palette}: Up to eight different colors that complement each other that the generated abstract art is made up of.
     \item \textbf{Layer}: The Abstract Art Generator contains layers. Each layer is made up of a specified shape laid out in a specified pattern. The colors of these shapes are from the chosen color palette. The layers are then stacked on top of each other to create the finished art piece.
 \end{itemize}
 
@@ -151,15 +155,16 @@ The developers of the project are also stakeholders as they will be applying the
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{use cases.png}
+    \includegraphics[width=0.8\textwidth]{UseCasesUpdated.png}
     \caption{Use Case Diagram}
     \label{fig:context}
 \end{figure}
 
-The above diagram specifies the product use cases. Generating a picture is the most complex as it involves changing generation parameters. Exporting a picture requires a resolution and file location to be specified. Opening the help overlay just involves the user accessing a help button. Opening the settings menu allows the user to change aspects of the UI and program itself.
+The above diagram specifies the product use cases. Generating a picture is the most complex as it involves changing generation parameters. Exporting a picture requires a resolution and file location to be specified. Opening the help overlay and changing the UI theme just involves the user accessing a \texttt{HELP} button or \texttt{THEME} button.
+% Opening the settings menu allows the user to change aspects of the UI and program itself.
 
 \subsection{Functional Requirements}
-FR1. The system shall have 30 unique color palette options.
+FR1. The system shall have at least 30 unique color palette options.
 \begin{itemize}
     \item Rationale: The user will have a wider range of color options to choose from.
 \end{itemize}
@@ -185,19 +190,24 @@ FR7. The system shall allow the user to change the font of the text on top of th
 \\
 FR8. The system shall allow the user to change the size of the text on top of the art.\\
 \\
-FR9. The system shall allow the user to change the color of the text on top of the art.\\
+\st{FR9. The system shall allow the user to change the color of the text on top of the art.}\\
+\color{red} \#\#COMMENT: We decided to not implement this requirement and allow the color of the text to be randomly chosen from the color palette of the current generated art image. This is because in order to allow the user to choose the text color, we would need to include a long list of colors, and it is likely that most colors would clash with the generated art. The art will look more cohesive using a color from the current color palette. \color{black}\\
 \\
-FR10. The system shall allow the user to add a border to the art.
+FR9. The system shall allow the user to add a border to the art.
 \begin{itemize}
     \item Rationale: This will increase the variety of art the user can generate.
 \end{itemize}
-FR11. The system shall display the border options.\\
+FR10. The system shall display the border options.\\
 \\
-FR12. The system shall display the display settings.\\
-\\
-FR13. The system shall allow the user to configure the display settings, including choosing light or dark mode, the text size of the UI, etc.
+\color{red}FR11. The system shall display the instructions for using the program.
 \begin{itemize}
-    \item Rationale: This will increase accessibility and allow users to adjust the UI settings to their comfort level.
+    \item Rationale: This will promote the system's usability.
+\end{itemize}\color{black}
+\st{FR12. The system shall display the display settings.}\\
+\\
+FR12. The system shall allow the user to switch between different UI themes, such as dark mode and light mode.
+\begin{itemize}
+    \item Rationale: This will increase accessibility and allow users to adjust the UI theme to their comfort level.
 \end{itemize}
 
 \section{Non-functional Requirements}
@@ -208,11 +218,13 @@ FR13. The system shall allow the user to configure the display settings, includi
 LF1. The menu of the program must be formatted neatly and not be cluttered.
 \begin{itemize}
     \item Rationale: The user should find the appearance of the program menu attractive to further their interest in using the program.
+    \item \color{red} Fit Criterion: The different sections of the menu will be in-line with each other and have the same width. \color{black}
 \end{itemize}
 \subsubsection{Style Requirements}
 LF2. The program background must be a simple and solid color.
 \begin{itemize}
     \item Rationale: If the program background is not simple, it may clash with the generated art and end up distracting the user.
+    \item \color{red} Fit Criterion: The program background will be one single color. \color{black}
 \end{itemize}
 
 \subsection{Usability and Humanity Requirements}
@@ -220,39 +232,47 @@ LF2. The program background must be a simple and solid color.
 UH1. The options of the program shall be easy for the user to access via the program menu.
 \begin{itemize}
     \item Rationale: The user should be able to select any option efficiently and should not struggle to find the options.
+    \item \color{red} Fit Criterion: All of the program options will be reasonably sized, positioned, and displayed on the program menu. \color{black}
 \end{itemize}
 \subsubsection{Accessibility Requirements}
 UH2. The UI text shall be legible for the average user.
 \begin{itemize}
     \item Rationale: The average user cannot make full use of the features if they find it difficult to read the instructions or option descriptions.
+    \item \color{red} Fit Criterion: The UI text size will be 12 pt. \color{black}
 \end{itemize}
 \subsubsection{Learning Requirements}
 UH3. The instructions for the program shall be clearly available to the user via the program menu.
 \begin{itemize}
     \item Rationale: The instructions are necessary for the user to be able to use the program.
+    \item \color{red} Fit Criterion: All of the program instructions can be accessed by the user through a \texttt{HELP} option in the program menu. \color{black}
 \end{itemize}
 \subsection{Performance Requirements}
 \subsubsection{Speed and Latency Requirements}
-PR1. The system shall respond to the user's parameter input or selection within MAX\_PARAM\_TIME seconds.
+PR1. The system shall respond to the user's parameter input or selection within a reasonable time frame.
 \begin{itemize}
     \item Rationale: The user will not appreciate having to wait too long for the system to respond to their change.
+    \item \color{red} Fit Criterion: The system's response time to the user's input should be no longer than MAX\_PARAM\_TIME. \color{black}
 \end{itemize}
-PR2. The system shall generate an image within MAX\_GENERATION\_TIME seconds.
+PR2. The system shall generate an image within a reasonable time frame.
 \begin{itemize}
     \item Rationale: The user will not appreciate having to wait too long for the system to respond to their change.
+    \item \color{red} Fit Criterion: The time taken for the system to generate an image should be no longer than MAX\_GENERATION\_TIME. \color{black}
 \end{itemize}
 \subsubsection{Reliability and Availability Requirements}
 PR3. The program shall be available for the user to run whenever they wish.
 \begin{itemize}
     \item Rationale: The program does not require any external resources since it is downloaded and run on the user's machine. So the program should be designed such that as long as the user's PC is working, they should be able to run the program.
+    \item \color{red} Fit Criterion: The program launches 99\% of the time when the user's PC is functional. \color{black}
 \end{itemize}
 
 \subsection{Operational and Environmental Requirements}
 \subsubsection{System Requirements}
-OE1. The program shall be able to run on Windows 10 or newer, or Linux Ubuntu 20.04.
+OE1. The program shall be able to run on most moderm operating systems.
 \begin{itemize}
     \item Rationale: The program should be available to user's with common operating systems.
+    \item \color{red} Fit Criterion: The program shall be able to run on Windows 10 or newer, or Linux Ubuntu 20.04. \color{black}
 \end{itemize}
+
 \subsubsection{Productization Requirements}
 OE2. The program shall be available as an executable file for the user to download.
 \begin{itemize}
@@ -264,6 +284,7 @@ OE2. The program shall be available as an executable file for the user to downlo
 MS1. The source code shall be fully documented and consistent.
 \begin{itemize}
     \item Rationale: This will make it simpler and more straightforward for the current and future developers to understand.
+    \item \color{red} Fit Criterion: The source code shall be fully documented using doxygen comments. \color{black}
 \end{itemize}
 \subsubsection{Support Requirements}
 MS2. The program's repository will be public.
@@ -303,13 +324,14 @@ N/A
 
 \begin{enumerate}
     \item Begin modularizing the code.
-    \item Conduct first code review and debugging.
     \item Add additional layers (allow for more than two generated art layers).
+    \item Conduct first code review and debugging.
     \item Add text overlay feature to the abstract art generator.
     \item Add feature that allows user to set preferred background colour.
+    \item \color{red} Add more color palette options.\color{black}
+    \item \color{red} Change color palette implementation to allow color palettes of various lengths.\color{black}
     \item Conduct second code review and debugging.
-    \item Add feature that allows user to change the display settings.
-    \item Add new generators and algorithms.
+    \item Add feature that allows user to change the UI theme.
     \item Conduct testing of the code.
     \item Conduct third code review and debugging.
     \item Conduct an analysis of the program against the functional and non-functional requirements.
@@ -342,6 +364,8 @@ Possible future features to be added:
     \item Create a more appealing GUI (i.e. better choice of fonts, more attractive front-end, etc.).
     \item Add layer effects like distortion and noise.
     \item Add a feature that allows the program to design and generate 3-dimensional abstract art pieces.
+    \item \color{red} Change the overlay/border section to have a scrolling dialogue box, which will allow more overlay and border options to be displayed.
+    \item \color{red} Add an option to allow the user to change the size of the UI text.
 \end{enumerate}
 
 \subsection{Ideas for Solutions}
