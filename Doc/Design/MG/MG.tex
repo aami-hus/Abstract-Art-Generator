@@ -6,13 +6,14 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{graphicx}
+\usepackage{soul}
 \usepackage{float}
 \usepackage{hyperref}
 \hypersetup{
     colorlinks,
     citecolor=black,
     filecolor=black,
-    linkcolor=red,
+    linkcolor=blue,
     urlcolor=blue
 }
 \usepackage[round]{natbib}
@@ -59,6 +60,7 @@
 March 16, 2022 & 0.0 & Initial Document; Completed Section 3, 7\\
 March 17, 2022 & 0.1 & Completed Section 2, 6\\
 March 18, 2022 & 0.2 & Completed Section 1, 4, 5\\
+\color{red}April 11, 2022 & \color{red}1.0 & \color{red}Added modules (M12, M13), updated Traceability Matrix/Uses Hierarchy accordingly\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -77,7 +79,7 @@ This document is the module guide for the Abstract Art Generator program. This d
   \item Stakeholders
 \end{itemize}
 
-The \emph{Abstract Art Generator} project is a Python program which uses Pygame and Pygame\_GUI to display a graphical user interface that allows interaction with the user. It generates random abstract art images that may be exported as PNG files. 
+The \emph{Abstract Art Generator} project is a Python program which uses Pygame and Pygame \_GUI to display a graphical user interface that allows interaction with the user. It generates random abstract art images that may be exported as PNG files. 
 
 Most successful systems are composed of multiple modules, and this modularization allows for better understandability and maintainability. It also creates a simple way to add new features and deal with the anticipated changes without having to re-implement the entire system.
 
@@ -117,6 +119,8 @@ change.
 \item[\refstepcounter{acnum} \actheacnum \label{acUILayout}:] The layout of the UI.
 \item[\refstepcounter{acnum} \actheacnum \label{acHelp}:] The contents of the help dialogue.
 \item[\refstepcounter{acnum} \actheacnum \label{acPalettes}:] The list of color palettes.
+\color{red}
+\item[\refstepcounter{acnum} \actheacnum \label{acFonts}:] The list of fonts.\color{black}
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -154,6 +158,9 @@ actually be implemented.
 \item [\refstepcounter{mnum} \mthemnum \label{mGS}:] Generate Shape Module
 \item [\refstepcounter{mnum} \mthemnum \label{mWS}:] Widget Storage Module
 \item [\refstepcounter{mnum} \mthemnum \label{mA}:] Assets Module
+\color{red}
+\item [\refstepcounter{mnum} \mthemnum \label{mTO}:] Text Overlay Module
+\item [\refstepcounter{mnum} \mthemnum \label{mST}:] Switch Theme Module\color{black}
 \end{description}
 
 
@@ -164,13 +171,13 @@ actually be implemented.
 \textbf{Level 1} & \textbf{Level 2}\\
 \midrule
 
-{Hardware-Hiding Module} & pygame Library \\
+{Hardware-Hiding Module} & Pygame Library \\
 \midrule
 
 \multirow{1}{0.3\textwidth}{Behaviour-Hiding Module} & Controller UI Module\\
 \midrule
 
-\multirow{9}{0.3\textwidth}{Software Decision Module} & Canvas Module\\
+\multirow{11}{0.3\textwidth}{Software Decision Module} & Canvas Module\\
 & Widget Module\\
 & Layer Module\\
 & Overlay Module\\
@@ -179,6 +186,8 @@ actually be implemented.
 & Generate Shape Module\\
 & Widget Storage Module\\
 & Assets Module\\
+& \color{red}Text Overlay Module\\
+& \color{red}Switch Theme Module\\
 \bottomrule
 
 \end{tabular}
@@ -219,7 +228,7 @@ selected.
 \item[Services:]Serves as a virtual hardware used by the rest of the
   system. This module provides the interface between the hardware and the
   software. So, the system can use it to display outputs or to accept inputs.
-\item[Implemented By:] pygame
+\item[Implemented By:] Pygame
 \end{description}
 
 \subsection{Behaviour-Hiding Module}
@@ -328,6 +337,24 @@ selected.
 \item[Implemented By:] AbstractArtGenerator
 \end{description}
 
+\color{red}
+\subsubsection{Text Overlay Module (\mref{mTO})}
+
+\begin{description}
+\item[Secrets:] The processes required to add text on top of the generated art image.
+\item[Services:] Contains all methods relating to creating, displaying, and interacting with text on top of the generated art image.
+\item[Implemented By:] AbstractArtGenerator
+\end{description}
+
+\subsubsection{Switch Theme Module (\mref{mST})}
+
+\begin{description}
+\item[Secrets:] The processes required to change the UI theme.
+\item[Services:] Contains all methods related to changing and interacting with the UI theme options.
+\item[Implemented By:] AbstractArtGenerator
+\end{description}
+\color{black}
+
 \section{Traceability Matrix} \label{SecTM}
 
 This section shows two traceability matrices: between the modules and the
@@ -346,18 +373,18 @@ FR2 & \mref{mUI}, \mref{mCP}\\
 FR3 & \mref{mUI}, \mref{mCV}\\
 FR4 & \mref{mL}, \mref{mGS}\\
 FR5 & \mref{mUI}, \mref{mL}\\
-FR6 & \mref{mCV}\\
-FR7 & \mref{mUI}, \mref{mCV}, \mref{mA}\\
-FR8 & \mref{mUI}, \mref{mCV}, \mref{mA}\\
-FR9 & \mref{mUI}, \mref{mCV}, \mref{mA}\\
-FR10 & \mref{mUI}, \mref{mCV}, \mref{mOL}\\
-FR11 & \mref{mUI}, \mref{mOL}\\
-FR12 & \mref{mUI}, \mref{mH}, \mref{mA}\\
-FR13 & \mref{mUI}\\
-LF1 & \mref{mCV}, \mref{mL}, \mref{mOL}, \mref{mCP}\\
-LF2 & \mref{mCV}\\
-UH1 & \mref{mUI}, \mref{mCV}\\
-UH2 & \mref{mUI}, \mref{mL}, \mref{mOL}, \mref{mCP}, \mref{mH}, \mref{mA}\\
+FR6 & \mref{mCV}, \color{red}\mref{mTO}\\
+FR7 & \mref{mUI}, \mref{mCV}, \mref{mA}, \color{red}\mref{mTO}\\
+FR8 & \mref{mUI}, \mref{mCV}, \mref{mA}, \color{red}\mref{mTO}\\
+\st{FR9} & \st{M2, M3, M11}\\
+FR9 & \mref{mUI}, \mref{mCV}, \mref{mOL}\\
+FR10 & \mref{mUI}, \mref{mOL}\\
+FR11 & \mref{mUI}, \mref{mH}, \mref{mA}\\
+FR12 & \mref{mUI}, \color{red}\mref{mST}\\
+LF1 & \mref{mCV}, \mref{mL}, \mref{mOL}, \mref{mCP}, \color{red}\mref{mTO}\\
+LF2 & \mref{mUI}\\
+UH1 & \mref{mUI}\\
+UH2 & \mref{mUI}, \mref{mL}, \mref{mOL}, \mref{mCP}, \mref{mH}, \mref{mA}, \color{red}\mref{mTO}\\
 UH3 & \mref{mUI}, \mref{mH}\\
 PR1 & \mref{mUI}\\
 PR2 & \mref{mCV}\\
@@ -374,10 +401,11 @@ PR2 & \mref{mCV}\\
 \textbf{AC} & \textbf{Modules}\\
 \midrule
 \acref{acLayerDraw} & \mref{mL}, \mref{mOL}, \mref{mGS}\\
-\acref{acWidget} & \mref{mUI}, \mref{mWS}\\
+\acref{acWidget} & \mref{mUI}, \mref{mW}, \mref{mWS}\\
 \acref{acUILayout} & \mref{mUI}\\
 \acref{acHelp} & \mref{mH}\\
 \acref{acPalettes} & \mref{mCP}\\
+\color{red}\acref{acFonts} & \color{red}\mref{mTO}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
@@ -405,7 +433,7 @@ provided.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\textwidth]{images/UsesHierarchy.png}
+\includegraphics[width=\textwidth]{images/UsesHierarchyVer2.png}
 \caption{Use hierarchy among modules}
 \label{FigUH}
 \end{figure}
