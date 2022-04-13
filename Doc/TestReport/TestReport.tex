@@ -3,26 +3,28 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
+\usepackage{float}
 \hypersetup{
     colorlinks,
     citecolor=black,
     filecolor=black,
-    linkcolor=red,
+    linkcolor=blue,
     urlcolor=blue
 }
 \usepackage[round]{natbib}
 
-\title{SE 3XA3: Test Report\\Title of Project}
+\title{SE 3XA3: Test Report\\Abstract Art Generator}
 
-\author{Team \#, Team Name
-		\\ Student 1 name and macid
-		\\ Student 2 name and macid
-		\\ Student 3 name and macid
+\author{Group \#10
+        \\Lab: L03
+		\\ Aamina Hussain, hussaa54
+		\\ Jessica Dawson, dawsor1
+		\\ Fady Morcos, morcof2
 }
 
-\date{\today}
+\date{}
 
-\input{../Comments}
+%\input{../Comments}
 
 \begin{document}
 
@@ -33,13 +35,13 @@
 \listoftables
 \listoffigures
 
-\begin{table}[bp]
+\begin{table}[h!]
 \caption{\bf Revision History}
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+April 11, 2022 & 1.0 & Initial document\\
+April 12, 2022 & 1.1 & Completed Sections 1, 2, 5, 7, 8\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -48,36 +50,234 @@ Date 2 & 1.1 & Notes\\
 
 \pagenumbering{arabic}
 
-This document ...
-
 \section{Functional Requirements Evaluation}
+
+\begin{enumerate}
+
+\item{FT-GA-1 and FT-GA-2\\}
+Testing the randomly generate button both with and without some options locked.
+
+Result: The randomly generate button randomizes unlocked options while leaving locked options untouched, and then draws an image with the resulting settings to the canvas.
+
+This test passes.
+
+\item{FT-GA-3\\}
+Testing the generate button.
+
+Result: The generate button draws an image with the current settings to the canvas.
+
+This test passes.
+
+\item{All FT-OT lock button tests\\}
+Testing that each of the lock buttons keeps it's corresponding setting from being randomized.
+
+Result: Each option lock is tested in turn and all work as expected.
+
+This test passes.
+
+\item{All FT-OT layer tests\\}
+Testing that the chosen layer options (style, shape, complexity, size, and transparency) correspond to the layer that is drawn.
+
+Result: Settings are changed one-by-one and the change can be seen reflected in the canvas.
+
+This test passes.
+
+\item{All FT-OT color palette tests\\}
+Testing that the chosen color palette options (palette and background color) correspond to the image that is drawn.
+
+Result: Settings are changed one-by-one and the change can be seen reflected in the canvas.
+
+This test passes.
+
+\item{All FT-OT overlay tests\\}
+Testing that the chosen overlay correspond to the image that is drawn.
+
+Result: An overlay is selected and the change can be seen reflected in the canvas.
+
+This test passes.
+
+\item{All FT-AT tests\\}
+Testing that the chosen test options (font, size, position, and the text itself) correspond to the image that is drawn.
+
+Result: Each setting is changed in turn and the change can be seen reflected in the canvas.
+
+This test passes.
+
+\item{All FT-EA tests\\}
+Testing that the export functionality works correctly, that a png file is properly exported at the selected resolution.
+
+First Run: A number of art pieces are saved with different names and resolutions, the resulting files properly represent the saved art piece and have the correct names, but all save at the maximum resolution.
+
+Final Run: After the bug is fixed a number of art pieces are saved with different names and resolutions, the resulting files all properly represent the saved art piece and selected resolution and have the correct names.
+
+This test passes.
+
+\item{FT-DS help button tests\\}
+Testing that the help button shows and hides the help dialogue when pressed.
+
+Result: The help button shows and hides the help dialogue when pressed.
+
+This test passes.
+
+\item{FT-DS theme button tests\\}
+Testing that the theme button swaps between dark and light mode when pressed.
+
+Result: The theme button swaps between dark and light mode when pressed.
+
+This test passes.
+
+\end{enumerate}
+
+% \subsection{GUI}
+
+% The graphical user interface is completely functional and allows the user to utilize all the art generator features through mouse and keyboard input. The menu contains the layer settings on the left hand side, the buttons to generate art pieces on the bottom, and also contains color palette, overlay, and text settings on the right. The GUI is attractive and is also user friendly. Therefor the GUI requirements have been fulfilled.
+
+% \subsection{Generate Art}
+
+% At the bottom of the GUI, there is 3 buttons that say "generate", "generate randomly", and "export". The 'generate randomly' button will generate random abstract pieces of art onto the canvas at the center of the GUI base on random layer settings. The 'Generate' button will generate abstract art pieces based on the settings configured by the user in the layer settings. Finally the export button allows the user to export the art piece they like as png and save it to their local machine. There for the generate art requirements have been full filled.
+
+% \subsection{Layers}
+
+% The layer settings allow for 3 layers in the art pieces. For a certain layer, the user is able to control the layers' complexity, shape size, and transparency using sliders they can drag. Users can also select which shape and which pattern style for that layer using a drop down menu. When the generate buttons is then clicked after these settings have been clicked, a canvas is to be created according to the layer settings.  There for the layers requirements have been full filled.
+
+% \subsection{Overlay}
+
+% The user is able to configure the settings overlay settings which can be found at the right of the GUI. The user is able to check the checkbox of the overlay style that they prefer. The user can then press either of the generate buttons and art will be generate with the overlay that they have chosen.There for the overlay requirements have been full filled.
+
+% \subsection{Text Box}
+
+% The user is able to type any text in the textbox in the bottom right corner of the GUI. The user is also able to change the horizontal and vertical location of the text using a slider. When the either of the generate buttons are now clicked, art will be created with the text overlay over it in the location configured by the user. There for the text box requirements have been full filled.
+
 
 \section{Nonfunctional Requirements Evaluation}
 
-\subsection{Usability}
-		
 \subsection{Performance}
 
-\subsection{etc.}
-	
-\section{Comparison to Existing Implementation}	
+\begin{enumerate}
 
-This section will not be appropriate for every project.
+\item{NFT-PR-1\\}
+Testing how long it takes for the program to accept user input again after a setting is changed.
+
+Result: Various settings are changed and the time until input is accepted again is timed, all settings fall well within our limit of a MAX\_PARAM\_TIME response time.
+
+\item{NFT-PR-2\\}
+Testing how long it takes for the program to accept user input again after a generating an art piece.
+
+Result: A few different art pieces are generated and the time until input is accepted again is timed, all tests fall well within our limit of a MAX\_GENERATION\_TIME response time.
+
+\end{enumerate}
+
+\subsection{Operational and Environmental Requirements}
+
+\begin{enumerate}
+
+\item{NFT-OE-1}\\
+Testing whether the compiled versions of the code properly run on Windows and Linux.
+
+Result: Two executable versions of the code are created, one for Windows and another for Linux, and are given to some of our peers that are not involved in this project to try and run, all users were able to run the program successfully.
+
+\end{enumerate}
+
+\subsection{Usability}
+
+\begin{enumerate}
+
+\item{NFT-UH-1}\\
+Testing how difficult the program is to use for new users.
+
+Result: The program was given to some of our peers that are not involved in this project, they were asked to use and familiarize themselves with the program and report back with any usability issues, all testers reported back that the program was intuitive, easy to use, and that no changes were necessary.
+
+\end{enumerate}
+
+\section{Comparison to Existing Implementation}
+
+N/A %This section will not be appropriate for every project.
 
 \section{Unit Testing}
+N/A
 
 \section{Changes Due to Testing}
+\subsection{Tests FT-EA-1, FT-EA-2}
+Export Art Tests: After performing these tests, we realized the export art functionality was not saving PNG files with different resolutions. It would only save the images as 4K, even if a different resolution was chosen. There was something we missed in the code; we fixed it, and the program began to save the images with the appropriate resolutions.
+
+\subsection{Test FT-OL-11}
+Overlay/Border Lock Test: After performing the test, we realized that the new border options we added were the incorrect resolution. That is, when the borders were displayed on top of the generated art, they were way smaller than the generated art image. We fixed this by re-uploading the new border images using the appropriate resolution.
+
+\subsection{Tests FT-DS-1, FT-DS-2}
+Display Setting Test: These tests were used to check if the UI theme would change when pressing the theme button. They would test whether both dark and light mode were working. After performing these tests, we realized that although dark mode worked, not all the text color changed when switching to the light mode theme. We realized we missed changing the color of some of the text, and updated the code so that the light mode theme would work.
+
+\subsection{Test FT-DS-3}
+Help Button Test: After performing this test, we realized that when clicking the \texttt{HELP} button, the text that appeared would not be fully encapsulated in the box. We updated the code so that the text would appear fully within the box.
 
 \section{Automated Testing}
-		
+N/A
+
 \section{Trace to Requirements}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{p{0.5\textwidth} p{0.4\textwidth}}
+\toprule
+\textbf{Test} & \textbf{Requirement}\\
+\midrule
+All FT-GA tests & FR4, FR5\\
+FT-OL-1, FT-OL-2 & FR2, FR3\\
+FT-OL-3, FT-OL-4, FT-OL-5, FT-OL-6, FT-OL-7, FT-OL-8 & FR4\\
+FT-OL-9, FT-OL-10 & FR5\\
+FT-OL-11 & FR9, FR10\\
+FT-AT-1 & FR6\\
+FT-AT-2 & FR8\\
+FT-AT-3 & FR7\\
+FT-DS-1, FT-DS-2 & FR12\\
+FT-DS-3 & FR11\\
+NFT-PR-1 & PR1\\
+NFT-PR-2 & PR2\\
+NFT-OE-1 & OE1\\
+NFT-UH-1 & LF1, LF2, UH1, UH2, UH3, PR3, OE2\\
+\bottomrule
+\end{tabular}
+\caption{Trace Between Tests and Requirements}
+\label{testsToReqs}
+\end{table}
 		
-\section{Trace to Modules}		
+\section{Trace to Modules}	
+
+\begin{table}[H]
+\centering
+\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
+\toprule
+\textbf{Test} & \textbf{Module}\\
+\midrule
+All FT-GA tests & M2, M3, M4, M5, M7, M9, M11\\
+FT-OL-1 to FT-OL-10 & M2, M3, M4, M5, M7, M9, M11\\
+FT-OL-11 & M2, M3, M4, M5, M6, M7, M9, M11\\
+All FT-AT tests & M2, M3, M4, M5, M7, M9, M11, M12\\
+All FT-EA tests & M2\\
+FT-DS-1, FT-DS-2 & M2, M13\\
+FT-DS-3 & M2, M8\\
+NFT-PR-1 & M2, M5, M6, M7, M8, M12, M13\\
+NFT-PR-2 & M2, M3, M5, M6, M7, M9, M12\\
+\bottomrule
+\end{tabular}
+\caption{Trace Between Tests and Modules}
+\label{testsToReqs}
+\end{table}
 
 \section{Code Coverage Metrics}
+N/A
 
 \bibliographystyle{plainnat}
 
 \bibliography{SRS}
+
+\newpage
+
+\section{Appendix}
+
+\subsection{Symbolic Parameters}
+
+MAX\_PARAM\_TIME: 1 sec
+
+\noindent MAX\_GENERATION\_TIME: 10 sec
 
 \end{document}
