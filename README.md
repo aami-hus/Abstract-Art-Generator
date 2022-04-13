@@ -18,3 +18,7 @@ Doc - Documentation for the project
 ProjectSchedule - Schedules and notes for meetings
 
 src - Python source code
+
+Instructions on how to use our program can be found at either of the following links:
+1. https://gitlab.cas.mcmaster.ca/3xa3-l3-g10/3xa3-l3-g10/-/blob/main/src/README.md
+2. https://gitlab.cas.mcmaster.ca/3xa3-l3-g10/3xa3-l3-g10/-/blob/main/Application/README.md
