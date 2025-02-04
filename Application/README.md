@@ -8,4 +8,4 @@ In order to download and use our application:
 2. Unzip the file.
 3. Click on the "Abstract Art Generator.exe" file to run the application.
 
-You can also use the application by following the instructions here: https://gitlab.cas.mcmaster.ca/3xa3-l3-g10/3xa3-l3-g10/-/blob/main/src/README.md
+You can also use the application by following the instructions here: https://github.com/aami-hus/Abstract-Art-Generator/blob/main/src/README.md
